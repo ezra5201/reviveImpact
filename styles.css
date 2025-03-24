@@ -1144,26 +1144,44 @@ textarea.form-control {
 
   /* Responsive Styles - Material Design 3 */
 /* Desktop and Tablet Layouts (768px to 1024px) */
-@media (max-width: 1024px) and (min-width: 769px) {
+@media (max-width: 1024px) {
   body {
-    padding-top: 64px; /* Keep the same as regular header height */
+    padding-top: 64px; /* Keep standard padding */
   }
   
+  /* Remove these lines that cause the header stacking */
+  /*
+  header, .header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 16px;
+  }
+  
+  .header-left, .header-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  */
+  
+  /* Keep other tablet-specific styles */
   .search-input {
-    width: 180px; /* Slightly smaller search box on tablets */
+    width: 180px; /* Make search smaller but don't stack it */
   }
   
   .demographics-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
-
 /* Mobile Layout (768px and below) */
-@media (max-width: 768px) {
-  body { 
-    padding-top: 180px; /* Increased padding for multi-row header */ 
-  }
 
+@media (max-width: 768px) {
+  body {
+    padding-top: 180px; /* Increased padding for stacked header */
+  }
+  
+  /* Apply the header stacking ONLY for mobile */
   header, .header {
     flex-direction: column;
     align-items: flex-start;
@@ -1177,6 +1195,9 @@ textarea.form-control {
     align-items: flex-start;
     gap: 16px;
   }
+  
+  /* Keep all your other mobile styles */
+}
 
 @media (max-width: 480px) {
   .table-container {
