@@ -7,43 +7,29 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  
 <!-- Fixed Header -->
 <header>
-  <div class="header-left">
-    <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
-    <nav>
-      <span class="nav-tab nav-tab-active">CONTACT LOG</span>
-      <a href="#" class="nav-tab nav-tab-inactive">PROSPECTS</a>
-      <a href="intake.html" target="_blank" class="btn btn-secondary" style="margin-left: 16px; text-decoration: none;">New Intake</a>
-    </nav>
-    <!-- Add hamburger menu button (visible on mobile only) -->
-    <button class="hamburger-menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-  
-  <!-- Search bar moved here for mobile view -->
-  <div class="search-container mobile-search">
-    <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
-    <span class="search-label">Client Search</span>
-    <div class="suggestions-container" id="searchSuggestions"></div>
-  </div>
-  
-  <div class="header-right">
-    <div class="search-container desktop-search">
-      <input type="text" class="search-input" id="clientSearchInputDesktop" placeholder=" ">
-      <span class="search-label">Client Search</span>
-      <div class="suggestions-container" id="searchSuggestionsDesktop"></div>
-    </div>
-    <div class="user-info">
-      <span>Andrea Leflore</span>
-      <div class="user-avatar"></div>
-    </div>
-    <button class="sign-out">Sign Out</button>
-  </div>
+<div class="header-left">
+<div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+<nav>
+<span class="nav-tab nav-tab-active">CONTACT LOG</span>
+<a href="#" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+<a href="intake.html" target="_blank" class="btn btn-secondary" style="margin-left: 16px; text-decoration: none;">New Intake</a>
+</nav>
+</div>
+
+<div class="header-right">
+<div class="search-container">
+<input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+<span class="search-label">Client Search</span>
+<div class="suggestions-container" id="searchSuggestions"></div>
+</div>
+<div class="user-info">
+<span>Andrea Leflore</span>
+<div class="user-avatar"></div>
+</div>
+<button class="sign-out">Sign Out</button>
+</div>
 </header>
 
 <!-- Table Container -->
@@ -384,55 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Get the scrollable container
 const tableContent = document.querySelector('.table-content');
 
-  // Hamburger menu functionality
-  const hamburgerMenu = document.querySelector('.hamburger-menu');
-  const headerRight = document.querySelector('.header-right');
-  
-  if (hamburgerMenu) {
-    hamburgerMenu.addEventListener('click', function() {
-      this.classList.toggle('active');
-      headerRight.classList.toggle('show');
-    });
-  }
-  
-  // Close menu when clicking outside
-  document.addEventListener('click', function(event) {
-    if (!event.target.closest('.hamburger-menu') && 
-        !event.target.closest('.header-right') && 
-        headerRight && headerRight.classList.contains('show')) {
-      headerRight.classList.remove('show');
-      if (hamburgerMenu) {
-        hamburgerMenu.classList.remove('active');
-      }
-    }
-  });
-  
-  // Sync the search inputs between mobile and desktop
-  const mobileSearchInput = document.getElementById('clientSearchInput');
-  const desktopSearchInput = document.getElementById('clientSearchInputDesktop');
-  
-  if (mobileSearchInput && desktopSearchInput) {
-    // Sync desktop to mobile
-    desktopSearchInput.addEventListener('input', function() {
-      mobileSearchInput.value = this.value;
-      
-      // Trigger the input event on mobile to activate any existing listeners
-      const inputEvent = new Event('input', { bubbles: true });
-      mobileSearchInput.dispatchEvent(inputEvent);
-    });
-    
-    // Sync mobile to desktop
-    mobileSearchInput.addEventListener('input', function() {
-      desktopSearchInput.value = this.value;
-      
-      // Trigger the input event on desktop to activate any existing listeners
-      const inputEvent = new Event('input', { bubbles: true });
-      desktopSearchInput.dispatchEvent(inputEvent);
-    });
-  }
-});
-  
-  // Variables for drag scrolling
+// Variables for drag scrolling
 let isDown = false;
 let startX;
 let scrollLeft;
