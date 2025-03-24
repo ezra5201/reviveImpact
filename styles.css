@@ -113,6 +113,7 @@
 }
 
 body {
+  padding-top: 64px; /* Same as the header height */
   background-color: var(--md-background);
   min-height: 100vh;
   display: flex;
@@ -130,8 +131,12 @@ header, .header {
   box-shadow: var(--md-elevation-2);
   flex: none;
   height: 64px;
-  position: relative;
-  z-index: 4;
+  position: fixed; /* Change from relative to fixed */
+  top: 0; /* Position at the top */
+  left: 0; /* Stretch from the left edge */
+  right: 0; /* Stretch to the right edge */
+  width: 100%; /* Ensure full width */
+  z-index: 1000; /* Higher z-index to ensure it stays above all content */
 }
 
 .header-left {
@@ -1139,11 +1144,17 @@ textarea.form-control {
 
 /* Responsive Styles - Material Design 3 */
 @media (max-width: 1024px) {
-  .header-left, .header-right {
+  header, .header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    height: auto;
+    padding: 16px;
   }
+  
+  body {
+    padding-top: 120px; /* Increase padding to accommodate taller header */
+  }
+}
 
   header, .header {
     flex-direction: column;
@@ -1165,6 +1176,7 @@ textarea.form-control {
   .fixed-columns .col-days,
   .fixed-columns .col-provider {
     display: none;
+    padding-top: 160px;
   }
 
   .scrollable-columns .col-documentation,
