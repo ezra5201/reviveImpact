@@ -7,36 +7,31 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Global Header -->
-  <header class="header">
-    <div class="header-left">
-      <div class="logo">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="10" fill="#2563eb" fill-opacity="0.2"/>
-          <circle cx="12" cy="12" r="6" stroke="#2563eb" stroke-width="2"/>
-        </svg>
-        ReVive IMPACT
-      </div>
-      <nav class="nav">
-        <a href="#" class="nav-item nav-active">CONTACT LOG</a>
-        <a href="#" class="nav-item nav-link">PROSPECTS</a>
-      </nav>
-    </div>
-    
-    <div class="header-right">
-      <div class="search-container">
-        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <input type="text" class="search-input" placeholder="Client Search">
-      </div>
-      <div class="user-info">
-        <span>Andrea Leflore</span>
-        <div class="user-avatar">AL</div>
-      </div>
-      <button class="sign-out">Sign Out</button>
-    </div>
+<!-- Fixed Header -->
+<header>
+  <div class="header-left">
+  <div class="logo">ReVive IMPACT</div>
+  <nav>
+  <span class="nav-tab nav-tab-active">CONTACT LOG</span>
+  <a href="#" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+  /* <a href="intake.html" target="_blank" class="btn btn-secondary" style="margin-left: 16px; text-decoration: none;">New Intake</a> */
+  </nav>
+  </div>
+  
+  <div class="header-right">
+  <div class="search-container">
+  <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+  <span class="search-label">Client Search</span>
+  <div class="suggestions-container" id="searchSuggestions"></div>
+  </div>
+  <div class="user-info">
+  <span>Andrea Leflore</span>
+  <div class="user-avatar"></div>
+  </div>
+  <button class="sign-out">Sign Out</button>
+  </div>
   </header>
+
 
   <!-- Main Content -->
   <div class="main-container">
