@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prospects/title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <span class="nav-tab nav-tab-inactive">CONTACT LOG</span>
+        <a href="#" class="nav-tab nav-tab-active">PROSPECTS</a>
+        <a href="intake.html" target="_blank" class="btn btn-secondary" style="margin-left: 16px; text-decoration: none;">New Intake</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <div class="table-container">
+      <table class="contact-table">
+        <thead>
+          <tr>
+            <th class="sortable">Date ↓</th>
+            <th class="sortable">Days Ago ↓</th>
+            <th class="sortable">Name ↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row 1 -->
+          <tr>
+            <td>03/19/2025</td>
+            <td>0</td>
+            <td>Thiago Schmidt</td>
+          </tr>
+          <!-- Row 2 -->
+          <tr>
+            <td>02/14/2025</td>
+            <td>33</td>
+            <td>Emma Taylor</td>
+          </tr>
+          <!-- Row 3 -->
+          <tr>
+            <td>01/22/2025</td>
+            <td>56</td>
+            <td>William Johnson</td>
+          </tr>
+          <!-- Row 4 -->
+          <tr>
+            <td>12/10/2024</td>
+            <td>99</td>
+            <td>Olivia Martinez</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Make table headers sortable
+      const sortableHeaders = document.querySelectorAll('th.sortable');
+      sortableHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+          // Sort implementation would go here
+          // For demonstration, we'll just toggle the arrow
+          if (this.textContent.includes('↓')) {
+            this.textContent = this.textContent.replace('↓', '↑');
+          } else {
+            this.textContent = this.textContent.replace('↑', '↓');
+          }
+        });
+      });
+
+      // Add click functionality to table rows
+      const tableRows = document.querySelectorAll('tbody tr');
+      tableRows.forEach(row => {
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', function() {
+          const name = this.cells[2].textContent;
+          alert(`Clicked on client: ${name}`);
+          // In a real app, this would navigate to client details
+        });
+      });
+
+      // Add focus event listener to the search input
+      const searchInput = document.getElementById('clientSearchInput');
+      searchInput.addEventListener('focus', function() {
+        // Clear the input value when focused
+        this.value = '';
+      });
+    });
+  </script>
+</body>
+</html>
