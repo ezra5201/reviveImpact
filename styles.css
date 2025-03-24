@@ -105,20 +105,6 @@
   --md-shape-corner-xlarge: 28px;
 }
 
-.logo {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.logo-image {
-  height: 40px;
-  max-width: 200px;
-  object-fit: contain;
-}
-
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -156,19 +142,15 @@ header, .header {
 
 .logo {
   height: 40px;
-  width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 500;
-  color: var(--md-on-surface-variant);
-  font-size: var(--md-title-medium-font);
-  letter-spacing: var(--md-title-medium-letter-spacing);
 }
 
-.logo img {
-  height: 36px;
-  margin-right: 8px;
+.logo-image {
+  height: 40px;
+  max-width: 200px;
+  object-fit: contain;
 }
 
 /* Navigation Tab Styles - Material Design 3 with Orange Border */
