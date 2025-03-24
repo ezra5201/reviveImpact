@@ -105,6 +105,20 @@
   --md-shape-corner-xlarge: 28px;
 }
 
+.logo {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-image {
+  height: 40px;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+
 * {
   box-sizing: border-box;
   margin: 0;
