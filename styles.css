@@ -1142,98 +1142,40 @@ textarea.form-control {
   gap: 16px;
 }
 
-/* Responsive Styles - Material Design 3 */
   /* Responsive Styles - Material Design 3 */
-  @media (max-width: 1024px) {
-    .header-left, .header-right {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-  
-    header, .header {
-      flex-direction: column;
-      align-items: flex-start;
-      height: auto;
-      padding: 16px;
-    }
-    
-    body {padding-top: 140px; /* Increase padding for taller header */}
-  
-    .search-input {
-      width: 100%;
-    }
-    
-    .demographics-grid {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
+/* Desktop and Tablet Layouts (768px to 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+  body {
+    padding-top: 64px; /* Keep the same as regular header height */
   }
+  
+  .search-input {
+    width: 180px; /* Slightly smaller search box on tablets */
+  }
+  
+  .demographics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+/* Mobile Layout (768px and below) */
 @media (max-width: 768px) {
-    .fixed-columns .col-days,
-    .fixed-columns .col-provider {
-      display: none;
-    }
+  body { 
+    padding-top: 180px; /* Increased padding for multi-row header */ 
+  }
 
-body { padding-top: 180px; /* Further increase padding for even taller header */ }
-
-    .scrollable-columns .col-documentation,
-    .scrollable-columns .col-health,
-    .scrollable-columns .col-program {
-      display: none;
-    }
-
-    .header-left, .header-right {
-      width: 100%;
-    }
-
-    .header-right {
-      justify-content: space-between;
-    }
-
-    nav, .nav {
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .search-container {
-      width: 100%;
-    }
-
-    .search-input {
-      width: 100%;
-    }
-
-    .info-grid, .address-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .client-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-
-    .form-buttons {
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .form-buttons .btn {
-      width: 100%;
-    }
-
-    .dialog-content {
-      padding: 16px;
-      width: 100%;
-      max-width: 100%;
-      border-radius: var(--md-shape-corner-medium);
-    }
-
-    .multi-select-container {
-      flex-direction: column;
-      gap: 8px;
-    }
+  header, .header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 16px;
+  }
+  
+  .header-left, .header-right {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 
 @media (max-width: 480px) {
