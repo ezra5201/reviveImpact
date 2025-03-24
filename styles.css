@@ -145,11 +145,11 @@ header, .header {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 36px;
 }
 
 .logo-image {
   height: 40px;
-  max-width: 200px;
   object-fit: contain;
 }
 
