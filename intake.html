@@ -8,18 +8,29 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Fixed Header -->
-  <header>
-    <div class="header-left">
-      <div class="logo">ReVive IMPACT</div>
-    </div>
-    <div class="header-right">
-      <div class="user-info">
-        <span id="userEmail">Loading...</span>
-        <button class="sign-out" onclick="google.script.host.close()">Close</button>
-      </div>
-    </div>
-  </header>
+<!-- Fixed Header -->
+<header>
+  <div class="header-left">
+  <div class="logo">ReVive IMPACT</div>
+  <nav>
+  <span class="nav-tab nav-tab-active">CONTACT LOG</span>
+  <a href="#" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+  </nav>
+  </div>
+  
+  <div class="header-right">
+  <div class="search-container">
+  <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+  <span class="search-label">Client Search</span>
+  <div class="suggestions-container" id="searchSuggestions"></div>
+  </div>
+  <div class="user-info">
+  <span>Andrea Leflore</span>
+  <div class="user-avatar"></div>
+  </div>
+  <button class="sign-out">Sign Out</button>
+  </div>
+</header>
 
   <div class="main-container">
     <div class="container">
