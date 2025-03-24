@@ -131,7 +131,6 @@
             <th>Services Provided ↓</th>
             <th>Provider ↓</th>
             <th>IDHS Categories ↓</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -142,7 +141,6 @@
             <td>OT</td>
             <td>Alexandra Perry</td>
             <td>Health Contact - Consultation / Individual</td>
-            <td><button class="view-btn">View</button></td>
           </tr>
           <tr>
             <td>12-15-2023</td>
@@ -151,7 +149,6 @@
             <td>Case Management</td>
             <td>Elena Ahmed</td>
             <td>Health Contact - Consultation / Individual</td>
-            <td><button class="view-btn">View</button></td>
           </tr>
           <tr>
             <td>11-02-2023</td>
@@ -160,7 +157,6 @@
             <td>Follow-up Services</td>
             <td>Jamal Silva</td>
             <td>Housing - Follow-up Services</td>
-            <td><button class="view-btn">View</button></td>
           </tr>
           <tr>
             <td>10-10-2023</td>
@@ -169,7 +165,6 @@
             <td>OT</td>
             <td>Alexandra Perry</td>
             <td>Health Contact - Consultation / Individual</td>
-            <td><button class="view-btn">View</button></td>
           </tr>
           <tr>
             <td>09-05-2023</td>
@@ -178,7 +173,6 @@
             <td>Housing Location / Inspection</td>
             <td>Sonia Singh</td>
             <td>Housing - Location / Inspection</td>
-            <td><button class="view-btn">View</button></td>
           </tr>
         </tbody>
       </table>
@@ -240,13 +234,13 @@
       });
     }
 
-    // View button functionality
-    const viewBtns = document.querySelectorAll('.view-btn');
-    viewBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
-        // Get the date from the first cell of this row
-        const date = this.closest('tr').cells[0].textContent;
-        // In a real app, this would open the check-in details
+    // Make table rows clickable to view details
+    const tableRows = document.querySelectorAll('.contact-table tbody tr');
+    tableRows.forEach(row => {
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', function() {
+        const date = this.cells[0].textContent;
+        // In a real app, this would open the meeting details
         alert(`Opening meeting details for ${date}`);
       });
     });
