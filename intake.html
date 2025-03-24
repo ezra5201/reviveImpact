@@ -182,6 +182,15 @@
           <!-- CM-Identified Information Section -->
           <div class="form-section">
             <h3 class="section-title">6. CM-Identified Information (indicate if client or staff identified)</h3>
+            
+            <!-- Prefer not to answer checkbox - added before demographics section -->
+            <div class="checkbox-group" style="margin-bottom: 20px; padding: 10px; background-color: #f9f9f9; border-radius: var(--md-shape-corner-small);">
+              <label>
+                <input type="checkbox" id="preferNotToAnswer" name="preferNotToAnswer" value="true">
+                <strong>Prefer not to answer demographic questions</strong>
+              </label>
+            </div>
+            
             <p class="form-label">Demographics:</p>
             
             <div class="demographics-grid">
@@ -310,7 +319,7 @@
             </div>
             
             <div class="alert-info">
-              <strong>Note:</strong> If yes to 4e and 7k (has stable and sufficient income) → refer to Sharrise to explore other resources / not qualified for some onsite supports (e.g., laundry)
+              <strong>Note:</strong> If yes to 4e and 7k (has stable and sufficient income) → refer to CM to explore other resources / not qualified for some onsite supports (e.g., laundry)
             </div>
           </div>
           
@@ -356,6 +365,36 @@
       for(var i = 0; i < housingRadios.length; i++) {
         housingRadios[i].addEventListener('change', toggleHousingBarriers);
       }
+      
+      // Add event listener for "Prefer not to answer" checkbox
+      document.getElementById('preferNotToAnswer').addEventListener('change', function() {
+        var demographicFields = document.querySelectorAll('.demographics-grid select, .demographics-grid input');
+        var disabled = this.checked;
+        
+        // Enable or disable all demographic fields based on checkbox
+        demographicFields.forEach(function(field) {
+          field.disabled = disabled;
+          
+          // Clear values if disabling
+          if (disabled) {
+            if (field.tagName === 'SELECT') {
+              field.selectedIndex = 0;
+            } else if (field.type === 'checkbox') {
+              field.checked = false;
+            } else {
+              field.value = '';
+            }
+          }
+        });
+        
+        // Visual feedback
+        var demographicsGrid = document.querySelector('.demographics-grid');
+        if (disabled) {
+          demographicsGrid.style.opacity = '0.5';
+        } else {
+          demographicsGrid.style.opacity = '1';
+        }
+      });
     });
     
     // Update the user info in the header
@@ -407,6 +446,9 @@
         
         // Past housing
         pastHousing: getRadioValue('pastHousing'),
+        
+        // Prefer not to answer demographics
+        preferNotToAnswer: document.getElementById('preferNotToAnswer').checked,
         
         // Demographics
         race: document.getElementById('race').value,
@@ -518,6 +560,13 @@
       document.getElementById('housingBarriersSection').style.display = 'none';
       document.getElementById('formContainer').style.display = 'block';
       document.getElementById('resultSection').style.display = 'none';
+      
+      // Reset demographics section opacity and reenable fields
+      document.querySelector('.demographics-grid').style.opacity = '1';
+      var demographicFields = document.querySelectorAll('.demographics-grid select, .demographics-grid input');
+      demographicFields.forEach(function(field) {
+        field.disabled = false;
+      });
     }
   </script>
 </body>
