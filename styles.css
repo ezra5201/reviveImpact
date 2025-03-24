@@ -157,7 +157,7 @@ header, .header {
   margin-right: 8px;
 }
 
-/* Tab Navigation Styles - Material Design 3 */
+/* Navigation Tab Styles - Material Design 3 with Orange Border */
 nav, .nav {
   display: flex;
   gap: 16px;
@@ -179,32 +179,32 @@ nav, .nav {
 
 .nav-tab-active, .nav-active {
   pointer-events: none;
-  color: var(--md-primary);
+  color: var(--md-on-surface);
   font-weight: 600;
   text-decoration: none;
+  background-color: #FFFFFF;
+  border: 2px solid #FF6B00; /* Orange border */
+  border-radius: 4px;
+  box-shadow: var(--md-elevation-1);
 }
 
+/* Remove the bottom border that was previously used to indicate active state */
 .nav-tab-active:after, .nav-active:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: var(--md-primary);
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  content: none;
 }
 
 .nav-tab-inactive, .nav-link {
   color: var(--md-on-surface-variant);
   text-decoration: none;
+  border: 2px solid transparent; /* Transparent border for inactive tabs */
 }
 
 .nav-tab-inactive:hover, .nav-link:hover {
-  background-color: rgba(0, 108, 250, 0.08);
-  color: var(--md-primary);
+  background-color: rgba(255, 107, 0, 0.08); /* Light orange hover state */
+  color: #FF6B00; /* Orange text on hover */
+  border: 2px solid rgba(255, 107, 0, 0.3); /* Light orange border on hover */
 }
+
 
 .header-right {
   display: flex;
