@@ -113,7 +113,7 @@
 }
 
 body {
-  padding-top: 64px; /* Same as the header height */
+  padding-top: 64px; /* Same as header height */
   background-color: var(--md-background);
   min-height: 100vh;
   display: flex;
@@ -1143,101 +1143,98 @@ textarea.form-control {
 }
 
 /* Responsive Styles - Material Design 3 */
-@media (max-width: 1024px) {
-  header, .header {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-    padding: 16px;
-  }
+  /* Responsive Styles - Material Design 3 */
+  @media (max-width: 1024px) {
+    .header-left, .header-right {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
   
-  body {
-    padding-top: 120px; /* Increase padding to accommodate taller header */
-  }
-}
-
-  header, .header {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-    padding: 16px;
-  }
-
-  .search-input {
-    width: 100%;
-  }
+    header, .header {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 16px;
+    }
+    
+    body {padding-top: 140px; /* Increase padding for taller header */}
   
-  .demographics-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    .search-input {
+      width: 100%;
+    }
+    
+    .demographics-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
   }
-}
-
 @media (max-width: 768px) {
-  .fixed-columns .col-days,
-  .fixed-columns .col-provider {
-    display: none;
-    padding-top: 160px;
-  }
+    .fixed-columns .col-days,
+    .fixed-columns .col-provider {
+      display: none;
+    }
 
-  .scrollable-columns .col-documentation,
-  .scrollable-columns .col-health,
-  .scrollable-columns .col-program {
-    display: none;
-  }
-  
-  .header-left, .header-right {
-    width: 100%;
-  }
+body { padding-top: 180px; /* Further increase padding for even taller header */ }
 
-  .header-right {
-    justify-content: space-between;
-  }
+    .scrollable-columns .col-documentation,
+    .scrollable-columns .col-health,
+    .scrollable-columns .col-program {
+      display: none;
+    }
 
-  nav, .nav {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+    .header-left, .header-right {
+      width: 100%;
+    }
 
-  .search-container {
-    width: 100%;
-  }
+    .header-right {
+      justify-content: space-between;
+    }
 
-  .search-input {
-    width: 100%;
-  }
+    nav, .nav {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-  .info-grid, .address-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+    .search-container {
+      width: 100%;
+    }
 
-  .client-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    .search-input {
+      width: 100%;
+    }
+
+    .info-grid, .address-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .client-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .form-buttons {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-buttons .btn {
+      width: 100%;
+    }
+
+    .dialog-content {
+      padding: 16px;
+      width: 100%;
+      max-width: 100%;
+      border-radius: var(--md-shape-corner-medium);
+    }
+
+    .multi-select-container {
+      flex-direction: column;
+      gap: 8px;
+    }
   }
-  
-  .form-buttons {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .form-buttons .btn {
-    width: 100%;
-  }
-  
-  .dialog-content {
-    padding: 16px;
-    width: 100%;
-    max-width: 100%;
-    border-radius: var(--md-shape-corner-medium);
-  }
-  
-  .multi-select-container {
-    flex-direction: column;
-    gap: 8px;
-  }
-}
 
 @media (max-width: 480px) {
   .table-container {
