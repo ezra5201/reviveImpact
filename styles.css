@@ -722,6 +722,38 @@ nav, .nav {
   transition: all 0.2s ease;
 }
 
+/* Add these to your styles.css file */
+
+/* Form validation styles */
+.form-control:invalid:focus {
+  border-color: var(--md-error);
+  box-shadow: 0 0 0 1px var(--md-error);
+}
+
+/* Help text under form fields */
+.form-help-text {
+  font-size: var(--md-body-small-font);
+  color: var(--md-on-surface-variant);
+  margin-top: 4px;
+}
+
+/* For form fields that span multiple columns */
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+/* Enhanced nested option styles */
+.nested-options p {
+  color: var(--md-on-surface-variant);
+  font-size: var(--md-body-medium-font);
+  margin-bottom: 12px;
+}
+
+/* Optional: animated transitions for form elements */
+.form-section, .form-group, .nested-options {
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
 .form-control:focus {
   outline: none;
   border-color: var(--md-primary);
