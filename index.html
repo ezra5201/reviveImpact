@@ -638,9 +638,11 @@ noResultsMessage.style.display = 'none';
 
 </script>
 
+<!-- Script 2 -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-// ... your existing JavaScript (drag-to-scroll, search, etc.) ...
+
 
 function initializeDialog() {
 const dialog = document.getElementById('clientDialog');
@@ -665,12 +667,17 @@ tableRows.forEach(row => {
   // Set cursor style to indicate clickable element
   row.style.cursor = 'pointer';
   // Add click event listener to the entire row
-  row.addEventListener('click', function() {
-    // Get the client name from the fixed columns section
-    const clientCell = this.querySelector('.fixed-columns .col-client');
+  row.addEventListener('click', function(e) {
+  // Prevent the default action (navigation)
+  e.preventDefault();
+  
+  // Get the client name from the fixed columns section
+  const clientCell = this.querySelector('.fixed-columns .col-client');
+  if (clientCell) {
     const clientName = clientCell.textContent.trim();
-    // Redirect to the client log history page
-    window.location.href = 'clientLogHistory.html';
+    showDialog(clientName);
+  }
+});
     // In a production environment, you might want to pass the client ID or name as a parameter:
     // window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
   });
@@ -725,7 +732,7 @@ checkInFormScreen.style.display = 'block';
 // Add other dialog event listeners here (submit, etc.)
 }
 
-initializeDialog(); // <--- THIS WAS MISSING
+initializeDialog(); // 
 });
 </script>
 
