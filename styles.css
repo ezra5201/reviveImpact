@@ -546,16 +546,26 @@ nav, .nav {
 }
 
 .btn-secondary {
-  background-color: var(--md-surface-variant);
-  color: var(--md-on-surface-variant);
+  background-color: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  border: 1px solid var(--md-outline);
+  box-shadow: var(--md-elevation-1);
+}
+
+.btn-secondary:hover {
+  box-shadow: var(--md-elevation-2);
 }
 
 .btn-secondary:hover::after {
-  background-color: rgba(0, 0, 0, 0.08);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:active {
+  box-shadow: var(--md-elevation-1);
 }
 
 .btn-secondary:active::after {
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .view-btn {
