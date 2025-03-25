@@ -6,6 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ReVive Intake Form</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Styles for the page title */
+    .page-title-section {
+      padding: 32px 24px 0;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .page-title {
+      font-size: var(--md-headline-medium-font);
+      line-height: var(--md-headline-medium-line-height);
+      color: var(--md-on-background);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    
+    .page-subtitle {
+      font-size: var(--md-body-large-font);
+      line-height: var(--md-body-large-line-height);
+      letter-spacing: var(--md-body-large-letter-spacing);
+      color: var(--md-on-surface-variant);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
 <!-- Fixed Header -->
@@ -32,10 +57,15 @@
   </div>
 </header>
 
+  <!-- Page Title Section - Moved outside container -->
+  <div class="page-title-section">
+    <h1 class="page-title">Center New Visitor Intake</h1>
+    <p class="page-subtitle">Complete during first visit (~5 mins)</p>
+  </div>
+
   <div class="main-container">
     <div class="container">
-      <h2 class="form-title">Center New Visitor Intake</h2>
-      <p class="form-subtitle">Complete during first visit (~5 mins)</p>
+      <!-- Title and subtitle removed from here -->
       
       <div id="formContainer">
         <form id="intakeForm" onsubmit="handleFormSubmit(this); return false;">
@@ -165,6 +195,7 @@
             </div>
           </div>
           
+          <!-- Rest of form remains the same -->
           <!-- Past Housing Section -->
           <div class="form-section">
             <div class="form-group">
