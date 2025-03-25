@@ -367,6 +367,79 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to calculate days between two dates
+  function daysBetween(date1, date2) {
+    // Convert both dates to milliseconds
+    const date1Ms = date1.getTime();
+    const date2Ms = date2.getTime();
+    
+    // Calculate the difference in milliseconds
+    const differenceMs = Math.abs(date1Ms - date2Ms);
+    
+    // Convert the difference to days
+    return Math.floor(differenceMs / (1000 * 60 * 60 * 24));
+  }
+
+  // Function to update the "Days Ago" column
+  function updateDaysAgo() {
+    // Get the current date
+    const today = new Date();
+    
+    // Get all table rows except the header
+    const rows = document.querySelectorAll('.table-row:not(:first-child)');
+    
+    // Process each row
+    rows.forEach(row => {
+      // Get the date cell and days ago cell
+      const dateCell = row.querySelector('.col-date');
+      const daysAgoCell = row.querySelector('.col-days');
+      
+      if (dateCell && daysAgoCell) {
+        // Get the date text and parse it
+        const dateText = dateCell.textContent.trim();
+        const dateParts = dateText.split('/');
+        
+        // Create a date object (handling both MM/DD/YYYY and DD/MM/YYYY formats)
+        let rowDate;
+        if (dateParts.length === 3) {
+          // MM/DD/YYYY format
+          rowDate = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+        } else {
+          // Try to parse the date string directly
+          rowDate = new Date(dateText);
+        }
+        
+        // Calculate days between the date and today
+        const days = daysBetween(today, rowDate);
+        
+        // Update the days ago cell
+        daysAgoCell.textContent = days;
+      }
+    });
+  }
+
+  // Call the update function
+  updateDaysAgo();
+
+  // Get the scrollable container
+  const tableContent = document.querySelector('.table-content');
+
+  // Variables for drag scrolling
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  // Event listeners for mouse behavior
+  tableContent.addEventListener('mousedown', function(e) {
+    isDown = true;
+    tableContent.style.cursor = 'grabbing';
+    startX = e.pageX - tableContent.offsetLeft;
+    scrollLeft = tableContent.scrollLeft;
+    e.preventDefault(); // Prevent text selection while dragging
+  });
+
 // Get the scrollable container
 const tableContent = document.querySelector('.table-content');
 
@@ -725,7 +798,7 @@ checkInFormScreen.style.display = 'block';
 // Add other dialog event listeners here (submit, etc.)
 }
 
-initializeDialog(); // <--- THIS WAS MISSING
+initializeDialog(); //
 });
 </script>
 
