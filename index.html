@@ -659,16 +659,21 @@ console.error('Dialog content elements not found.');
 return;
 }
 
-const clientCells = document.querySelectorAll('.fixed-columns .col-client');
-clientCells.forEach(cell => {
-cell.style.cursor = 'pointer';
-cell.addEventListener('click', function(e) {
-e.preventDefault();
-e.stopPropagation();
-const clientName = this.textContent.trim();
-console.log('Client cell clicked:', clientName);
-showDialog(clientName);
-});
+// Make table rows clickable to view client history
+const tableRows = document.querySelectorAll('.table-row:not(:first-child)');
+tableRows.forEach(row => {
+  // Set cursor style to indicate clickable element
+  row.style.cursor = 'pointer';
+  // Add click event listener to the entire row
+  row.addEventListener('click', function() {
+    // Get the client name from the fixed columns section
+    const clientCell = this.querySelector('.fixed-columns .col-client');
+    const clientName = clientCell.textContent.trim();
+    // Redirect to the client log history page
+    window.location.href = 'clientLogHistory.html';
+    // In a production environment, you might want to pass the client ID or name as a parameter:
+    // window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
+  });
 });
 
 function showDialog(clientName) {
