@@ -364,6 +364,7 @@
 </div>
 </div>
 
+<!-- Scripts 1 -->  
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Function to calculate days between two dates
@@ -381,11 +382,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Function to update the "Days Ago" column
   function updateDaysAgo() {
+    console.log("Running updateDaysAgo function");
     // Get the current date
     const today = new Date();
     
     // Get all table rows except the header
     const rows = document.querySelectorAll('.table-row:not(:first-child)');
+    console.log(`Found ${rows.length} rows to process`);
     
     // Process each row
     rows.forEach(row => {
@@ -396,23 +399,43 @@ document.addEventListener('DOMContentLoaded', function() {
       if (dateCell && daysAgoCell) {
         // Get the date text and parse it
         const dateText = dateCell.textContent.trim();
-        const dateParts = dateText.split('/');
+        console.log(`Processing date: ${dateText}`);
         
-        // Create a date object (handling both MM/DD/YYYY and DD/MM/YYYY formats)
+        // Try different date parsing approaches
         let rowDate;
-        if (dateParts.length === 3) {
-          // MM/DD/YYYY format
-          rowDate = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
-        } else {
-          // Try to parse the date string directly
+        
+        // First try parsing with split on slash
+        if (dateText.includes('/')) {
+          const dateParts = dateText.split('/');
+          if (dateParts.length === 3) {
+            // MM/DD/YYYY format
+            rowDate = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+          }
+        } 
+        // Then try parsing with split on dash
+        else if (dateText.includes('-')) {
+          const dateParts = dateText.split('-');
+          if (dateParts.length === 3) {
+            // MM-DD-YYYY format
+            rowDate = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
+          }
+        } 
+        // Finally try direct parsing
+        if (!rowDate || isNaN(rowDate.getTime())) {
           rowDate = new Date(dateText);
         }
         
-        // Calculate days between the date and today
-        const days = daysBetween(today, rowDate);
-        
-        // Update the days ago cell
-        daysAgoCell.textContent = days;
+        if (!isNaN(rowDate.getTime())) {  // Check if date is valid
+          console.log(`Successfully parsed date: ${rowDate}`);
+          // Calculate days between the date and today
+          const days = daysBetween(today, rowDate);
+          console.log(`Days difference: ${days}`);
+          
+          // Update the days ago cell
+          daysAgoCell.textContent = days;
+        } else {
+          console.error(`Failed to parse date: ${dateText}`);
+        }
       }
     });
   }
@@ -437,277 +460,262 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault(); // Prevent text selection while dragging
   });
 
-// Get the scrollable container
-const tableContent = document.querySelector('.table-content');
+  tableContent.addEventListener('mouseleave', function() {
+    isDown = false;
+    tableContent.style.cursor = 'default';
+  });
 
-// Variables for drag scrolling
-let isDown = false;
-let startX;
-let scrollLeft;
+  tableContent.addEventListener('mouseup', function() {
+    isDown = false;
+    tableContent.style.cursor = 'default';
+  });
 
-// Event listeners for mouse behavior
-tableContent.addEventListener('mousedown', function(e) {
-isDown = true;
-tableContent.style.cursor = 'grabbing';
-startX = e.pageX - tableContent.offsetLeft;
-scrollLeft = tableContent.scrollLeft;
-e.preventDefault(); // Prevent text selection while dragging
-});
+  tableContent.addEventListener('mousemove', function(e) {
+    if (!isDown) return;
+    const x = e.pageX - tableContent.offsetLeft;
+    // Use a multiplier for faster/slower scrolling
+    const walk = (x - startX) * 1.5;
+    tableContent.scrollLeft = scrollLeft - walk;
+  });
 
-tableContent.addEventListener('mouseleave', function() {
-isDown = false;
-tableContent.style.cursor = 'default';
-});
+  // Mock data for client suggestions - in production, this would come from your database
+  const clientData = [
+    { id: 1, firstName: 'Thiago', lastName: 'Schmidt' },
+    { id: 2, firstName: 'Liam', lastName: 'Nguyen' },
+    { id: 3, firstName: 'Mia', lastName: 'Patel' },
+    { id: 4, firstName: 'Noah', lastName: 'Kim' },
+    { id: 5, firstName: 'Ava', lastName: 'Hernandez' },
+    { id: 6, firstName: 'Ethan', lastName: 'Choi' },
+    { id: 7, firstName: 'Sophia', lastName: 'Gupta' },
+    { id: 8, firstName: 'Jackson', lastName: 'Lee' },
+    { id: 9, firstName: 'Isabella', lastName: 'Brown' },
+    { id: 10, firstName: 'Aiden', lastName: 'Patel' },
+    { id: 11, firstName: 'Charlotte', lastName: 'Davis' },
+    { id: 12, firstName: 'Olivia', lastName: 'Martinez' },
+    { id: 13, firstName: 'William', lastName: 'Johnson' },
+    { id: 14, firstName: 'Emma', lastName: 'Taylor' },
+    { id: 15, firstName: 'James', lastName: 'Wilson' }
+  ];
 
-tableContent.addEventListener('mouseup', function() {
-isDown = false;
-tableContent.style.cursor = 'default';
-});
+  // Elements
+  const searchInput = document.getElementById('clientSearchInput');
+  const suggestionsContainer = document.getElementById('searchSuggestions');
 
-tableContent.addEventListener('mousemove', function(e) {
-if (!isDown) return;
-const x = e.pageX - tableContent.offsetLeft;
-// Use a multiplier for faster/slower scrolling
-const walk = (x - startX) * 1.5;
-tableContent.scrollLeft = scrollLeft - walk;
-});
-});
-// Mock data for client suggestions - in production, this would come from your database
-const clientData = [
-{ id: 1, firstName: 'Thiago', lastName: 'Schmidt' },
-{ id: 2, firstName: 'Liam', lastName: 'Nguyen' },
-{ id: 3, firstName: 'Mia', lastName: 'Patel' },
-{ id: 4, firstName: 'Noah', lastName: 'Kim' },
-{ id: 5, firstName: 'Ava', lastName: 'Hernandez' },
-{ id: 6, firstName: 'Ethan', lastName: 'Choi' },
-{ id: 7, firstName: 'Sophia', lastName: 'Gupta' },
-{ id: 8, firstName: 'Jackson', lastName: 'Lee' },
-{ id: 9, firstName: 'Isabella', lastName: 'Brown' },
-{ id: 10, firstName: 'Aiden', lastName: 'Patel' },
-{ id: 11, firstName: 'Charlotte', lastName: 'Davis' },
-{ id: 12, firstName: 'Olivia', lastName: 'Martinez' },
-{ id: 13, firstName: 'William', lastName: 'Johnson' },
-{ id: 14, firstName: 'Emma', lastName: 'Taylor' },
-{ id: 15, firstName: 'James', lastName: 'Wilson' }
-];
+  // Track current selected suggestion
+  let currentSelection = -1;
 
-// Elements
-const searchInput = document.getElementById('clientSearchInput');
-const suggestionsContainer = document.getElementById('searchSuggestions');
+  // Show suggestions as user types
+  searchInput.addEventListener('input', function() {
+    const query = this.value.trim().toLowerCase();
 
-// Track current selected suggestion
-let currentSelection = -1;
+    // Clear suggestions if query is empty
+    if (query === '') {
+      suggestionsContainer.innerHTML = '';
+      suggestionsContainer.style.display = 'none';
+      return;
+    }
 
-// Show suggestions as user types
-searchInput.addEventListener('input', function() {
-const query = this.value.trim().toLowerCase();
+    // Filter clients based on input
+    const filteredClients = clientData.filter(client => {
+      const fullName = `${client.firstName} ${client.lastName}`.toLowerCase();
+      const reverseName = `${client.lastName} ${client.firstName}`.toLowerCase();
+      return fullName.includes(query) || reverseName.includes(query) || 
+        client.firstName.toLowerCase().includes(query) || 
+        client.lastName.toLowerCase().includes(query);
+    });
 
-// Clear suggestions if query is empty
-if (query === '') {
-suggestionsContainer.innerHTML = '';
-suggestionsContainer.style.display = 'none';
-return;
-}
+    // Render suggestions
+    renderSuggestions(filteredClients, query);
+  });
 
-// Filter clients based on input
-const filteredClients = clientData.filter(client => {
-const fullName = `${client.firstName} ${client.lastName}`.toLowerCase();
-const reverseName = `${client.lastName} ${client.firstName}`.toLowerCase();
-return fullName.includes(query) || reverseName.includes(query) || 
-client.firstName.toLowerCase().includes(query) || 
-client.lastName.toLowerCase().includes(query);
-});
+  // Handle keyboard navigation
+  searchInput.addEventListener('keydown', function(e) {
+    const suggestions = suggestionsContainer.querySelectorAll('.suggestion-item');
 
-// Render suggestions
-renderSuggestions(filteredClients, query);
-});
+    if (suggestions.length === 0) return;
 
-// Handle keyboard navigation
-searchInput.addEventListener('keydown', function(e) {
-const suggestions = suggestionsContainer.querySelectorAll('.suggestion-item');
+    // Down arrow
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      currentSelection = (currentSelection + 1) % suggestions.length;
+      updateSelection(suggestions);
+    } 
+    // Up arrow
+    else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      currentSelection = (currentSelection - 1 + suggestions.length) % suggestions.length;
+      updateSelection(suggestions);
+    } 
+    // Enter key
+    else if (e.key === 'Enter' && currentSelection >= 0) {
+      e.preventDefault();
+      suggestions[currentSelection].click();
+    } 
+    // Escape key
+    else if (e.key === 'Escape') {
+      suggestionsContainer.innerHTML = '';
+      suggestionsContainer.style.display = 'none';
+      currentSelection = -1;
+    }
+  });
 
-if (suggestions.length === 0) return;
+  // Close suggestions when clicking outside
+  document.addEventListener('click', function(e) {
+    if (e.target !== searchInput && e.target !== suggestionsContainer) {
+      suggestionsContainer.innerHTML = '';
+      suggestionsContainer.style.display = 'none';
+      currentSelection = -1;
+    }
+  });
 
-// Down arrow
-if (e.key === 'ArrowDown') {
-e.preventDefault();
-currentSelection = (currentSelection + 1) % suggestions.length;
-updateSelection(suggestions);
-} 
-// Up arrow
-else if (e.key === 'ArrowUp') {
-e.preventDefault();
-currentSelection = (currentSelection - 1 + suggestions.length) % suggestions.length;
-updateSelection(suggestions);
-} 
-// Enter key
-else if (e.key === 'Enter' && currentSelection >= 0) {
-e.preventDefault();
-suggestions[currentSelection].click();
-} 
-// Escape key
-else if (e.key === 'Escape') {
-suggestionsContainer.innerHTML = '';
-suggestionsContainer.style.display = 'none';
-currentSelection = -1;
-}
-});
+  // Add focus event listener to the search input
+  searchInput.addEventListener('focus', function() {
+    // Clear the input value when focused
+    this.value = '';
 
-// Close suggestions when clicking outside
-document.addEventListener('click', function(e) {
-if (e.target !== searchInput && e.target !== suggestionsContainer) {
-suggestionsContainer.innerHTML = '';
-suggestionsContainer.style.display = 'none';
-currentSelection = -1;
-}
+    // Also clear any existing suggestions
+    suggestionsContainer.innerHTML = '';
+    suggestionsContainer.style.display = 'none';
+
+    // Reset any table filtering
+    resetTableFilters();
+  });
 });
 
 // Render filtered suggestions
 function renderSuggestions(clients, query) {
-// Reset selection
-currentSelection = -1;
+  // Reset selection
+  currentSelection = -1;
 
-// Clear previous suggestions
-suggestionsContainer.innerHTML = '';
+  // Clear previous suggestions
+  suggestionsContainer.innerHTML = '';
 
-if (clients.length === 0) {
-suggestionsContainer.style.display = 'none';
-return;
-}
+  if (clients.length === 0) {
+    suggestionsContainer.style.display = 'none';
+    return;
+  }
 
-// Create and append suggestion items
-clients.forEach((client, index) => {
-const item = document.createElement('div');
-item.className = 'suggestion-item';
-item.dataset.index = index;
+  // Create and append suggestion items
+  clients.forEach((client, index) => {
+    const item = document.createElement('div');
+    item.className = 'suggestion-item';
+    item.dataset.index = index;
 
-// Highlight matching text
-const fullName = `${client.firstName} ${client.lastName}`;
-item.innerHTML = highlightMatch(fullName, query);
+    // Highlight matching text
+    const fullName = `${client.firstName} ${client.lastName}`;
+    item.innerHTML = highlightMatch(fullName, query);
 
-// Handle click on suggestion
-item.addEventListener('click', function() {
-searchInput.value = fullName;
-suggestionsContainer.innerHTML = '';
-suggestionsContainer.style.display = 'none';
+    // Handle click on suggestion
+    item.addEventListener('click', function() {
+      searchInput.value = fullName;
+      suggestionsContainer.innerHTML = '';
+      suggestionsContainer.style.display = 'none';
 
-// Here you could trigger a filter of the table rows based on the selected client
-filterTableByClient(fullName);
-});
+      // Here you could trigger a filter of the table rows based on the selected client
+      filterTableByClient(fullName);
+    });
 
-// Handle mouse hover
-item.addEventListener('mouseenter', function() {
-currentSelection = parseInt(this.dataset.index);
-updateSelection(suggestionsContainer.querySelectorAll('.suggestion-item'));
-});
+    // Handle mouse hover
+    item.addEventListener('mouseenter', function() {
+      currentSelection = parseInt(this.dataset.index);
+      updateSelection(suggestionsContainer.querySelectorAll('.suggestion-item'));
+    });
 
-suggestionsContainer.appendChild(item);
-});
+    suggestionsContainer.appendChild(item);
+  });
 
-// Show suggestions container
-suggestionsContainer.style.display = 'block';
+  // Show suggestions container
+  suggestionsContainer.style.display = 'block';
 }
 
 // Update visual selection in dropdown
 function updateSelection(suggestions) {
-suggestions.forEach((item, index) => {
-if (index === currentSelection) {
-item.classList.add('selected');
+  suggestions.forEach((item, index) => {
+    if (index === currentSelection) {
+      item.classList.add('selected');
 
-// Ensure the selected item is visible in the dropdown
-if (item.offsetTop < suggestionsContainer.scrollTop) {
-suggestionsContainer.scrollTop = item.offsetTop;
-} else if (item.offsetTop + item.offsetHeight > suggestionsContainer.scrollTop + suggestionsContainer.offsetHeight) {
-suggestionsContainer.scrollTop = item.offsetTop + item.offsetHeight - suggestionsContainer.offsetHeight;
-}
-} else {
-item.classList.remove('selected');
-}
-});
+      // Ensure the selected item is visible in the dropdown
+      if (item.offsetTop < suggestionsContainer.scrollTop) {
+        suggestionsContainer.scrollTop = item.offsetTop;
+      } else if (item.offsetTop + item.offsetHeight > suggestionsContainer.scrollTop + suggestionsContainer.offsetHeight) {
+        suggestionsContainer.scrollTop = item.offsetTop + item.offsetHeight - suggestionsContainer.offsetHeight;
+      }
+    } else {
+      item.classList.remove('selected');
+    }
+  });
 }
 
 // Highlight matching text in suggestions
 function highlightMatch(text, query) {
-if (!query) return text;
+  if (!query) return text;
 
-// Case insensitive search
-const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
-return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
+  // Case insensitive search
+  const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+  return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
 }
 
 // Filter table rows based on selected client
 function filterTableByClient(clientName) {
-// Get all table rows except the header
-const rows = document.querySelectorAll('.table-row:not(:first-child)');
+  // Get all table rows except the header
+  const rows = document.querySelectorAll('.table-row:not(:first-child)');
 
-// Normalize the client name for comparison
-const normalizedSearch = clientName.toLowerCase();
+  // Normalize the client name for comparison
+  const normalizedSearch = clientName.toLowerCase();
 
-// Track if we found any matches
-let foundMatches = false;
+  // Track if we found any matches
+  let foundMatches = false;
 
-// Check each row
-rows.forEach(row => {
-// Get the client name cell from the fixed columns
-const clientCell = row.querySelector('.fixed-columns .col-client');
-const rowClientName = clientCell.textContent.toLowerCase();
+  // Check each row
+  rows.forEach(row => {
+    // Get the client name cell from the fixed columns
+    const clientCell = row.querySelector('.fixed-columns .col-client');
+    const rowClientName = clientCell.textContent.toLowerCase();
 
-// Check if this row matches the search
-if (rowClientName.includes(normalizedSearch)) {
-row.style.display = ''; // Show matching row
-foundMatches = true;
+    // Check if this row matches the search
+    if (rowClientName.includes(normalizedSearch)) {
+      row.style.display = ''; // Show matching row
+      foundMatches = true;
 
-// Optional: highlight the matching text in the cell
-clientCell.innerHTML = highlightMatch(clientCell.textContent, clientName);
-} else {
-row.style.display = 'none'; // Hide non-matching row
+      // Optional: highlight the matching text in the cell
+      clientCell.innerHTML = highlightMatch(clientCell.textContent, clientName);
+    } else {
+      row.style.display = 'none'; // Hide non-matching row
+    }
+  });
+
+  // Optional: Display a "no results" message if needed
+  const noResultsMessage = document.querySelector('.no-results-message');
+  if (noResultsMessage) {
+    noResultsMessage.style.display = foundMatches ? 'none' : 'block';
+  }
 }
-});
-
-// Optional: Display a "no results" message if needed
-const noResultsMessage = document.querySelector('.no-results-message');
-if (noResultsMessage) {
-noResultsMessage.style.display = foundMatches ? 'none' : 'block';
-}
-}
-// Add focus event listener to the search input
-searchInput.addEventListener('focus', function() {
-// Clear the input value when focused
-this.value = '';
-
-// Also clear any existing suggestions
-suggestionsContainer.innerHTML = '';
-suggestionsContainer.style.display = 'none';
-
-// Reset any table filtering
-resetTableFilters();
-});
 
 // Function to reset table filters and show all rows
 function resetTableFilters() {
-// Get all table rows except the header
-const rows = document.querySelectorAll('.table-row:not(:first-child)');
+  // Get all table rows except the header
+  const rows = document.querySelectorAll('.table-row:not(:first-child)');
 
-// Show all rows
-rows.forEach(row => {
-row.style.display = '';
+  // Show all rows
+  rows.forEach(row => {
+    row.style.display = '';
 
-// Remove any highlighting from client cells
-const clientCell = row.querySelector('.fixed-columns .col-client');
-if (clientCell) {
-clientCell.textContent = clientCell.textContent; // This removes any HTML and resets to plain text
+    // Remove any highlighting from client cells
+    const clientCell = row.querySelector('.fixed-columns .col-client');
+    if (clientCell) {
+      clientCell.textContent = clientCell.textContent; // This removes any HTML and resets to plain text
+    }
+  });
+
+  // Hide any "no results" message if it exists
+  const noResultsMessage = document.querySelector('.no-results-message');
+  if (noResultsMessage) {
+    noResultsMessage.style.display = 'none';
+  }
 }
-});
-
-// Hide any "no results" message if it exists
-const noResultsMessage = document.querySelector('.no-results-message');
-if (noResultsMessage) {
-noResultsMessage.style.display = 'none';
-}
-}    
-
 </script>
 
+<!-- Scripts 2 -->   
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 // ... your existing JavaScript (drag-to-scroll, search, etc.) ...
