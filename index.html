@@ -642,97 +642,111 @@ noResultsMessage.style.display = 'none';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-
-
-function initializeDialog() {
-const dialog = document.getElementById('clientDialog');
-if (!dialog) {
-console.error('Dialog element not found.');
-return;
-}
-
-const dialogClientName = document.getElementById('dialogClientName');
-const initialOptionsScreen = document.getElementById('dialogInitialOptions');
-const checkInFormScreen = document.getElementById('dialogCheckInForm');
-const quickCheckInBtn = document.getElementById('quickCheckInBtn'); // Get the Quick Check In button
-
-if (!dialogClientName || !initialOptionsScreen || !checkInFormScreen || !quickCheckInBtn) {
-console.error('Dialog content elements not found.');
-return;
-}
-
-// Make table rows clickable to view client history
-const tableRows = document.querySelectorAll('.table-row:not(:first-child)');
-tableRows.forEach(row => {
-  // Set cursor style to indicate clickable element
-  row.style.cursor = 'pointer';
-  // Add click event listener to the entire row
-  row.addEventListener('click', function(e) {
-  // Prevent the default action (navigation)
-  e.preventDefault();
-  
-  // Get the client name from the fixed columns section
-  const clientCell = this.querySelector('.fixed-columns .col-client');
-  if (clientCell) {
-    const clientName = clientCell.textContent.trim();
-    showDialog(clientName);
+  function initializeDialog() {
+    const dialog = document.getElementById('clientDialog');
+    if (!dialog) {
+      console.error('Dialog element not found.');
+      return;
+    }
+    
+    const dialogClientName = document.getElementById('dialogClientName');
+    const initialOptionsScreen = document.getElementById('dialogInitialOptions');
+    const checkInFormScreen = document.getElementById('dialogCheckInForm');
+    const quickCheckInBtn = document.getElementById('quickCheckInBtn'); // Get the Quick Check In button
+    
+    if (!dialogClientName || !initialOptionsScreen || !checkInFormScreen || !quickCheckInBtn) {
+      console.error('Dialog content elements not found.');
+      return;
+    }
+    
+    // Make table rows clickable to open dialog
+    const tableRows = document.querySelectorAll('.table-row:not(:first-child)');
+    tableRows.forEach(row => {
+      // Set cursor style to indicate clickable element
+      row.style.cursor = 'pointer';
+      // Add click event listener to the entire row
+      row.addEventListener('click', function(e) {
+        // Prevent the default action (navigation)
+        e.preventDefault();
+        
+        // Get the client name from the fixed columns section
+        const clientCell = this.querySelector('.fixed-columns .col-client');
+        if (clientCell) {
+          const clientName = clientCell.textContent.trim();
+          showDialog(clientName);
+        }
+      });
+    });
+    
+    function showDialog(clientName) {
+      console.log('Showing dialog for client:', clientName);
+      dialogClientName.textContent = clientName;
+      initialOptionsScreen.style.display = 'block';
+      checkInFormScreen.style.display = 'none';
+      dialog.style.display = 'flex'; // Use flex to show the dialog
+      dialog.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Add event listener for the "Client History" button
+    const clientHistoryBtn = document.getElementById('clientHistoryBtn');
+    if (clientHistoryBtn) {
+      clientHistoryBtn.addEventListener('click', function() {
+        const clientName = dialogClientName.textContent;
+        window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
+      });
+    }
+    
+    const dialogCloseBtn = document.getElementById('dialogCloseBtn');
+    const initialCancelBtn = document.getElementById('initialCancelBtn');
+    const dialogCancelBtn = document.getElementById('dialogCancelBtn');
+    
+    if (dialogCloseBtn) {
+      dialogCloseBtn.addEventListener('click', () => {
+        dialog.style.display = 'none';
+        dialog.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      });
+    }
+    
+    if (initialCancelBtn) {
+      initialCancelBtn.addEventListener('click', () => {
+        dialog.style.display = 'none';
+        dialog.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      });
+    }
+    
+    if (dialogCancelBtn) {
+      dialogCancelBtn.addEventListener('click', () => {
+        dialog.style.display = 'none';
+        dialog.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      });
+    }
+    
+    // Add event listener to Quick Check In button
+    if (quickCheckInBtn) {
+      quickCheckInBtn.addEventListener('click', () => {
+        initialOptionsScreen.style.display = 'none';
+        checkInFormScreen.style.display = 'block';
+      });
+    }
+    
+    // Add submit button handler
+    const dialogSubmitBtn = document.getElementById('dialogSubmitBtn');
+    if (dialogSubmitBtn) {
+      dialogSubmitBtn.addEventListener('click', () => {
+        // Here you would save the form data
+        alert('Check-in form submitted successfully!');
+        dialog.style.display = 'none';
+        dialog.classList.remove('show');
+        document.body.style.overflow = 'auto';
+      });
+    }
   }
-});
-    // In a production environment, you might want to pass the client ID or name as a parameter:
-    // window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
-  });
-});
-
-function showDialog(clientName) {
-console.log('Showing dialog for client:', clientName);
-dialogClientName.textContent = clientName;
-initialOptionsScreen.style.display = 'block';
-checkInFormScreen.style.display = 'none';
-dialog.style.display = 'flex'; // Use flex to show the dialog
-dialog.classList.add('show');
-document.body.style.overflow = 'hidden';
-}
-
-const dialogCloseBtn = document.getElementById('dialogCloseBtn');
-const initialCancelBtn = document.getElementById('initialCancelBtn');
-const dialogCancelBtn = document.getElementById('dialogCancelBtn');
-
-if (dialogCloseBtn) {
-dialogCloseBtn.addEventListener('click', () => {
-dialog.style.display = 'none';
-dialog.classList.remove('show');
-document.body.style.overflow = 'auto';
-});
-}
-
-if (initialCancelBtn) {
-initialCancelBtn.addEventListener('click', () => {
-dialog.style.display = 'none';
-dialog.classList.remove('show');
-document.body.style.overflow = 'auto';
-});
-}
-
-if (dialogCancelBtn) {
-dialogCancelBtn.addEventListener('click', () => {
-dialog.style.display = 'none';
-dialog.classList.remove('show');
-document.body.style.overflow = 'auto';
-});
-}
-
-// Add event listener to Quick Check In button
-if (quickCheckInBtn) {
-quickCheckInBtn.addEventListener('click', () => {
-initialOptionsScreen.style.display = 'none';
-checkInFormScreen.style.display = 'block';
-});
-}
-
-// Add other dialog event listeners here (submit, etc.)
-}
-
-initializeDialog(); // 
+  
+  initializeDialog(); 
 });
 </script>
 
