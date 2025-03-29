@@ -113,7 +113,7 @@
               
               <div class="checkbox-group housing-option" data-option="a">
                 <label>
-                  <input type="checkbox" name="currentHousing" value="unstable" class="housing-checkbox" data-option="a">
+                  <input type="checkbox" name="currentHousing" value="unstable" class="housing-checkbox" data-option="a" required>
                   a. Unstably housed
                 </label>
                 
@@ -195,7 +195,6 @@
             </div>
           </div>
           
-          <!-- Rest of form remains the same -->
           <!-- Past Housing Section -->
           <div class="form-section">
             <div class="form-group">
@@ -238,7 +237,7 @@
             <div class="demographics-grid">
               <div class="form-group">
                 <label for="race">a. Race</label>
-                <select id="race" name="race" class="form-control">
+                <select id="race" name="race" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="americanIndian">American Indian/Alaska Native</option>
                   <option value="asian">Asian</option>
@@ -252,7 +251,7 @@
               
               <div class="form-group">
                 <label for="ethnicity">b. Ethnicity</label>
-                <select id="ethnicity" name="ethnicity" class="form-control">
+                <select id="ethnicity" name="ethnicity" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="hispanic">Hispanic/Latino</option>
                   <option value="nonHispanic">Non-Hispanic/Latino</option>
@@ -261,7 +260,7 @@
               
               <div class="form-group">
                 <label for="language">c. Language</label>
-                <select id="language" name="language" class="form-control">
+                <select id="language" name="language" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="english">English</option>
                   <option value="spanish">Spanish</option>
@@ -271,7 +270,7 @@
               
               <div class="form-group">
                 <label for="gender">d. Gender</label>
-                <select id="gender" name="gender" class="form-control">
+                <select id="gender" name="gender" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>
@@ -283,7 +282,7 @@
               
               <div class="form-group">
                 <label for="pronouns">e. Pronouns</label>
-                <select id="pronouns" name="pronouns" class="form-control">
+                <select id="pronouns" name="pronouns" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="she">She/Her</option>
                   <option value="he">He/Him</option>
@@ -294,7 +293,7 @@
               
               <div class="form-group">
                 <label for="disability">f. Disability</label>
-                <select id="disability" name="disability" class="form-control">
+                <select id="disability" name="disability" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
@@ -303,7 +302,7 @@
               
               <div class="form-group">
                 <label for="veteran">g. Veteran</label>
-                <select id="veteran" name="veteran" class="form-control">
+                <select id="veteran" name="veteran" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
@@ -312,14 +311,14 @@
               
               <div class="form-group">
                 <label for="dob">h. DOB or birth year</label>
-                <input type="date" id="dob" name="dob" class="form-control">
+                <input type="date" id="dob" name="dob" class="form-control" required>
               </div>
               
               <div class="form-group">
                 <label>i. Documentation needs for housing</label>
                 <div class="checkbox-group">
                   <label>
-                    <input type="checkbox" name="documentationNeeds" value="id">
+                    <input type="checkbox" name="documentationNeeds" value="id" required>
                     ID
                   </label>
                 </div>
@@ -340,7 +339,7 @@
               
               <div class="form-group">
                 <label for="employmentStatus">j. Employment status / need</label>
-                <select id="employmentStatus" name="employmentStatus" class="form-control">
+                <select id="employmentStatus" name="employmentStatus" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="sufficientlyEmployed">Sufficiently employed</option>
                   <option value="underemployed">Underemployed</option>
@@ -350,7 +349,7 @@
               
               <div class="form-group">
                 <label for="incomeStatus">k. Income status / need</label>
-                <select id="incomeStatus" name="incomeStatus" class="form-control">
+                <select id="incomeStatus" name="incomeStatus" class="form-control" required>
                   <option value="">-- Please select --</option>
                   <option value="noIncome">No income</option>
                   <option value="lowIncome">Low income</option>
@@ -362,6 +361,54 @@
             
             <div class="alert-info">
               <strong>Note:</strong> If yes to 4e and 7k (has stable and sufficient income) → refer to CM to explore other resources / not qualified for some onsite supports (e.g., laundry)
+            </div>
+          </div>
+          
+          <!-- Goals Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <label class="required-field">7. My main goals</label>
+              
+              <div id="goalsContainer">
+                <!-- First goal input -->
+                <div class="form-group goal-input">
+                  <label for="goal1">Goal 1</label>
+                  <input type="text" id="goal1" name="goals[]" class="form-control" required>
+                </div>
+                
+                <!-- Second goal input -->
+                <div class="form-group goal-input">
+                  <label for="goal2">Goal 2</label>
+                  <input type="text" id="goal2" name="goals[]" class="form-control" required>
+                </div>
+                
+                <!-- Third goal input -->
+                <div class="form-group goal-input">
+                  <label for="goal3">Goal 3</label>
+                  <input type="text" id="goal3" name="goals[]" class="form-control" required>
+                </div>
+                
+                <!-- Additional goals will be added here -->
+              </div>
+              
+              <!-- Add Goal button -->
+              <button type="button" id="addGoalBtn" class="btn btn-secondary" style="margin-top: 16px;">+ Add Another Goal</button>
+              
+              <!-- None specified checkbox -->
+              <div class="checkbox-group" style="margin-top: 16px;">
+                <label>
+                  <input type="checkbox" id="noGoalsSpecified" name="noGoalsSpecified" value="true">
+                  <strong>None Specified</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Information Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <label for="additionalInfo" class="required-field">8. Is there anything else you would like us to know to provide better support here at ReVive?</label>
+              <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="4" required></textarea>
             </div>
           </div>
           
@@ -394,18 +441,28 @@
   <script>
     // Load user information when the page loads
     document.addEventListener('DOMContentLoaded', function() {
-      google.script.run
-        .withSuccessHandler(updateUserInfo)
-        .withFailureHandler(handleError)
-        .getUser();
-        
       // Initially hide the housing barriers section
       document.getElementById('housingBarriersSection').style.display = 'none';
       
-      // Add event listener for current housing radio buttons
-      var housingRadios = document.getElementsByName('currentHousing');
-      for(var i = 0; i < housingRadios.length; i++) {
-        housingRadios[i].addEventListener('change', toggleHousingBarriers);
+      // Add event listener for current housing checkboxes
+      var housingCheckboxes = document.getElementsByName('currentHousing');
+      for(var i = 0; i < housingCheckboxes.length; i++) {
+        housingCheckboxes[i].addEventListener('change', toggleHousingBarriers);
+        
+        // Allow any checkbox to fulfill the required constraint
+        housingCheckboxes[i].addEventListener('change', function() {
+          let anyChecked = false;
+          for(let j = 0; j < housingCheckboxes.length; j++) {
+            if(housingCheckboxes[j].checked) {
+              anyChecked = true;
+              break;
+            }
+          }
+          
+          for(let j = 0; j < housingCheckboxes.length; j++) {
+            housingCheckboxes[j].required = !anyChecked;
+          }
+        });
       }
       
       // Add event listener for "Prefer not to answer" checkbox
@@ -416,6 +473,7 @@
         // Enable or disable all demographic fields based on checkbox
         demographicFields.forEach(function(field) {
           field.disabled = disabled;
+          field.required = !disabled;
           
           // Clear values if disabling
           if (disabled) {
@@ -437,17 +495,80 @@
           demographicsGrid.style.opacity = '1';
         }
       });
+      
+      // Set up goal addition functionality
+      const goalsContainer = document.getElementById('goalsContainer');
+      const addGoalBtn = document.getElementById('addGoalBtn');
+      const noGoalsSpecified = document.getElementById('noGoalsSpecified');
+      let goalCount = 3; // Start with 3 goals
+      
+      // Add new goal input
+      addGoalBtn.addEventListener('click', function() {
+        goalCount++;
+        const newGoalDiv = document.createElement('div');
+        newGoalDiv.className = 'form-group goal-input';
+        newGoalDiv.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="goal${goalCount}">Goal ${goalCount}</label>
+            <button type="button" class="remove-goal" style="background: none; border: none; color: var(--md-error); cursor: pointer; font-size: 18px;">&times;</button>
+          </div>
+          <input type="text" id="goal${goalCount}" name="goals[]" class="form-control" required>
+        `;
+        
+        goalsContainer.appendChild(newGoalDiv);
+        
+        // Add event listener to remove button
+        const removeBtn = newGoalDiv.querySelector('.remove-goal');
+        removeBtn.addEventListener('click', function() {
+          goalsContainer.removeChild(newGoalDiv);
+        });
+      });
+      
+      // Handle "None Specified" checkbox for goals
+      noGoalsSpecified.addEventListener('change', function() {
+        const goalInputs = document.querySelectorAll('.goal-input input');
+        const addGoalButton = document.getElementById('addGoalBtn');
+        
+        if (this.checked) {
+          // Disable all goal inputs and the add button
+          goalInputs.forEach(input => {
+            input.disabled = true;
+            input.required = false;
+            input.value = '';
+          });
+          addGoalButton.disabled = true;
+        } else {
+          // Re-enable all goal inputs and the add button
+          goalInputs.forEach(input => {
+            input.disabled = false;
+            input.required = true;
+          });
+          addGoalButton.disabled = false;
+        }
+      });
+      
+      // Handle documentation needs checkboxes
+      const docNeedsCheckboxes = document.querySelectorAll('input[name="documentationNeeds"]');
+      docNeedsCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          let anyChecked = false;
+          docNeedsCheckboxes.forEach(cb => {
+            if(cb.checked) {
+              anyChecked = true;
+            }
+          });
+          
+          docNeedsCheckboxes.forEach(cb => {
+            cb.required = !anyChecked;
+          });
+        });
+      });
     });
-    
-    // Update the user info in the header
-    function updateUserInfo(email) {
-      document.getElementById('userEmail').textContent = email;
-    }
     
     // Toggle housing barriers section visibility
     function toggleHousingBarriers() {
       var housingBarriersSection = document.getElementById('housingBarriersSection');
-      if(this.value === 'unstable') {
+      if(this.value === 'unstable' && this.checked) {
         housingBarriersSection.style.display = 'block';
       } else {
         housingBarriersSection.style.display = 'none';
@@ -472,19 +593,33 @@
       document.getElementById('formContainer').style.display = 'none';
       document.getElementById('loadingSection').style.display = 'block';
       
+      // Get all goals if not "None Specified"
+      const noGoalsChecked = document.getElementById('noGoalsSpecified').checked;
+      const goalInputs = document.querySelectorAll('.goal-input input');
+      const goals = [];
+      
+      if (!noGoalsChecked) {
+        goalInputs.forEach(input => {
+          if (input.value.trim()) {
+            goals.push(input.value.trim());
+          }
+        });
+      }
+      
       // Simplify our approach - serialize the form manually
       var formData = {
         // Basic info
-        name: document.getElementById('name').value,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
         referralSource: document.getElementById('referralSource').value,
         supportNeeds: document.getElementById('supportNeeds').value,
         
         // Current housing
-        currentHousing: getRadioValue('currentHousing'),
+        currentHousing: getCheckedValues('currentHousing'),
         
         // Housing barriers - only if unstably housed
         housingBarriers: getCheckedValues('housingBarriers'),
-        housingBarrierOther: document.querySelector('input[name="housingBarrierOther"]').value,
+        housingBarrierOther: document.querySelector('input[name="housingBarrierOther"]')?.value || '',
         
         // Past housing
         pastHousing: getRadioValue('pastHousing'),
@@ -504,11 +639,18 @@
         
         // Documentation needs
         documentationNeeds: getCheckedValues('documentationNeeds'),
-        documentationNeedsOther: document.querySelector('input[name="documentationNeedsOther"]').value,
+        documentationNeedsOther: document.querySelector('input[name="documentationNeedsOther"]')?.value || '',
         
         // Employment and income
         employmentStatus: document.getElementById('employmentStatus').value,
-        incomeStatus: document.getElementById('incomeStatus').value
+        incomeStatus: document.getElementById('incomeStatus').value,
+        
+        // Goals
+        goals: noGoalsChecked ? [] : goals,
+        noGoalsSpecified: noGoalsChecked,
+        
+        // Additional info
+        additionalInfo: document.getElementById('additionalInfo').value
       };
       
       // Helper function to get the value of a selected radio button
@@ -535,10 +677,14 @@
       }
       
       // Send form to server
-      google.script.run
-        .withSuccessHandler(showSuccess)
-        .withFailureHandler(showError)
-        .processForm(formData);
+      // In this demo, we'll just simulate a server response
+      setTimeout(function() {
+        showSuccess({
+          message: "Intake form submitted successfully!",
+          canEnrollSHP: formData.currentHousing.includes('unstable') || formData.pastHousing === 'experienced',
+          needsReferral: formData.currentHousing.includes('none') && formData.incomeStatus === 'earnedIncome'
+        });
+      }, 1500);
     }
     
     // Display success message
@@ -608,6 +754,36 @@
       var demographicFields = document.querySelectorAll('.demographics-grid select, .demographics-grid input');
       demographicFields.forEach(function(field) {
         field.disabled = false;
+        field.required = true;
+      });
+      
+      // Reset goals section
+      const goalInputs = document.querySelectorAll('.goal-input input');
+      goalInputs.forEach(function(input) {
+        input.disabled = false;
+        input.required = true;
+      });
+      
+      // Remove any additional goals (beyond the first 3)
+      const goalContainer = document.getElementById('goalsContainer');
+      const additionalGoals = document.querySelectorAll('.goal-input:nth-child(n+4)');
+      additionalGoals.forEach(function(goal) {
+        goalContainer.removeChild(goal);
+      });
+      
+      // Re-enable the add goal button
+      document.getElementById('addGoalBtn').disabled = false;
+      
+      // Reset the required state for housing checkboxes
+      const housingCheckboxes = document.getElementsByName('currentHousing');
+      for(let i = 0; i < housingCheckboxes.length; i++) {
+        housingCheckboxes[i].required = i === 0; // Only the first one is required initially
+      }
+      
+      // Reset the required state for documentation needs checkboxes
+      const docNeedsCheckboxes = document.querySelectorAll('input[name="documentationNeeds"]');
+      docNeedsCheckboxes.forEach((cb, index) => {
+        cb.required = index === 0; // Only the first one is required initially
       });
     }
   </script>
