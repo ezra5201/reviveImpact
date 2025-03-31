@@ -113,13 +113,42 @@
 }
 
 body {
-  padding-top: 64px; /* Same as header height */
+  padding-top: 112px; /* Same as header height */
   background-color: var(--md-background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   color: var(--md-on-background);
 }
+
+/* Additional styles for the secondary action bar */
+.secondary-action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: var(--md-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  position: fixed;
+  top: 64px; /* Position right below the main header */
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.secondary-action-bar-left {
+  display: flex;
+  align-items: center;
+}
+
+.secondary-action-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 
 /* Header Styles - Material Design 3 */
 header, .header {
@@ -676,6 +705,7 @@ nav, .nav {
   margin: 0 auto;
 }
 
+
 .page-title {
   font-size: var(--md-headline-medium-font);
   line-height: var(--md-headline-medium-line-height);
@@ -1213,9 +1243,11 @@ textarea.form-control {
 /* Mobile Header Redesign (768px and below) */
 @media (max-width: 768px) {
   body {
-    padding-top: 120px; /* Adjust based on the new header height */
+    padding-top: 160px; /* Adjust based on the new header height */
   }
-  
+  .secondary-action-bar {
+    top: 112px; /* Position below expanded mobile header */
+  }
   /* Header layout for mobile */
   header, .header {
     flex-direction: column;
