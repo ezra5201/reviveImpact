@@ -129,7 +129,7 @@ body {
   padding: 0 16px;
   background-color: var(--md-surface);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  height: 48px;
+  height: 52px;
   position: fixed;
   top: 64px; /* Position right below the main header */
   left: 0;
@@ -141,6 +141,7 @@ body {
 .secondary-action-bar-left {
   display: flex;
   align-items: center;
+  gap: 16px;
 }
 
 .secondary-action-bar-right {
@@ -149,6 +150,9 @@ body {
   gap: 8px;
 }
 
+.secondary-action-bar .btn {
+  margin: 0;
+}
 
 /* Header Styles - Material Design 3 */
 header, .header {
