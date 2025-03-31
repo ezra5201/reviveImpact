@@ -1,30 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CM at Revive</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        .title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        h1 {
-            font-size: 2.5rem;
-            color: #333;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Management</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+  
 <body>
-    <div class="title-container">
-        <h1>Case Management Page Here</h1>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="intake.html" class="btn btn-secondary" style="margin-left: 16px; text-decoration: none;">New Intake</a>
+        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+        <a href="#" class="nav-tab nav-tab-active">CM</a>
+        <a href="ot.html" class="nav-tab nav-tab-inactive">OT</a>
+      </nav>
     </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Page Title Section - Moved outside container -->
+  <div class="page-title-section">
+    <h1 class="page-title">Case Management</h1>
+    <p class="page-subtitle">TBD</p>
+  </div>
 </body>
-</html>
+</html
