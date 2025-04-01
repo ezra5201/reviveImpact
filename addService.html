@@ -18,6 +18,22 @@
       font-weight: 500;
       color: var(--md-primary);
     }
+    
+    .suggestion-highlight {
+      font-weight: bold;
+      background-color: yellow;
+    }
+    
+    .summary-section {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .summary-section h5 {
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 4px;
+    }
   </style>
 </head>
 <body>
@@ -50,7 +66,7 @@
   </header>
 
   <!-- Client name display BEFORE page title -->
-  <div class="client-name-display" id="clientNameDisplay" style="padding-left: 24px; padding-top: 24px;"></div>
+  <div class="client-name-display" id="clientNameDisplay" style="padding-left: 24px; padding-top: 24px; font-size: 32px; font-weight: 500; color: #006CFA;">Client: <span id="clientNameText"></span></div>
 
   <!-- Page Title Section -->
   <div class="page-title-section">
@@ -362,6 +378,15 @@
   </div>
 
   <script>
+    // Force today's date to show in date field immediately
+    (function() {
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      window.onload = function() {
+        document.getElementById('contactDate').value = formattedDate;
+      };
+    })();
+    
     // Client data from the main table
     const clientData = [
       { id: 1, name: 'Thiago Schmidt' },
@@ -382,22 +407,24 @@
     ];
     
     document.addEventListener('DOMContentLoaded', function() {
-      // Set default date to today
+      // Set default date to today and ensure it's visible
       const today = new Date();
       const formattedDate = today.toISOString().substr(0, 10);
-      document.getElementById('contactDate').value = formattedDate;
+      const dateInput = document.getElementById('contactDate');
+      dateInput.value = formattedDate;
+      console.log('Setting today\'s date:', formattedDate);
       
       // Set the default provider to the logged-in user (Andrea Leflore)
       const providerSelect = document.getElementById('provider');
       const loggedInUser = 'Andrea Leflore'; // This would come from a session/auth system
       
-      // Find and select the option for the logged-in user
-      for (let i = 0; i < providerSelect.options.length; i++) {
-        if (providerSelect.options[i].value === loggedInUser) {
-          providerSelect.selectedIndex = i;
-          break;
+      // Find and select the option for the logged-in user (use direct selection for reliability)
+      Array.from(providerSelect.options).forEach((option, index) => {
+        if (option.value === loggedInUser) {
+          providerSelect.selectedIndex = index;
+          console.log('Setting provider to logged in user:', loggedInUser);
         }
-      }
+      });
       
       // Toggle "None" checkbox for healthcare
       const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
@@ -435,9 +462,9 @@
         document.getElementById('client').readOnly = true;
         
         // Display client name prominently
-        const clientNameDisplay = document.getElementById('clientNameDisplay');
-        clientNameDisplay.textContent = clientParam;
-        clientNameDisplay.style.display = 'block'; // Ensure it's visible
+        document.getElementById('clientNameText').textContent = clientParam;
+        document.getElementById('clientNameDisplay').style.display = 'block'; // Ensure it's visible
+        console.log('Setting client name from URL:', clientParam);
         
         // Find the client ID
         const selectedClient = clientData.find(c => c.name === clientParam);
@@ -461,7 +488,6 @@
       const clientInput = document.getElementById('client');
       const suggestionContainer = document.getElementById('clientSuggestions');
       const selectedClientIdInput = document.getElementById('selectedClientId');
-      const clientNameDisplay = document.getElementById('clientNameDisplay');
       let currentSelection = -1;
       
       // Show suggestions as user types
@@ -473,8 +499,8 @@
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
           selectedClientIdInput.value = '';
-          clientNameDisplay.textContent = '';
-          clientNameDisplay.style.display = 'none';
+          document.getElementById('clientNameText').textContent = '';
+          document.getElementById('clientNameDisplay').style.display = 'none';
           return;
         }
         
@@ -559,9 +585,9 @@
           document.getElementById('selectedClientId').value = client.id;
           
           // Update prominently displayed client name
-          const clientNameDisplay = document.getElementById('clientNameDisplay');
-          clientNameDisplay.textContent = client.name;
-          clientNameDisplay.style.display = 'block';
+          document.getElementById('clientNameText').textContent = client.name;
+          document.getElementById('clientNameDisplay').style.display = 'block';
+          console.log('Setting client name from selection:', client.name);
           
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
@@ -697,4 +723,36 @@
             ${healthcareList}
           </div>
           
-          <p><strong>Program Starte
+          <p><strong>Program Started:</strong> ${data.programStarted || 'None'}</p>
+          <p><strong>Housing Entered:</strong> ${data.housingEntered || 'None'}</p>
+          <p><strong>Program Status:</strong> ${data.programStatus || 'N/A'}</p>
+          
+          ${data.notes ? `<p><strong>Notes:</strong> ${data.notes}</p>` : ''}
+        </div>
+      `;
+    }
+    
+    function resetForm() {
+      document.getElementById('contactLogForm').reset();
+      
+      // Reset date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('contactDate').value = formattedDate;
+      
+      // Show form and hide result
+      document.getElementById('contactLogForm').style.display = 'block';
+      document.getElementById('resultSection').style.display = 'none';
+    }
+    
+    function goToContactLog() {
+      window.location.href = 'index.html';
+    }
+    
+    function viewClientHistory() {
+      const clientName = document.getElementById('client').value;
+      window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
+    }
+  </script>
+</body>
+</html>
