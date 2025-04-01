@@ -771,14 +771,66 @@ document.addEventListener('DOMContentLoaded', function() {
 <button class="dialog-close" id="dialogCloseBtn">&times;</button>
 </div>
 
+<!-- The dialog-options section would be modified as follows: -->
+
 <div id="dialogInitialOptions" class="dialog-body">
-<p class="dialog-prompt">What would you like to do?</p>
-<div class="dialog-options">
-<button id="quickCheckInBtn" class="btn btn-primary">Quick Check-In</button>
-<button id="clientHistoryBtn" class="btn btn-primary" onclick="window.location.href='clientLogHistory.html';">Log History</button>
-<button id="initialCancelBtn" class="btn btn-secondary">Cancel</button>
+  <p class="dialog-prompt">What would you like to do?</p>
+  <div class="dialog-options">
+    <button id="quickCheckInBtn" class="btn btn-primary">Quick Check-In</button>
+    <button id="addServiceBtn" class="btn btn-primary" style="display: none;">Add Service</button>
+    <button id="clientHistoryBtn" class="btn btn-primary">Log History</button>
+    <button id="initialCancelBtn" class="btn btn-secondary">Cancel</button>
+  </div>
 </div>
-</div>
+
+<!-- Add this script to handle the button change after check-in -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Quick Check-In handler
+    const quickCheckInBtn = document.getElementById('quickCheckInBtn');
+    const addServiceBtn = document.getElementById('addServiceBtn');
+    
+    if (quickCheckInBtn && addServiceBtn) {
+      quickCheckInBtn.addEventListener('click', function() {
+        // Show the check-in form
+        document.getElementById('dialogInitialOptions').style.display = 'none';
+        document.getElementById('dialogCheckInForm').style.display = 'block';
+      });
+    }
+    
+    // Form submission handler
+    const dialogSubmitBtn = document.getElementById('dialogSubmitBtn');
+    if (dialogSubmitBtn) {
+      dialogSubmitBtn.addEventListener('click', function() {
+        // Simulate saving the check-in data
+        saveCheckIn();
+      });
+    }
+    
+    // Function to save check-in data and update UI
+    function saveCheckIn() {
+      // Here you would normally save the data to your backend
+
+      // Show success message
+      alert('Check-in form submitted successfully!');
+      
+      // Return to dialog options but with different buttons
+      document.getElementById('dialogCheckInForm').style.display = 'none';
+      document.getElementById('dialogInitialOptions').style.display = 'block';
+      
+      // Hide Quick Check-In button, show Add Service button
+      quickCheckInBtn.style.display = 'none';
+      addServiceBtn.style.display = 'inline-block';
+      
+      // Add click handler to Add Service button
+      addServiceBtn.addEventListener('click', function() {
+        const clientName = document.getElementById('dialogClientName').textContent;
+        // Navigate to the service form with client parameter
+        window.location.href = `addService.html?client=${encodeURIComponent(clientName)}`;
+      });
+    }
+  });
+</script>
 
 <div id="dialogCheckInForm" class="dialog-body" style="display: none;">
 <p class="dialog-prompt">Client objective for visiting today:</p>
