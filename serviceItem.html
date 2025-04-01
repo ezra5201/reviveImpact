@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Service Record</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Minimal additional styling to complement styles.css -->
+  <style>
+    .type-ahead-container {
+      position: relative;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-active">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+        <a href="cm.html" class="nav-tab nav-tab-inactive">CM</a>
+        <a href="ot.html" class="nav-tab nav-tab-inactive">OT</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Page Title Section -->
+  <div class="page-title-section">
+    <h1 class="page-title">Add Service Record</h1>
+    <p class="page-subtitle" id="clientNameSubtitle">Record a new service for client</p>
+  </div>
+
+  <div class="main-container">
+    <div class="container">
+      <form id="contactLogForm" onsubmit="handleFormSubmit(this); return false;">
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h2 class="section-title">Basic Information</h2>
+          
+          <div class="form-group">
+            <label for="contactDate" class="required-field">Date</label>
+            <input type="date" id="contactDate" name="contactDate" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="provider" class="required-field">Provider</label>
+            <select id="provider" name="provider" class="form-control" required>
+              <option value="">-- Select provider --</option>
+              <option value="Elena Ahmed">Elena Ahmed</option>
+              <option value="Sofia Cohen">Sofia Cohen</option>
+              <option value="Jamal Silva">Jamal Silva</option>
+              <option value="Mohammed Ahmed">Mohammed Ahmed</option>
+              <option value="Sonia Singh">Sonia Singh</option>
+              <option value="Leila Garcia">Leila Garcia</option>
+              <option value="Alexandra Perry">Alexandra Perry</option>
+              <option value="Ashley B">Ashley B</option>
+              <option value="Tarik">Tarik</option>
+              <option value="Dave">Dave</option>
+              <option value="Redrick">Redrick</option>
+              <option value="Rolando">Rolando</option>
+              <option value="Alex">Alex</option>
+            </select>
+          </div>
+          
+          <div class="form-group" id="clientField">
+            <label for="client" class="required-field">Client</label>
+            <div class="type-ahead-container">
+              <input type="text" id="client" name="client" class="form-control" required autocomplete="off" placeholder="Start typing client name...">
+              <div id="clientSuggestions" class="suggestions-container"></div>
+            </div>
+            <input type="hidden" id="selectedClientId" name="selectedClientId">
+          </div>
+        </div>
+        
+        <!-- Service Details Section -->
+        <div class="form-section">
+          <h2 class="section-title">Service Details</h2>
+          
+          <div class="form-group">
+            <label for="servicePlace" class="required-field">Place of Service</label>
+            <select id="servicePlace" name="servicePlace" class="form-control" required>
+              <option value="">-- Select location --</option>
+              <option value="Engagement Center">Engagement Center</option>
+              <option value="In Office">In Office</option>
+              <option value="Home Visit">Home Visit</option>
+              <option value="Phone/Text/Email">Phone/Text/Email</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="accompaniedAppointment" class="required-field">Accompanied Appointment?</label>
+            <select id="accompaniedAppointment" name="accompaniedAppointment" class="form-control" required>
+              <option value="">-- Select option --</option>
+              <option value="Accompanied">Accompanied</option>
+              <option value="Reminded by Phone">Reminded by Phone</option>
+              <option value="Reminded in-person">Reminded in-person</option>
+              <option value="Scheduled">Scheduled</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="obtainedDocumentation">Obtained Documentation</label>
+            <select id="obtainedDocumentation" name="obtainedDocumentation" class="form-control">
+              <option value="">-- Select documentation --</option>
+              <option value="State ID">State ID</option>
+              <option value="Homeless Verification Letters">Homeless Verification Letters</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Resources Given Section -->
+        <div class="form-section">
+          <h2 class="section-title">Resources Given</h2>
+          
+          <div class="form-group">
+            <label>Select all resources provided:</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Food"> Food</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Laundry"> Laundry</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="$5 Transit Card"> $5 Transit Card</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="$15 Transit Card"> $15 Transit Card</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="$20 Transit Card"> $20 Transit Card</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Harm Reduction Supplies"> Harm Reduction Supplies</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Hygiene Products"> Hygiene Products</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 1- Pain relief"> OTC 1- Pain relief</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 2- First aid / wound care"> OTC 2- First aid / wound care</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 3- Allergy"> OTC 3- Allergy</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 4- Vitamins"> OTC 4- Vitamins</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 5- Sleep aid"> OTC 5- Sleep aid</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 6- Stomach/cold relief"> OTC 6- Stomach/cold relief</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 7- Lotion / cream / skin"> OTC 7- Lotion / cream / skin</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 8- Covid tests / sanitation"> OTC 8- Covid tests / sanitation</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="OTC 9- Vision / Dental"> OTC 9- Vision / Dental</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Uber/Lyft"> Uber/Lyft</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Clothing"> Clothing</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Home Goods"> Home Goods</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resources" value="Bike"> Bike</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Healthcare Section -->
+        <div class="form-section">
+          <h2 class="section-title">On-Site Health Care Received</h2>
+          
+          <div class="form-group">
+            <label>Select all health services provided:</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="PACE"> PACE</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="Rush LCSW"> Rush LCSW</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="Rush MD"> Rush MD</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="OT Skilled"> OT Skilled</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="Rush ENT Clinic offsite"> Rush ENT Clinic offsite</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="FGC Outreach"> FGC Outreach</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="Rush RN"> Rush RN</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="Medication Delivery"> Medication Delivery</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="Vision Clinic glasses"> Vision Clinic glasses</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="healthcare" value="None"> None</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Program and Housing Section -->
+        <div class="form-section">
+          <h2 class="section-title">Programs and Housing</h2>
+          
+          <div class="form-group">
+            <label for="programStarted">Program Started</label>
+            <select id="programStarted" name="programStarted" class="form-control">
+              <option value="">-- Select program --</option>
+              <option value="New Job">New Job</option>
+              <option value="Detox">Detox</option>
+              <option value="Medical Equipment">Medical Equipment</option>
+              <option value="Advocacy">Advocacy</option>
+              <option value="Case Management">Case Management</option>
+              <option value="Counseling - Financial">Counseling - Financial</option>
+              <option value="Counseling - Life Skills">Counseling - Life Skills</option>
+              <option value="Counseling - All other">Counseling - All other</option>
+              <option value="Alcohol Abuse Services">Alcohol Abuse Services</option>
+              <option value="Child Care">Child Care</option>
+              <option value="Children's Services">Children's Services</option>
+              <option value="Domestic Violence">Domestic Violence</option>
+              <option value="Education">Education</option>
+              <option value="Employment Services">Employment Services</option>
+              <option value="English as a Second Language">English as a Second Language</option>
+              <option value="Follow-up Services">Follow-up Services</option>
+              <option value="Health / Dental Service">Health / Dental Service</option>
+              <option value="HIV / AIDS Related Service">HIV / AIDS Related Service</option>
+              <option value="Housing Location / Inspection">Housing Location / Inspection</option>
+              <option value="Mental Health Services">Mental Health Services</option>
+              <option value="Legal Service Referrals">Legal Service Referrals</option>
+              <option value="Outreach">Outreach</option>
+              <option value="Substance Abuse Services">Substance Abuse Services</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Drop-In">Drop-In</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="housingEntered">Housing Entered</label>
+            <select id="housingEntered" name="housingEntered" class="form-control">
+              <option value="">-- Select housing --</option>
+              <option value="Permanent Supportive Housing">Permanent Supportive Housing</option>
+              <option value="Overnight Shelter">Overnight Shelter</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="programStatus">Program or Status</label>
+            <select id="programStatus" name="programStatus" class="form-control">
+              <option value="">-- Select status --</option>
+              <option value="Scattered Site SHP">Scattered Site SHP</option>
+              <option value="Prospect">Prospect</option>
+              <option value="Cressey House PSH">Cressey House PSH</option>
+              <option value="Leasing Grant">Leasing Grant</option>
+              <option value="Discharged">Discharged</option>
+              <option value="Active">Active</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Notes Section -->
+        <div class="form-section">
+          <h2 class="section-title">Additional Information</h2>
+          
+          <div class="form-group">
+            <label for="countedColumns">? (Counted Columns)</label>
+            <input type="number" id="countedColumns" name="countedColumns" class="form-control" min="0">
+          </div>
+          
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" class="form-control" rows="4" placeholder="Enter any additional notes or comments here..."></textarea>
+          </div>
+        </div>
+        
+        <!-- Form Buttons -->
+        <div class="form-buttons">
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+      
+      <div id="loadingSection" class="loading" style="display: none;">
+        <div class="loading-spinner"></div>
+        <p>Processing your submission...</p>
+      </div>
+      
+      <div id="resultSection" class="form-result" style="display: none;">
+        <h3 id="resultTitle"></h3>
+        <p id="resultMessage"></p>
+        <div id="additionalInfo"></div>
+        <div class="form-buttons">
+          <button type="button" class="btn btn-primary" onclick="viewClientHistory()">View Client History</button>
+          <button type="button" class="btn btn-secondary" onclick="goToContactLog()">Back to Contact Log</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Client data from the main table
+    const clientData = [
+      { id: 1, name: 'Thiago Schmidt' },
+      { id: 2, name: 'Emma Taylor' },
+      { id: 3, name: 'William Johnson' },
+      { id: 4, name: 'Olivia Martinez' },
+      { id: 5, name: 'Liam Nguyen' },
+      { id: 6, name: 'Mia Patel' },
+      { id: 7, name: 'Noah Kim' },
+      { id: 8, name: 'Ava Hernandez' },
+      { id: 9, name: 'Ethan Choi' },
+      { id: 10, name: 'Sophia Gupta' },
+      { id: 11, name: 'Jackson Lee' },
+      { id: 12, name: 'Isabella Brown' },
+      { id: 13, name: 'Aiden Patel' },
+      { id: 14, name: 'Charlotte Davis' },
+      { id: 15, name: 'Peter Johnson' }
+    ];
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('contactDate').value = formattedDate;
+      
+      // Calculate days ago based on selected date
+      document.getElementById('contactDate').addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        const diffTime = Math.abs(today - selectedDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        // In a real app, we would update a "days ago" field
+        console.log('Days ago:', diffDays);
+      });
+      
+      // Toggle "None" checkbox for healthcare
+      const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
+      healthcareCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (this.value === 'None' && this.checked) {
+            // Uncheck all other healthcare options
+            healthcareCheckboxes.forEach(cb => {
+              if (cb !== this && cb.checked) {
+                cb.checked = false;
+              }
+            });
+          } else if (this.checked) {
+            // If any other option is checked, uncheck "None"
+            const noneCheckbox = Array.from(healthcareCheckboxes).find(cb => cb.value === 'None');
+            if (noneCheckbox && noneCheckbox.checked) {
+              noneCheckbox.checked = false;
+            }
+          }
+        });
+      });
+      
+      // Check URL parameters for client selection
+      const urlParams = new URLSearchParams(window.location.search);
+      const clientParam = urlParams.get('client');
+      if (clientParam) {
+        // Hide client selection field if client is provided in URL
+        const clientField = document.getElementById('clientField');
+        if (clientField) {
+          clientField.style.display = 'none';
+        }
+        
+        // Set the client name as read-only
+        document.getElementById('client').value = clientParam;
+        document.getElementById('client').readOnly = true;
+        
+        // Update the subtitle with client name
+        document.getElementById('clientNameSubtitle').textContent = `Record a new service for ${clientParam}`;
+        
+        // Find the client ID
+        const selectedClient = clientData.find(c => c.name === clientParam);
+        if (selectedClient) {
+          document.getElementById('selectedClientId').value = selectedClient.id;
+        }
+      } else {
+        // Initialize type-ahead for client input if no client specified
+        initClientTypeAhead();
+      }
+    });
+    
+    // Initialize type-ahead functionality for client input
+    function initClientTypeAhead() {
+      const clientInput = document.getElementById('client');
+      const suggestionContainer = document.getElementById('clientSuggestions');
+      const selectedClientIdInput = document.getElementById('selectedClientId');
+      let currentSelection = -1;
+      
+      // Show suggestions as user types
+      clientInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        
+        // Clear suggestions if query is empty
+        if (query === '') {
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+          selectedClientIdInput.value = '';
+          return;
+        }
+        
+        // Filter clients based on input
+        const filteredClients = clientData.filter(client => {
+          return client.name.toLowerCase().includes(query);
+        });
+        
+        // Render suggestions
+        renderClientSuggestions(filteredClients, query);
+      });
+      
+      // Handle keyboard navigation
+      clientInput.addEventListener('keydown', function(e) {
+        const suggestions = suggestionContainer.querySelectorAll('.suggestion-item');
+        
+        if (suggestions.length === 0) return;
+        
+        // Down arrow
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          currentSelection = (currentSelection + 1) % suggestions.length;
+          updateSelection(suggestions);
+        } 
+        // Up arrow
+        else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          currentSelection = (currentSelection - 1 + suggestions.length) % suggestions.length;
+          updateSelection(suggestions);
+        } 
+        // Enter key
+        else if (e.key === 'Enter' && currentSelection >= 0) {
+          e.preventDefault();
+          suggestions[currentSelection].click();
+        } 
+        // Escape key
+        else if (e.key === 'Escape') {
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+          currentSelection = -1;
+        }
+      });
+      
+      // Close suggestions when clicking outside
+      document.addEventListener('click', function(e) {
+        if (e.target !== clientInput && e.target !== suggestionContainer) {
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+          currentSelection = -1;
+        }
+      });
+    }
+    
+    // Render filtered client suggestions
+    function renderClientSuggestions(clients, query) {
+      const suggestionContainer = document.getElementById('clientSuggestions');
+      
+      // Reset selection
+      currentSelection = -1;
+      
+      // Clear previous suggestions
+      suggestionContainer.innerHTML = '';
+      
+      if (clients.length === 0) {
+        suggestionContainer.style.display = 'none';
+        return;
+      }
+      
+      // Create and append suggestion items
+      clients.forEach((client, index) => {
+        const item = document.createElement('div');
+        // Use the existing suggestion-item class from styles.css
+        item.className = 'suggestion-item';
+        item.dataset.index = index;
+        item.dataset.id = client.id;
+        
+        // Highlight matching text
+        item.innerHTML = highlightMatch(client.name, query);
+        
+        // Handle click on suggestion
+        item.addEventListener('click', function() {
+          document.getElementById('client').value = client.name;
+          document.getElementById('selectedClientId').value = client.id;
+          document.getElementById('clientNameSubtitle').textContent = `Record a new service for ${client.name}`;
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+        });
+        
+        // Handle mouse hover
+        item.addEventListener('mouseenter', function() {
+          currentSelection = parseInt(this.dataset.index);
+          updateSelection(suggestionContainer.querySelectorAll('.suggestion-item'));
+        });
+        
+        suggestionContainer.appendChild(item);
+      });
+      
+      // Show suggestions container
+      suggestionContainer.style.display = 'block';
+    }
+    
+    // Update visual selection in dropdown
+    function updateSelection(suggestions) {
+      suggestions.forEach((item, index) => {
+        if (index === currentSelection) {
+          item.classList.add('selected');
+        } else {
+          item.classList.remove('selected');
+        }
+      });
+    }
+    
+    // Highlight matching text in suggestions
+    function highlightMatch(text, query) {
+      if (!query) return text;
+      
+      // Case insensitive search
+      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\  <script>
+    // Client data from the main table
+    const clientData = [
+      { id: 1, name: 'Thiago Schmidt' },
+      { id: 2, name: 'Emma Taylor' },
+      { id: 3, name: 'William Johnson' },
+      { id: 4, name: 'Olivia Martinez' },
+      { id: 5, name: 'Liam Nguyen' },
+      { id: 6, name: 'Mia Patel' },
+      { id: 7, name: 'Noah Kim' },
+      { id: 8, name: 'Ava Hernandez' },
+      { id: 9, name: 'Ethan Choi' },
+      { id: 10, name: 'Sophia Gupta' },
+      { id: 11, name: 'Jackson Lee' },
+      { id: 12, name: 'Isabella Brown' },
+      { id: 13, name: 'Aiden Patel' },
+      { id: 14, name: 'Charlotte Davis' },
+      { id: 15, name: 'Peter Johnson' }
+    ];
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('contactDate').value = formattedDate;
+      
+      // Calculate days ago based on selected date
+      document.getElementById('contactDate').addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        const diffTime = Math.abs(today - selectedDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        // In a real app, we would update a "days ago" field
+        console.log('Days ago:', diffDays);
+      });
+      
+      // Toggle "None" checkbox for healthcare
+      const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
+      healthcareCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (this.value === 'None' && this.checked) {
+            // Uncheck all other healthcare options
+            healthcareCheckboxes.forEach(cb => {
+              if (cb !== this && cb.checked) {
+                cb.checked = false;
+              }
+            });
+          } else if (this.checked) {
+            // If any other option is checked, uncheck "None"
+            const noneCheckbox = Array.from(healthcareCheckboxes).find(cb => cb.value === 'None');
+            if (noneCheckbox && noneCheckbox.checked) {
+              noneCheckbox.checked = false;
+            }
+          }
+        });
+      });
+      
+      // Initialize type-ahead for client input
+      initClientTypeAhead();
+      
+      // Check URL parameters for client selection (if opened from dialog)
+      const urlParams = new URLSearchParams(window.location.search);
+      const clientParam = urlParams.get('client');
+      if (clientParam) {
+        document.getElementById('client').value = clientParam;
+        
+        // Find the client ID
+        const selectedClient = clientData.find(c => c.name === clientParam);
+        if (selectedClient) {
+          document.getElementById('selectedClientId').value = selectedClient.id;
+        }
+      }
+    });
+    
+    // Initialize type-ahead functionality for client input
+    function initClientTypeAhead() {
+      const clientInput = document.getElementById('client');
+      const suggestionContainer = document.getElementById('clientSuggestions');
+      const selectedClientIdInput = document.getElementById('selectedClientId');
+      let currentSelection = -1;
+      
+      // Show suggestions as user types
+      clientInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        
+        // Clear suggestions if query is empty
+        if (query === '') {
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+          selectedClientIdInput.value = '';
+          return;
+        }
+        
+        // Filter clients based on input
+        const filteredClients = clientData.filter(client => {
+          return client.name.toLowerCase().includes(query);
+        });
+        
+        // Render suggestions
+        renderClientSuggestions(filteredClients, query);
+      });
+      
+      // Handle keyboard navigation
+      clientInput.addEventListener('keydown', function(e) {
+        const suggestions = suggestionContainer.querySelectorAll('.suggestion-item');
+        
+        if (suggestions.length === 0) return;
+        
+        // Down arrow
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          currentSelection = (currentSelection + 1) % suggestions.length;
+          updateSelection(suggestions);
+        } 
+        // Up arrow
+        else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          currentSelection = (currentSelection - 1 + suggestions.length) % suggestions.length;
+          updateSelection(suggestions);
+        } 
+        // Enter key
+        else if (e.key === 'Enter' && currentSelection >= 0) {
+          e.preventDefault();
+          suggestions[currentSelection].click();
+        } 
+        // Escape key
+        else if (e.key === 'Escape') {
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+          currentSelection = -1;
+        }
+      });
+      
+      // Close suggestions when clicking outside
+      document.addEventListener('click', function(e) {
+        if (e.target !== clientInput && e.target !== suggestionContainer) {
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+          currentSelection = -1;
+        }
+      });
+    }
+    
+    // Render filtered client suggestions
+    function renderClientSuggestions(clients, query) {
+      const suggestionContainer = document.getElementById('clientSuggestions');
+      
+      // Reset selection
+      currentSelection = -1;
+      
+      // Clear previous suggestions
+      suggestionContainer.innerHTML = '';
+      
+      if (clients.length === 0) {
+        suggestionContainer.style.display = 'none';
+        return;
+      }
+      
+      // Create and append suggestion items
+      clients.forEach((client, index) => {
+        const item = document.createElement('div');
+        // Use the existing suggestion-item class from styles.css
+        item.className = 'suggestion-item';
+        item.dataset.index = index;
+        item.dataset.id = client.id;
+        
+        // Highlight matching text
+        item.innerHTML = highlightMatch(client.name, query);
+        
+        // Handle click on suggestion
+        item.addEventListener('click', function() {
+          document.getElementById('client').value = client.name;
+          document.getElementById('selectedClientId').value = client.id;
+          suggestionContainer.innerHTML = '';
+          suggestionContainer.style.display = 'none';
+        });
+        
+        // Handle mouse hover
+        item.addEventListener('mouseenter', function() {
+          currentSelection = parseInt(this.dataset.index);
+          updateSelection(suggestionContainer.querySelectorAll('.suggestion-item'));
+        });
+        
+        suggestionContainer.appendChild(item);
+      });
+      
+      // Show suggestions container
+      suggestionContainer.style.display = 'block';
+    }')})`, 'gi');
+      return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
+    }
+    
+    // Update visual selection in dropdown
+    function updateSelection(suggestions) {
+      suggestions.forEach((item, index) => {
+        if (index === currentSelection) {
+          item.classList.add('selected');
+        } else {
+          item.classList.remove('selected');
+        }
+      });
+    }
+    
+    // Highlight matching text in suggestions
+    function highlightMatch(text, query) {
+      if (!query) return text;
+      
+      // Case insensitive search
+      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('contactDate').value = formattedDate;
+      
+      // Calculate days ago based on selected date
+      document.getElementById('contactDate').addEventListener('change', function() {
+        const selectedDate = new Date(this.value);
+        const today = new Date();
+        const diffTime = Math.abs(today - selectedDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        // In a real app, we would update a "days ago" field
+        console.log('Days ago:', diffDays);
+      });
+      
+      // Toggle "None" checkbox for healthcare
+      const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
+      healthcareCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (this.value === 'None' && this.checked) {
+            // Uncheck all other healthcare options
+            healthcareCheckboxes.forEach(cb => {
+              if (cb !== this && cb.checked) {
+                cb.checked = false;
+              }
+            });
+          } else if (this.checked) {
+            // If any other option is checked, uncheck "None"
+            const noneCheckbox = Array.from(healthcareCheckboxes).find(cb => cb.value === 'None');
+            if (noneCheckbox && noneCheckbox.checked) {
+              noneCheckbox.checked = false;
+            }
+          }
+        });
+      });
+    });')})`, 'gi');
+      return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
+    }
+    
+    function handleFormSubmit(form) {
+      // Hide form and show loading indicator
+      form.style.display = 'none';
+      document.getElementById('loadingSection').style.display = 'block';
+      
+      // Collect form data
+      const formData = new FormData(form);
+      
+      // Create an object to store form values
+      const contactData = {
+        date: formData.get('contactDate'),
+        provider: formData.get('provider'),
+        client: formData.get('client'),
+        servicePlace: formData.get('servicePlace'),
+        accompaniedAppointment: formData.get('accompaniedAppointment'),
+        obtainedDocumentation: formData.get('obtainedDocumentation'),
+        resources: formData.getAll('resources'),
+        healthcare: formData.getAll('healthcare'),
+        programStarted: formData.get('programStarted'),
+        housingEntered: formData.get('housingEntered'),
+        countedColumns: formData.get('countedColumns'),
+        notes: formData.get('notes'),
+        programStatus: formData.get('programStatus')
+      };
+      
+      // Calculate days ago
+      const selectedDate = new Date(contactData.date);
+      const today = new Date();
+      const diffTime = Math.abs(today - selectedDate);
+      const daysAgo = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      contactData.daysAgo = daysAgo;
+      
+      console.log('Form data:', contactData);
+      
+      // Simulate form submission with a delay
+      setTimeout(function() {
+        showSuccess(contactData);
+      }, 1500);
+      
+      // In a real application, here you would:
+      // 1. Send data to the server
+      // 2. Server would update the contact log table in index.html
+      // 3. Server would add a record to client's meeting history table in clientLogHistory.html
+      
+      return false; // Prevent form submission
+    }
+    
+    function showSuccess(data) {
+      // Hide loading indicator
+      document.getElementById('loadingSection').style.display = 'none';
+      
+      // Show result section
+      const resultSection = document.getElementById('resultSection');
+      resultSection.style.display = 'block';
+      resultSection.className = 'form-result success';
+      
+      // Update result content
+      document.getElementById('resultTitle').textContent = 'Service Record Added';
+      document.getElementById('resultMessage').textContent = `New service record for ${data.client} has been successfully saved.`;
+      
+      // Display summary of submitted data
+      const additionalInfo = document.getElementById('additionalInfo');
+      
+      // Format resources as a list
+      let resourcesList = '';
+      if (data.resources.length > 0) {
+        resourcesList = '<ul>' + 
+          data.resources.map(r => `<li>${r}</li>`).join('') + 
+          '</ul>';
+      } else {
+        resourcesList = '<p>None</p>';
+      }
+      
+      // Format healthcare as a list
+      let healthcareList = '';
+      if (data.healthcare.length > 0 && !data.healthcare.includes('None')) {
+        healthcareList = '<ul>' + 
+          data.healthcare.map(h => `<li>${h}</li>`).join('') + 
+          '</ul>';
+      } else {
+        healthcareList = '<p>None</p>';
+      }
+      
+      additionalInfo.innerHTML = `
+        <div class="form-group">
+          <h4>Service Record Summary:</h4>
+          <p><strong>Date:</strong> ${data.date} (${data.daysAgo} days ago)</p>
+          <p><strong>Provider:</strong> ${data.provider}</p>
+          <p><strong>Client:</strong> ${data.client}</p>
+          <p><strong>Place of Service:</strong> ${data.servicePlace}</p>
+          <p><strong>Accompanied Appointment:</strong> ${data.accompaniedAppointment || 'No'}</p>
+          <p><strong>Documentation Obtained:</strong> ${data.obtainedDocumentation || 'None'}</p>
+          
+          <div class="summary-section">
+            <h5>Resources Given:</h5>
+            ${resourcesList}
+          </div>
+          
+          <div class="summary-section">
+            <h5>Healthcare Services:</h5>
+            ${healthcareList}
+          </div>
+          
+          <p><strong>Program Started:</strong> ${data.programStarted || 'None'}</p>
+          <p><strong>Housing Entered:</strong> ${data.housingEntered || 'None'}</p>
+          <p><strong>Program Status:</strong> ${data.programStatus || 'N/A'}</p>
+          
+          ${data.notes ? `<p><strong>Notes:</strong> ${data.notes}</p>` : ''}
+        </div>
+      `;
+    }
+    
+    function resetForm() {
+      document.getElementById('contactLogForm').reset();
+      
+      // Reset date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('contactDate').value = formattedDate;
+      
+      // Show form and hide result
+      document.getElementById('contactLogForm').style.display = 'block';
+      document.getElementById('resultSection').style.display = 'none';
+    }
+    
+    function goToContactLog() {
+      window.location.href = 'index.html';
+    }
+    
+    function viewClientHistory() {
+      const clientName = document.getElementById('client').value;
+      window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
+    }
+  </script>
+</body>
+</html>// Close dialog button handler
+    document.getElementById('closeFormBtn').addEventListener('click', function() {
+      // If the form is in a dialog, this would trigger dialog close
+      if (window.parent && window.parent.closeContactDialog) {
+        window.parent.closeContactDialog();
+      } else {
+        // Fallback if not in a dialog
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>
