@@ -13,7 +13,6 @@
     }
   </style>
 </head>
-
 <body>
   <!-- Fixed Header -->
   <header>
@@ -46,7 +45,9 @@
   <!-- Page Title Section -->
   <div class="page-title-section">
     <h1 class="page-title">Add Service Record</h1>
-    <p class="page-subtitle" id="clientNameSubtitle">Record a new service for client</p>
+    <p class="page-subtitle">Record a new service for client</p>
+    <!-- Client name display - prominently shown below title -->
+    <div id="clientNameDisplay" class="client-name-display" style="margin-top: 8px; font-size: 24px; font-weight: 500; color: var(--md-primary);"></div>
   </div>
 
   <div class="main-container">
@@ -135,66 +136,71 @@
           
           <div class="form-group">
             <label>Select all resources provided:</label>
-            <div class="multi-select-container">
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Food"> Food</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Food"> Food</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Laundry"> Laundry</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="$5 Transit Card"> $5 Transit Card</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="$15 Transit Card"> $15 Transit Card</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="$20 Transit Card"> $20 Transit Card</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Harm Reduction Supplies"> Harm Reduction Supplies</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Hygiene Products"> Hygiene Products</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Uber/Lyft"> Uber/Lyft</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Clothing"> Clothing</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Home Goods"> Home Goods</label>
+                </div>
               </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Laundry"> Laundry</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="$5 Transit Card"> $5 Transit Card</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="$15 Transit Card"> $15 Transit Card</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="$20 Transit Card"> $20 Transit Card</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Harm Reduction Supplies"> Harm Reduction Supplies</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Hygiene Products"> Hygiene Products</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 1- Pain relief"> OTC 1- Pain relief</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 2- First aid / wound care"> OTC 2- First aid / wound care</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 3- Allergy"> OTC 3- Allergy</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 4- Vitamins"> OTC 4- Vitamins</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 5- Sleep aid"> OTC 5- Sleep aid</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 6- Stomach/cold relief"> OTC 6- Stomach/cold relief</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 7- Lotion / cream / skin"> OTC 7- Lotion / cream / skin</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 8- Covid tests / sanitation"> OTC 8- Covid tests / sanitation</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="OTC 9- Vision / Dental"> OTC 9- Vision / Dental</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Uber/Lyft"> Uber/Lyft</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Clothing"> Clothing</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Home Goods"> Home Goods</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="resources" value="Bike"> Bike</label>
+              
+              <div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 1- Pain relief"> OTC 1- Pain relief</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 2- First aid / wound care"> OTC 2- First aid / wound care</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 3- Allergy"> OTC 3- Allergy</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 4- Vitamins"> OTC 4- Vitamins</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 5- Sleep aid"> OTC 5- Sleep aid</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 6- Stomach/cold relief"> OTC 6- Stomach/cold relief</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 7- Lotion / cream / skin"> OTC 7- Lotion / cream / skin</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 8- Covid tests / sanitation"> OTC 8- Covid tests / sanitation</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="OTC 9- Vision / Dental"> OTC 9- Vision / Dental</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="resources" value="Bike"> Bike</label>
+                </div>
               </div>
             </div>
           </div>
@@ -206,36 +212,41 @@
           
           <div class="form-group">
             <label>Select all health services provided:</label>
-            <div class="multi-select-container">
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="PACE"> PACE</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="PACE"> PACE</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="Rush LCSW"> Rush LCSW</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="Rush MD"> Rush MD</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="OT Skilled"> OT Skilled</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="Rush ENT Clinic offsite"> Rush ENT Clinic offsite</label>
+                </div>
               </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="Rush LCSW"> Rush LCSW</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="Rush MD"> Rush MD</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="OT Skilled"> OT Skilled</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="Rush ENT Clinic offsite"> Rush ENT Clinic offsite</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="FGC Outreach"> FGC Outreach</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="Rush RN"> Rush RN</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="Medication Delivery"> Medication Delivery</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="Vision Clinic glasses"> Vision Clinic glasses</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="healthcare" value="None"> None</label>
+              
+              <div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="FGC Outreach"> FGC Outreach</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="Rush RN"> Rush RN</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="Medication Delivery"> Medication Delivery</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="Vision Clinic glasses"> Vision Clinic glasses</label>
+                </div>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="healthcare" value="None"> None</label>
+                </div>
               </div>
             </div>
           </div>
@@ -412,8 +423,8 @@
         document.getElementById('client').value = clientParam;
         document.getElementById('client').readOnly = true;
         
-        // Update the subtitle with client name
-        document.getElementById('clientNameSubtitle').textContent = `Record a new service for ${clientParam}`;
+        // Display client name prominently
+        document.getElementById('clientNameDisplay').textContent = clientParam;
         
         // Find the client ID
         const selectedClient = clientData.find(c => c.name === clientParam);
@@ -525,7 +536,10 @@
         item.addEventListener('click', function() {
           document.getElementById('client').value = client.name;
           document.getElementById('selectedClientId').value = client.id;
-          document.getElementById('clientNameSubtitle').textContent = `Record a new service for ${client.name}`;
+          
+          // Update prominently displayed client name
+          document.getElementById('clientNameDisplay').textContent = client.name;
+          
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
         });
