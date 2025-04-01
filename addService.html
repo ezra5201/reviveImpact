@@ -5,11 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add Service Record</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Minimal additional styling to complement styles.css -->
   <style>
     .type-ahead-container {
       position: relative;
       width: 100%;
+    }
+    
+    .client-name-display {
+      margin-top: 8px;
+      font-size: 24px;
+      font-weight: 500;
+      color: var(--md-primary);
     }
   </style>
 </head>
@@ -59,13 +65,14 @@
           
           <div class="form-group">
             <label for="contactDate" class="required-field">Date</label>
-            <input type="date" id="contactDate" name="contactDate" class="form-control" required>
+            <input type="date" id="contactDate" name="contactDate" class="form-control" required readonly>
           </div>
           
           <div class="form-group">
             <label for="provider" class="required-field">Provider</label>
             <select id="provider" name="provider" class="form-control" required>
               <option value="">-- Select provider --</option>
+              <option value="Andrea Leflore">Andrea Leflore</option>
               <option value="Elena Ahmed">Elena Ahmed</option>
               <option value="Sofia Cohen">Sofia Cohen</option>
               <option value="Jamal Silva">Jamal Silva</option>
@@ -373,20 +380,27 @@
     ];
     
     document.addEventListener('DOMContentLoaded', function() {
-      // Set default date to today
+      // Set default date to today and make it non-modifiable
       const today = new Date();
       const formattedDate = today.toISOString().substr(0, 10);
-      document.getElementById('contactDate').value = formattedDate;
+      const dateInput = document.getElementById('contactDate');
+      dateInput.value = formattedDate;
+      dateInput.readOnly = true;
       
-      // Calculate days ago based on selected date
-      document.getElementById('contactDate').addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
-        const diffTime = Math.abs(today - selectedDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        // In a real app, we would update a "days ago" field
-        console.log('Days ago:', diffDays);
-      });
+      // Set the default provider to the logged-in user (Andrea Leflore)
+      const providerSelect = document.getElementById('provider');
+      const loggedInUser = 'Andrea Leflore'; // This would come from a session/auth system
+      
+      // Find and select the option for the logged-in user
+      for (let i = 0; i < providerSelect.options.length; i++) {
+        if (providerSelect.options[i].value === loggedInUser) {
+          providerSelect.selectedIndex = i;
+          break;
+        }
+      }
+      
+      // Calculate days ago (will always be 0 since date is fixed to today)
+      const diffDays = 0;
       
       // Toggle "None" checkbox for healthcare
       const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
@@ -424,7 +438,9 @@
         document.getElementById('client').readOnly = true;
         
         // Display client name prominently
-        document.getElementById('clientNameDisplay').textContent = clientParam;
+        const clientNameDisplay = document.getElementById('clientNameDisplay');
+        clientNameDisplay.textContent = clientParam;
+        clientNameDisplay.style.display = 'block'; // Ensure it's visible
         
         // Find the client ID
         const selectedClient = clientData.find(c => c.name === clientParam);
@@ -434,6 +450,12 @@
       } else {
         // Initialize type-ahead for client input if no client specified
         initClientTypeAhead();
+        
+        // Hide the client name display initially if no client is selected
+        const clientNameDisplay = document.getElementById('clientNameDisplay');
+        if (clientNameDisplay) {
+          clientNameDisplay.style.display = 'none';
+        }
       }
     });
     
@@ -538,7 +560,9 @@
           document.getElementById('selectedClientId').value = client.id;
           
           // Update prominently displayed client name
-          document.getElementById('clientNameDisplay').textContent = client.name;
+          const clientNameDisplay = document.getElementById('clientNameDisplay');
+          clientNameDisplay.textContent = client.name;
+          clientNameDisplay.style.display = 'block'; // Make sure it's visible
           
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
@@ -850,9 +874,8 @@
       // Calculate days ago
       const selectedDate = new Date(contactData.date);
       const today = new Date();
-      const diffTime = Math.abs(today - selectedDate);
-      const daysAgo = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      contactData.daysAgo = daysAgo;
+      // Since the date is fixed to today, days ago will always be 0
+      contactData.daysAgo = 0;
       
       console.log('Form data:', contactData);
       
@@ -937,7 +960,7 @@
     function resetForm() {
       document.getElementById('contactLogForm').reset();
       
-      // Reset date to today
+      // Reset date to today (though it's already fixed to today)
       const today = new Date();
       const formattedDate = today.toISOString().substr(0, 10);
       document.getElementById('contactDate').value = formattedDate;
