@@ -13,6 +13,7 @@
     
     .client-name-display {
       margin-top: 8px;
+      margin-bottom: 16px;
       font-size: 24px;
       font-weight: 500;
       color: var(--md-primary);
@@ -48,12 +49,13 @@
     </div>
   </header>
 
+  <!-- Client name display BEFORE page title -->
+  <div class="client-name-display" id="clientNameDisplay" style="padding-left: 24px; padding-top: 24px;"></div>
+
   <!-- Page Title Section -->
   <div class="page-title-section">
     <h1 class="page-title">Add Service Record</h1>
     <p class="page-subtitle">Record a new service for client</p>
-    <!-- Client name display - prominently shown below title -->
-    <div id="clientNameDisplay" class="client-name-display" style="margin-top: 8px; font-size: 24px; font-weight: 500; color: var(--md-primary);"></div>
   </div>
 
   <div class="main-container">
@@ -380,12 +382,10 @@
     ];
     
     document.addEventListener('DOMContentLoaded', function() {
-      // Set default date to today and make it non-modifiable
+      // Set default date to today
       const today = new Date();
       const formattedDate = today.toISOString().substr(0, 10);
-      const dateInput = document.getElementById('contactDate');
-      dateInput.value = formattedDate;
-      dateInput.readOnly = true;
+      document.getElementById('contactDate').value = formattedDate;
       
       // Set the default provider to the logged-in user (Andrea Leflore)
       const providerSelect = document.getElementById('provider');
@@ -398,9 +398,6 @@
           break;
         }
       }
-      
-      // Calculate days ago (will always be 0 since date is fixed to today)
-      const diffDays = 0;
       
       // Toggle "None" checkbox for healthcare
       const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
@@ -464,6 +461,7 @@
       const clientInput = document.getElementById('client');
       const suggestionContainer = document.getElementById('clientSuggestions');
       const selectedClientIdInput = document.getElementById('selectedClientId');
+      const clientNameDisplay = document.getElementById('clientNameDisplay');
       let currentSelection = -1;
       
       // Show suggestions as user types
@@ -475,6 +473,8 @@
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
           selectedClientIdInput.value = '';
+          clientNameDisplay.textContent = '';
+          clientNameDisplay.style.display = 'none';
           return;
         }
         
@@ -546,7 +546,6 @@
       // Create and append suggestion items
       clients.forEach((client, index) => {
         const item = document.createElement('div');
-        // Use the existing suggestion-item class from styles.css
         item.className = 'suggestion-item';
         item.dataset.index = index;
         item.dataset.id = client.id;
@@ -562,7 +561,7 @@
           // Update prominently displayed client name
           const clientNameDisplay = document.getElementById('clientNameDisplay');
           clientNameDisplay.textContent = client.name;
-          clientNameDisplay.style.display = 'block'; // Make sure it's visible
+          clientNameDisplay.style.display = 'block';
           
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
@@ -597,252 +596,7 @@
       if (!query) return text;
       
       // Case insensitive search
-      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\  <script>
-    // Client data from the main table
-    const clientData = [
-      { id: 1, name: 'Thiago Schmidt' },
-      { id: 2, name: 'Emma Taylor' },
-      { id: 3, name: 'William Johnson' },
-      { id: 4, name: 'Olivia Martinez' },
-      { id: 5, name: 'Liam Nguyen' },
-      { id: 6, name: 'Mia Patel' },
-      { id: 7, name: 'Noah Kim' },
-      { id: 8, name: 'Ava Hernandez' },
-      { id: 9, name: 'Ethan Choi' },
-      { id: 10, name: 'Sophia Gupta' },
-      { id: 11, name: 'Jackson Lee' },
-      { id: 12, name: 'Isabella Brown' },
-      { id: 13, name: 'Aiden Patel' },
-      { id: 14, name: 'Charlotte Davis' },
-      { id: 15, name: 'Peter Johnson' }
-    ];
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set default date to today
-      const today = new Date();
-      const formattedDate = today.toISOString().substr(0, 10);
-      document.getElementById('contactDate').value = formattedDate;
-      
-      // Calculate days ago based on selected date
-      document.getElementById('contactDate').addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
-        const diffTime = Math.abs(today - selectedDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        // In a real app, we would update a "days ago" field
-        console.log('Days ago:', diffDays);
-      });
-      
-      // Toggle "None" checkbox for healthcare
-      const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
-      healthcareCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          if (this.value === 'None' && this.checked) {
-            // Uncheck all other healthcare options
-            healthcareCheckboxes.forEach(cb => {
-              if (cb !== this && cb.checked) {
-                cb.checked = false;
-              }
-            });
-          } else if (this.checked) {
-            // If any other option is checked, uncheck "None"
-            const noneCheckbox = Array.from(healthcareCheckboxes).find(cb => cb.value === 'None');
-            if (noneCheckbox && noneCheckbox.checked) {
-              noneCheckbox.checked = false;
-            }
-          }
-        });
-      });
-      
-      // Initialize type-ahead for client input
-      initClientTypeAhead();
-      
-      // Check URL parameters for client selection (if opened from dialog)
-      const urlParams = new URLSearchParams(window.location.search);
-      const clientParam = urlParams.get('client');
-      if (clientParam) {
-        document.getElementById('client').value = clientParam;
-        
-        // Find the client ID
-        const selectedClient = clientData.find(c => c.name === clientParam);
-        if (selectedClient) {
-          document.getElementById('selectedClientId').value = selectedClient.id;
-        }
-      }
-    });
-    
-    // Initialize type-ahead functionality for client input
-    function initClientTypeAhead() {
-      const clientInput = document.getElementById('client');
-      const suggestionContainer = document.getElementById('clientSuggestions');
-      const selectedClientIdInput = document.getElementById('selectedClientId');
-      let currentSelection = -1;
-      
-      // Show suggestions as user types
-      clientInput.addEventListener('input', function() {
-        const query = this.value.trim().toLowerCase();
-        
-        // Clear suggestions if query is empty
-        if (query === '') {
-          suggestionContainer.innerHTML = '';
-          suggestionContainer.style.display = 'none';
-          selectedClientIdInput.value = '';
-          return;
-        }
-        
-        // Filter clients based on input
-        const filteredClients = clientData.filter(client => {
-          return client.name.toLowerCase().includes(query);
-        });
-        
-        // Render suggestions
-        renderClientSuggestions(filteredClients, query);
-      });
-      
-      // Handle keyboard navigation
-      clientInput.addEventListener('keydown', function(e) {
-        const suggestions = suggestionContainer.querySelectorAll('.suggestion-item');
-        
-        if (suggestions.length === 0) return;
-        
-        // Down arrow
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          currentSelection = (currentSelection + 1) % suggestions.length;
-          updateSelection(suggestions);
-        } 
-        // Up arrow
-        else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          currentSelection = (currentSelection - 1 + suggestions.length) % suggestions.length;
-          updateSelection(suggestions);
-        } 
-        // Enter key
-        else if (e.key === 'Enter' && currentSelection >= 0) {
-          e.preventDefault();
-          suggestions[currentSelection].click();
-        } 
-        // Escape key
-        else if (e.key === 'Escape') {
-          suggestionContainer.innerHTML = '';
-          suggestionContainer.style.display = 'none';
-          currentSelection = -1;
-        }
-      });
-      
-      // Close suggestions when clicking outside
-      document.addEventListener('click', function(e) {
-        if (e.target !== clientInput && e.target !== suggestionContainer) {
-          suggestionContainer.innerHTML = '';
-          suggestionContainer.style.display = 'none';
-          currentSelection = -1;
-        }
-      });
-    }
-    
-    // Render filtered client suggestions
-    function renderClientSuggestions(clients, query) {
-      const suggestionContainer = document.getElementById('clientSuggestions');
-      
-      // Reset selection
-      currentSelection = -1;
-      
-      // Clear previous suggestions
-      suggestionContainer.innerHTML = '';
-      
-      if (clients.length === 0) {
-        suggestionContainer.style.display = 'none';
-        return;
-      }
-      
-      // Create and append suggestion items
-      clients.forEach((client, index) => {
-        const item = document.createElement('div');
-        // Use the existing suggestion-item class from styles.css
-        item.className = 'suggestion-item';
-        item.dataset.index = index;
-        item.dataset.id = client.id;
-        
-        // Highlight matching text
-        item.innerHTML = highlightMatch(client.name, query);
-        
-        // Handle click on suggestion
-        item.addEventListener('click', function() {
-          document.getElementById('client').value = client.name;
-          document.getElementById('selectedClientId').value = client.id;
-          suggestionContainer.innerHTML = '';
-          suggestionContainer.style.display = 'none';
-        });
-        
-        // Handle mouse hover
-        item.addEventListener('mouseenter', function() {
-          currentSelection = parseInt(this.dataset.index);
-          updateSelection(suggestionContainer.querySelectorAll('.suggestion-item'));
-        });
-        
-        suggestionContainer.appendChild(item);
-      });
-      
-      // Show suggestions container
-      suggestionContainer.style.display = 'block';
-    }')})`, 'gi');
-      return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
-    }
-    
-    // Update visual selection in dropdown
-    function updateSelection(suggestions) {
-      suggestions.forEach((item, index) => {
-        if (index === currentSelection) {
-          item.classList.add('selected');
-        } else {
-          item.classList.remove('selected');
-        }
-      });
-    }
-    
-    // Highlight matching text in suggestions
-    function highlightMatch(text, query) {
-      if (!query) return text;
-      
-      // Case insensitive search
-      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Set default date to today
-      const today = new Date();
-      const formattedDate = today.toISOString().substr(0, 10);
-      document.getElementById('contactDate').value = formattedDate;
-      
-      // Calculate days ago based on selected date
-      document.getElementById('contactDate').addEventListener('change', function() {
-        const selectedDate = new Date(this.value);
-        const today = new Date();
-        const diffTime = Math.abs(today - selectedDate);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        // In a real app, we would update a "days ago" field
-        console.log('Days ago:', diffDays);
-      });
-      
-      // Toggle "None" checkbox for healthcare
-      const healthcareCheckboxes = document.querySelectorAll('input[name="healthcare"]');
-      healthcareCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          if (this.value === 'None' && this.checked) {
-            // Uncheck all other healthcare options
-            healthcareCheckboxes.forEach(cb => {
-              if (cb !== this && cb.checked) {
-                cb.checked = false;
-              }
-            });
-          } else if (this.checked) {
-            // If any other option is checked, uncheck "None"
-            const noneCheckbox = Array.from(healthcareCheckboxes).find(cb => cb.value === 'None');
-            if (noneCheckbox && noneCheckbox.checked) {
-              noneCheckbox.checked = false;
-            }
-          }
-        });
-      });
-    });')})`, 'gi');
+      const regex = new RegExp(`(${query.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
       return text.replace(regex, '<span class="suggestion-highlight">$1</span>');
     }
     
@@ -874,8 +628,8 @@
       // Calculate days ago
       const selectedDate = new Date(contactData.date);
       const today = new Date();
-      // Since the date is fixed to today, days ago will always be 0
-      contactData.daysAgo = 0;
+      const diffTime = Math.abs(today - selectedDate);
+      contactData.daysAgo = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
       console.log('Form data:', contactData);
       
@@ -883,11 +637,6 @@
       setTimeout(function() {
         showSuccess(contactData);
       }, 1500);
-      
-      // In a real application, here you would:
-      // 1. Send data to the server
-      // 2. Server would update the contact log table in index.html
-      // 3. Server would add a record to client's meeting history table in clientLogHistory.html
       
       return false; // Prevent form submission
     }
@@ -948,48 +697,4 @@
             ${healthcareList}
           </div>
           
-          <p><strong>Program Started:</strong> ${data.programStarted || 'None'}</p>
-          <p><strong>Housing Entered:</strong> ${data.housingEntered || 'None'}</p>
-          <p><strong>Program Status:</strong> ${data.programStatus || 'N/A'}</p>
-          
-          ${data.notes ? `<p><strong>Notes:</strong> ${data.notes}</p>` : ''}
-        </div>
-      `;
-    }
-    
-    function resetForm() {
-      document.getElementById('contactLogForm').reset();
-      
-      // Reset date to today (though it's already fixed to today)
-      const today = new Date();
-      const formattedDate = today.toISOString().substr(0, 10);
-      document.getElementById('contactDate').value = formattedDate;
-      
-      // Show form and hide result
-      document.getElementById('contactLogForm').style.display = 'block';
-      document.getElementById('resultSection').style.display = 'none';
-    }
-    
-    function goToContactLog() {
-      window.location.href = 'index.html';
-    }
-    
-    function viewClientHistory() {
-      const clientName = document.getElementById('client').value;
-      window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
-    }
-  </script>
-</body>
-</html>// Close dialog button handler
-    document.getElementById('closeFormBtn').addEventListener('click', function() {
-      // If the form is in a dialog, this would trigger dialog close
-      if (window.parent && window.parent.closeContactDialog) {
-        window.parent.closeContactDialog();
-      } else {
-        // Fallback if not in a dialog
-        window.location.href = 'index.html';
-      }
-    });
-  </script>
-</body>
-</html>
+          <p><strong>Program Starte
