@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Outreach Record</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="outreach.html" class="nav-tab nav-tab-active">OUTREACH</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+        <a href="cm.html" class="nav-tab nav-tab-inactive">CM</a>
+        <a href="ot.html" class="nav-tab nav-tab-inactive">OT</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Page Title Section -->
+  <div class="page-title-section">
+    <h1 class="page-title">New Outreach Record</h1>
+    <p class="page-subtitle">Log details about your outreach activity</p>
+  </div>
+
+  <div class="main-container">
+    <div class="container">
+      <form id="outreachForm" onsubmit="handleFormSubmit(this); return false;">
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h2 class="section-title">Outreach Information</h2>
+          
+          <div class="form-group">
+            <label for="outreachDate" class="required-field">Date</label>
+            <input type="date" id="outreachDate" name="outreachDate" class="form-control" required value="">
+          </div>
+          
+          <div class="form-group">
+            <label for="providers" class="required-field">ReVive Providers on Run</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Redrick"> Redrick</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Rolando"> Rolando</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Alex"> Alex</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Ashley B"> Ashley B</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Tarik"> Tarik</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Dave"> Dave</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Alexandra"> Alexandra</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="providers" value="Other"> Other</label>
+                <input type="text" id="otherProvider" name="otherProvider" class="form-control" placeholder="Other provider name" style="margin-top: 8px; display: none;">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="location" class="required-field">Location</label>
+            <select id="location" name="location" class="form-control" required>
+              <option value="">-- Select a location --</option>
+              <option value="52nd Lake Park">52nd Lake Park</option>
+              <option value="51st & Wentworth">51st & Wentworth</option>
+              <option value="18th&Canalport">18th & Canalport</option>
+              <option value="Hubbard & Desplaines">Hubbard & Desplaines</option>
+              <option value="Michigan/Erie & State/Grand">Michigan/Erie & State/Grand</option>
+              <option value="Other">Other (specify)</option>
+            </select>
+            <input type="text" id="otherLocation" name="otherLocation" class="form-control" placeholder="Specify location" style="margin-top: 8px; display: none;">
+          </div>
+        </div>
+        
+        <!-- Resources Section -->
+        <div class="form-section">
+          <h2 class="section-title">Resources Provided</h2>
+          
+          <div class="form-group">
+            <label># People Handed out</label>
+            <input type="number" id="peopleHandedOut" name="peopleHandedOut" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># Harm Reduction Kits (given)</label>
+            <input type="number" id="harmReductionKits" name="harmReductionKits" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># Food bags given</label>
+            <input type="number" id="foodBags" name="foodBags" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># Bus cards given</label>
+            <input type="number" id="busCards" name="busCards" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># received clothing</label>
+            <input type="number" id="receivedClothing" name="receivedClothing" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># IDME</label>
+            <input type="number" id="idme" name="idme" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># hygiene kits given</label>
+            <input type="number" id="hygieneKits" name="hygieneKits" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># GIFT CARDS GIVEN</label>
+            <input type="number" id="giftCards" name="giftCards" class="form-control" min="0" value="0">
+          </div>
+          
+          <div class="form-group">
+            <label># Narcan Administered (Form)</label>
+            <input type="number" id="narcanAdministered" name="narcanAdministered" class="form-control" min="0" value="0">
+          </div>
+        </div>
+        
+        <!-- Additional Information Section -->
+        <div class="form-section">
+          <h2 class="section-title">Additional Information</h2>
+          
+          <div class="form-group">
+            <label for="safetyNotes">Safety Notes</label>
+            <textarea id="safetyNotes" name="safetyNotes" class="form-control" rows="3" placeholder="Enter any safety concerns or notes..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="followupNeeds">Follow-up Needs</label>
+            <textarea id="followupNeeds" name="followupNeeds" class="form-control" rows="3" placeholder="Enter any follow-up needs..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="additionalNotes">Additional Notes</label>
+            <textarea id="additionalNotes" name="additionalNotes" class="form-control" rows="3" placeholder="Enter any additional notes..."></textarea>
+          </div>
+        </div>
+        
+        <!-- Form Buttons -->
+        <div class="form-buttons">
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+      
+      <div id="loadingSection" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Processing your submission...</p>
+      </div>
+      
+      <div id="resultSection" class="form-result">
+        <h3 id="resultTitle"></h3>
+        <p id="resultMessage"></p>
+        <div id="additionalInfo"></div>
+        <button type="button" class="btn btn-primary" onclick="goToOutreachPage()">Back to Outreach</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set default date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('outreachDate').value = formattedDate;
+      
+      // Toggle "Other Provider" text field visibility
+      const providerCheckboxes = document.getElementsByName('providers');
+      for (let i = 0; i < providerCheckboxes.length; i++) {
+        if (providerCheckboxes[i].value === 'Other') {
+          providerCheckboxes[i].addEventListener('change', function() {
+            const otherProviderInput = document.getElementById('otherProvider');
+            otherProviderInput.style.display = this.checked ? 'block' : 'none';
+            otherProviderInput.required = this.checked;
+          });
+        }
+      }
+      
+      // Toggle "Other Location" text field visibility
+      document.getElementById('location').addEventListener('change', function() {
+        const otherLocationInput = document.getElementById('otherLocation');
+        otherLocationInput.style.display = this.value === 'Other' ? 'block' : 'none';
+        otherLocationInput.required = this.value === 'Other';
+      });
+      
+      // Number inputs - prevent negative values
+      const numberInputs = document.querySelectorAll('input[type="number"]');
+      numberInputs.forEach(input => {
+        input.addEventListener('change', function() {
+          if (this.value < 0) this.value = 0;
+        });
+      });
+      
+      // Make all provider checkboxes fulfill the required constraint
+      const providerOptions = document.querySelectorAll('input[name="providers"]');
+      providerOptions.forEach(option => {
+        option.addEventListener('change', function() {
+          let anyChecked = false;
+          for (let i = 0; i < providerOptions.length; i++) {
+            if (providerOptions[i].checked) {
+              anyChecked = true;
+              break;
+            }
+          }
+          
+          providerOptions.forEach(opt => {
+            opt.required = !anyChecked;
+          });
+        });
+      });
+    });
+    
+    // Handle form submission
+    function handleFormSubmit(form) {
+      // Hide form and show loading indicator
+      form.style.display = 'none';
+      document.getElementById('loadingSection').style.display = 'block';
+      
+      // Collect form data
+      const formData = {
+        outreachDate: document.getElementById('outreachDate').value,
+        providers: getCheckedValues('providers'),
+        otherProvider: document.getElementById('otherProvider').value,
+        location: document.getElementById('location').value,
+        otherLocation: document.getElementById('otherLocation').value,
+        peopleHandedOut: document.getElementById('peopleHandedOut').value,
+        harmReductionKits: document.getElementById('harmReductionKits').value,
+        foodBags: document.getElementById('foodBags').value,
+        busCards: document.getElementById('busCards').value,
+        receivedClothing: document.getElementById('receivedClothing').value,
+        idme: document.getElementById('idme').value,
+        hygieneKits: document.getElementById('hygieneKits').value,
+        giftCards: document.getElementById('giftCards').value,
+        narcanAdministered: document.getElementById('narcanAdministered').value,
+        safetyNotes: document.getElementById('safetyNotes').value,
+        followupNeeds: document.getElementById('followupNeeds').value,
+        additionalNotes: document.getElementById('additionalNotes').value
+      };
+      
+      // Helper function to get all checked values for checkboxes with the same name
+      function getCheckedValues(name) {
+        const checkboxes = document.getElementsByName(name);
+        const values = [];
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            values.push(checkboxes[i].value);
+          }
+        }
+        return values;
+      }
+      
+      // Simulate form submission with a delay
+      setTimeout(function() {
+        showSuccess();
+      }, 1500);
+    }
+    
+    // Display success message
+    function showSuccess() {
+      // Hide loading indicator
+      document.getElementById('loadingSection').style.display = 'none';
+      
+      // Show result section
+      const resultSection = document.getElementById('resultSection');
+      resultSection.style.display = 'block';
+      resultSection.className = 'form-result success';
+      
+      // Update result content
+      document.getElementById('resultTitle').textContent = 'Outreach Record Submitted';
+      document.getElementById('resultMessage').textContent = 'Your outreach record has been successfully submitted and saved.';
+    }
+    
+    // Reset form fields and UI state
+    function resetForm() {
+      document.getElementById('outreachForm').reset();
+      
+      // Reset date to today
+      const today = new Date();
+      const formattedDate = today.toISOString().substr(0, 10);
+      document.getElementById('outreachDate').value = formattedDate;
+      
+      // Hide conditional input fields
+      document.getElementById('otherProvider').style.display = 'none';
+      document.getElementById('otherLocation').style.display = 'none';
+      
+      // Reset required status on provider checkboxes
+      const providerOptions = document.querySelectorAll('input[name="providers"]');
+      providerOptions.forEach(opt => {
+        opt.required = true;
+      });
+      
+      // Show form and hide other sections
+      document.getElementById('outreachForm').style.display = 'block';
+      document.getElementById('loadingSection').style.display = 'none';
+      document.getElementById('resultSection').style.display = 'none';
+    }
+    
+    // Navigate back to the outreach page
+    function goToOutreachPage() {
+      window.location.href = 'outreach.html';
+    }
+  </script>
+</body>
+</html>
