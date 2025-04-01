@@ -6,22 +6,13 @@
   <title>Add Service Record</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .type-ahead-container {
-      position: relative;
-      width: 100%;
-    }
-    
+    /* Only adding minimal styles not already in styles.css */
     .client-name-display {
-      margin-top: 8px;
-      margin-bottom: 16px;
-      font-size: 24px;
+      padding-left: 24px;
+      padding-top: 24px;
+      font-size: 32px;
       font-weight: 500;
       color: var(--md-primary);
-    }
-    
-    .suggestion-highlight {
-      font-weight: bold;
-      background-color: yellow;
     }
     
     .summary-section {
@@ -31,7 +22,7 @@
     
     .summary-section h5 {
       margin-bottom: 8px;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--md-outline-variant);
       padding-bottom: 4px;
     }
   </style>
@@ -65,10 +56,8 @@
     </div>
   </header>
 
-  <!-- Client name display BEFORE page title -->
-  <div class="client-name-display" id="clientNameDisplay" style="padding-left: 24px; padding-top: 24px; font-size: 32px; font-weight: 500; color: #006CFA;">Client: <span id="clientNameText"></span></div>
-
   <!-- Page Title Section -->
+  <div class="client-name-display" id="clientNameDisplay">Client: <span id="clientNameText"></span></div>
   <div class="page-title-section">
     <h1 class="page-title">Add Service Record</h1>
     <p class="page-subtitle">Record a new service for client</p>
