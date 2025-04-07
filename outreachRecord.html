@@ -54,48 +54,172 @@
           </div>
           
           <div class="form-group">
-            <label for="providers" class="required-field">ReVive Providers on Run</label>
-            <div class="multi-select-container">
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Redrick"> Redrick</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Rolando"> Rolando</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Alex"> Alex</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Ashley B"> Ashley B</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Tarik"> Tarik</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Dave"> Dave</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Alexandra"> Alexandra</label>
-              </div>
-              <div class="checkbox-group">
-                <label><input type="checkbox" name="providers" value="Other"> Other</label>
-                <input type="text" id="otherProvider" name="otherProvider" class="form-control" placeholder="Other provider name" style="margin-top: 8px; display: none;">
-              </div>
-            </div>
-          </div>
-          
-          <div class="form-group">
             <label for="location" class="required-field">Location</label>
             <select id="location" name="location" class="form-control" required>
               <option value="">-- Select a location --</option>
+              <option value="6th & Union">6th & Union</option>
               <option value="52nd Lake Park">52nd Lake Park</option>
               <option value="51st & Wentworth">51st & Wentworth</option>
-              <option value="18th&Canalport">18th & Canalport</option>
+              <option value="18th & Canalport">18th & Canalport</option>
               <option value="Hubbard & Desplaines">Hubbard & Desplaines</option>
               <option value="Michigan/Erie & State/Grand">Michigan/Erie & State/Grand</option>
               <option value="Other">Other (specify)</option>
             </select>
             <input type="text" id="otherLocation" name="otherLocation" class="form-control" placeholder="Specify location" style="margin-top: 8px; display: none;">
+          </div>
+          
+          <div class="form-group">
+            <label for="clientName" class="required-field">Client Name</label>
+            <input type="text" id="clientName" name="clientName" class="form-control" required>
+          </div>
+        </div>
+        
+        <!-- Provider Information Section -->
+        <div class="form-section">
+          <h2 class="section-title">Provider Information</h2>
+          
+          <div class="form-group">
+            <label for="providers" class="required-field">Provider Name</label>
+            <select id="providerName" name="providerName" class="form-control" required>
+              <option value="">-- Select provider --</option>
+              <option value="White, Ashley">White, Ashley</option>
+              <option value="Perry, Alexandra">Perry, Alexandra</option>
+              <option value="Leflore, Andrea">Leflore, Andrea</option>
+              <option value="Brown, Tarik">Brown, Tarik</option>
+              <option value="Burks, Ashley">Burks, Ashley</option>
+              <option value="Jara, Rolando">Jara, Rolando</option>
+              <option value="Taylor, Redrick">Taylor, Redrick</option>
+              <option value="Moore, Chezeray">Moore, Chezeray</option>
+              <option value="Morris, Dave">Morris, Dave</option>
+              <option value="Essenmacher, Tiffany">Essenmacher, Tiffany</option>
+              <option value="Pagliaruli, Cassandra">OTS- Pagliaruli, Cassandra</option>
+              <option value="Frazier, Danielle">Frazier, Danielle</option>
+              <option value="Harvey, Meshon">Harvey, Meshon</option>
+              <option value="Hahn, Mickey">Hahn, Mickey</option>
+              <option value="Sifuentes, Diana">Sifuentes, Diana</option>
+              <option value="Other">Other</option>
+            </select>
+            <input type="text" id="otherProvider" name="otherProvider" class="form-control" placeholder="Other provider name" style="margin-top: 8px; display: none;">
+          </div>
+        </div>
+        
+        <!-- Services Section -->
+        <div class="form-section">
+          <h2 class="section-title">Services & Resources</h2>
+          
+          <div class="form-group">
+            <label>Services Provided</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Case Management"> Case Management</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Occupational Therapy"> Occupational Therapy</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Peer Navigation"> Peer Navigation</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Housing Navigation"> Housing Navigation</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Public Aid"> Public Aid</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Social Work"> Social Work</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="servicesProvided" value="Other"> Other</label>
+                <input type="text" id="otherServices" name="otherServices" class="form-control" placeholder="Other services" style="margin-top: 8px; display: none;">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Referrals Provided</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="referralsProvided" value="Medical"> Medical</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="referralsProvided" value="Mental Health"> Mental Health</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="referralsProvided" value="Advocacy"> Advocacy</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="referralsProvided" value="Engagement Center"> Engagement Center</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="referralsProvided" value="Other"> Other</label>
+                <input type="text" id="otherReferrals" name="otherReferrals" class="form-control" placeholder="Other referrals" style="margin-top: 8px; display: none;">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="connectedToShelter">Connected to Shelter</label>
+            <select id="connectedToShelter" name="connectedToShelter" class="form-control">
+              <option value="">-- Select option --</option>
+              <option value="Y">Yes</option>
+              <option value="N">No</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="transportationProvided">Transportation Provided</label>
+            <select id="transportationProvided" name="transportationProvided" class="form-control">
+              <option value="">-- Select option --</option>
+              <option value="Y">Yes</option>
+              <option value="N">No</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Documentation Needed</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="State ID"> State ID</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Social Security Card"> Social Security Card</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Coordinated Entry"> Coordinated Entry</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Chicago Housing Authority Waitlist"> Chicago Housing Authority Waitlist</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="SSI/SSDI"> SSI/SSDI</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="SNAP"> SNAP</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Medicaid / Insurance"> Medicaid / Insurance</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Homeless Verification Letters"> Homeless Verification Letters</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Phone"> Phone</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="documentationNeeded" value="Other"> Other</label>
+                <input type="text" id="otherDocumentation" name="otherDocumentation" class="form-control" placeholder="Other documentation" style="margin-top: 8px; display: none;">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="otDirectIndirect">OT Direct/Indirect</label>
+            <select id="otDirectIndirect" name="otDirectIndirect" class="form-control">
+              <option value="">-- Select option --</option>
+              <option value="Direct">Direct</option>
+              <option value="Indirect">Indirect</option>
+              <option value="N/A">N/A</option>
+            </select>
           </div>
         </div>
         
@@ -104,48 +228,68 @@
           <h2 class="section-title">Resources Provided</h2>
           
           <div class="form-group">
-            <label># People Handed out</label>
-            <input type="number" id="peopleHandedOut" name="peopleHandedOut" class="form-control" min="0" value="0">
+            <label>Resources Given</label>
+            <div class="multi-select-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Food"> Food</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Hygiene Kit"> Hygiene Kit</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Clothing"> Clothing</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Gift Card"> Gift Card</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Harm Reduction"> Harm Reduction</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Narcan"> Narcan</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="CTA Cards"> CTA Cards</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="resourcesGiven" value="Other"> Other</label>
+                <input type="text" id="otherResources" name="otherResources" class="form-control" placeholder="Other resources" style="margin-top: 8px; display: none;">
+              </div>
+            </div>
           </div>
           
           <div class="form-group">
-            <label># Harm Reduction Kits (given)</label>
-            <input type="number" id="harmReductionKits" name="harmReductionKits" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># Food bags given</label>
-            <input type="number" id="foodBags" name="foodBags" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># Bus cards given</label>
-            <input type="number" id="busCards" name="busCards" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># received clothing</label>
-            <input type="number" id="receivedClothing" name="receivedClothing" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># IDME</label>
-            <input type="number" id="idme" name="idme" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># hygiene kits given</label>
-            <input type="number" id="hygieneKits" name="hygieneKits" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># GIFT CARDS GIVEN</label>
-            <input type="number" id="giftCards" name="giftCards" class="form-control" min="0" value="0">
-          </div>
-          
-          <div class="form-group">
-            <label># Narcan Administered (Form)</label>
-            <input type="number" id="narcanAdministered" name="narcanAdministered" class="form-control" min="0" value="0">
+            <label for="resourceCounts"># of Resources Distributed</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
+              <div>
+                <label for="foodCount" style="font-weight: normal;">Food</label>
+                <input type="number" id="foodCount" name="foodCount" class="form-control" min="0" value="0">
+              </div>
+              <div>
+                <label for="hygieneKitCount" style="font-weight: normal;">Hygiene Kits</label>
+                <input type="number" id="hygieneKitCount" name="hygieneKitCount" class="form-control" min="0" value="0">
+              </div>
+              <div>
+                <label for="clothingCount" style="font-weight: normal;">Clothing Items</label>
+                <input type="number" id="clothingCount" name="clothingCount" class="form-control" min="0" value="0">
+              </div>
+              <div>
+                <label for="giftCardCount" style="font-weight: normal;">Gift Cards</label>
+                <input type="number" id="giftCardCount" name="giftCardCount" class="form-control" min="0" value="0">
+              </div>
+              <div>
+                <label for="harmReductionCount" style="font-weight: normal;">Harm Reduction Kits</label>
+                <input type="number" id="harmReductionCount" name="harmReductionCount" class="form-control" min="0" value="0">
+              </div>
+              <div>
+                <label for="narcanCount" style="font-weight: normal;">Narcan</label>
+                <input type="number" id="narcanCount" name="narcanCount" class="form-control" min="0" value="0">
+              </div>
+              <div>
+                <label for="ctaCardCount" style="font-weight: normal;">CTA Cards</label>
+                <input type="number" id="ctaCardCount" name="ctaCardCount" class="form-control" min="0" value="0">
+              </div>
+            </div>
           </div>
         </div>
         
@@ -154,18 +298,18 @@
           <h2 class="section-title">Additional Information</h2>
           
           <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" class="form-control" rows="3" placeholder="Enter any notes, observations, or additional details about this outreach interaction..."></textarea>
+          </div>
+          
+          <div class="form-group">
             <label for="safetyNotes">Safety Notes</label>
-            <textarea id="safetyNotes" name="safetyNotes" class="form-control" rows="3" placeholder="Enter any safety concerns or notes..."></textarea>
+            <textarea id="safetyNotes" name="safetyNotes" class="form-control" rows="2" placeholder="Enter any safety concerns or notes..."></textarea>
           </div>
           
           <div class="form-group">
             <label for="followupNeeds">Follow-up Needs</label>
-            <textarea id="followupNeeds" name="followupNeeds" class="form-control" rows="3" placeholder="Enter any follow-up needs..."></textarea>
-          </div>
-          
-          <div class="form-group">
-            <label for="additionalNotes">Additional Notes</label>
-            <textarea id="additionalNotes" name="additionalNotes" class="form-control" rows="3" placeholder="Enter any additional notes..."></textarea>
+            <textarea id="followupNeeds" name="followupNeeds" class="form-control" rows="2" placeholder="Enter any follow-up needs..."></textarea>
           </div>
         </div>
         
@@ -197,24 +341,22 @@
       const formattedDate = today.toISOString().substr(0, 10);
       document.getElementById('outreachDate').value = formattedDate;
       
-      // Toggle "Other Provider" text field visibility
-      const providerCheckboxes = document.getElementsByName('providers');
-      for (let i = 0; i < providerCheckboxes.length; i++) {
-        if (providerCheckboxes[i].value === 'Other') {
-          providerCheckboxes[i].addEventListener('change', function() {
-            const otherProviderInput = document.getElementById('otherProvider');
-            otherProviderInput.style.display = this.checked ? 'block' : 'none';
-            otherProviderInput.required = this.checked;
-          });
-        }
-      }
-      
-      // Toggle "Other Location" text field visibility
+      // Toggle "Other" text field visibility for all selects and checkboxes
       document.getElementById('location').addEventListener('change', function() {
-        const otherLocationInput = document.getElementById('otherLocation');
-        otherLocationInput.style.display = this.value === 'Other' ? 'block' : 'none';
-        otherLocationInput.required = this.value === 'Other';
+        document.getElementById('otherLocation').style.display = 
+          this.value === 'Other' ? 'block' : 'none';
       });
+      
+      document.getElementById('providerName').addEventListener('change', function() {
+        document.getElementById('otherProvider').style.display = 
+          this.value === 'Other' ? 'block' : 'none';
+      });
+      
+      // Setup toggle for "Other" checkboxes
+      setupOtherCheckboxToggle('servicesProvided', 'otherServices');
+      setupOtherCheckboxToggle('referralsProvided', 'otherReferrals');
+      setupOtherCheckboxToggle('documentationNeeded', 'otherDocumentation');
+      setupOtherCheckboxToggle('resourcesGiven', 'otherResources');
       
       // Number inputs - prevent negative values
       const numberInputs = document.querySelectorAll('input[type="number"]');
@@ -223,25 +365,20 @@
           if (this.value < 0) this.value = 0;
         });
       });
-      
-      // Make all provider checkboxes fulfill the required constraint
-      const providerOptions = document.querySelectorAll('input[name="providers"]');
-      providerOptions.forEach(option => {
-        option.addEventListener('change', function() {
-          let anyChecked = false;
-          for (let i = 0; i < providerOptions.length; i++) {
-            if (providerOptions[i].checked) {
-              anyChecked = true;
-              break;
-            }
-          }
-          
-          providerOptions.forEach(opt => {
-            opt.required = !anyChecked;
-          });
-        });
-      });
     });
+    
+    // Helper function to set up "Other" checkbox toggle
+    function setupOtherCheckboxToggle(checkboxName, textFieldId) {
+      const checkboxes = document.getElementsByName(checkboxName);
+      for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].value === 'Other') {
+          checkboxes[i].addEventListener('change', function() {
+            document.getElementById(textFieldId).style.display = 
+              this.checked ? 'block' : 'none';
+          });
+        }
+      }
+    }
     
     // Handle form submission
     function handleFormSubmit(form) {
@@ -249,38 +386,7 @@
       form.style.display = 'none';
       document.getElementById('loadingSection').style.display = 'block';
       
-      // Collect form data
-      const formData = {
-        outreachDate: document.getElementById('outreachDate').value,
-        providers: getCheckedValues('providers'),
-        otherProvider: document.getElementById('otherProvider').value,
-        location: document.getElementById('location').value,
-        otherLocation: document.getElementById('otherLocation').value,
-        peopleHandedOut: document.getElementById('peopleHandedOut').value,
-        harmReductionKits: document.getElementById('harmReductionKits').value,
-        foodBags: document.getElementById('foodBags').value,
-        busCards: document.getElementById('busCards').value,
-        receivedClothing: document.getElementById('receivedClothing').value,
-        idme: document.getElementById('idme').value,
-        hygieneKits: document.getElementById('hygieneKits').value,
-        giftCards: document.getElementById('giftCards').value,
-        narcanAdministered: document.getElementById('narcanAdministered').value,
-        safetyNotes: document.getElementById('safetyNotes').value,
-        followupNeeds: document.getElementById('followupNeeds').value,
-        additionalNotes: document.getElementById('additionalNotes').value
-      };
-      
-      // Helper function to get all checked values for checkboxes with the same name
-      function getCheckedValues(name) {
-        const checkboxes = document.getElementsByName(name);
-        const values = [];
-        for (let i = 0; i < checkboxes.length; i++) {
-          if (checkboxes[i].checked) {
-            values.push(checkboxes[i].value);
-          }
-        }
-        return values;
-      }
+      // In a real application, this would collect all form data and submit to server
       
       // Simulate form submission with a delay
       setTimeout(function() {
@@ -312,15 +418,13 @@
       const formattedDate = today.toISOString().substr(0, 10);
       document.getElementById('outreachDate').value = formattedDate;
       
-      // Hide conditional input fields
-      document.getElementById('otherProvider').style.display = 'none';
+      // Hide all conditional input fields
       document.getElementById('otherLocation').style.display = 'none';
-      
-      // Reset required status on provider checkboxes
-      const providerOptions = document.querySelectorAll('input[name="providers"]');
-      providerOptions.forEach(opt => {
-        opt.required = true;
-      });
+      document.getElementById('otherProvider').style.display = 'none';
+      document.getElementById('otherServices').style.display = 'none';
+      document.getElementById('otherReferrals').style.display = 'none';
+      document.getElementById('otherDocumentation').style.display = 'none';
+      document.getElementById('otherResources').style.display = 'none';
       
       // Show form and hide other sections
       document.getElementById('outreachForm').style.display = 'block';
