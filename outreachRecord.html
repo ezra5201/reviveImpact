@@ -55,17 +55,10 @@
           
           <div class="form-group">
             <label for="location" class="required-field">Location</label>
-            <select id="location" name="location" class="form-control" required>
-              <option value="">-- Select a location --</option>
-              <option value="6th & Union">6th & Union</option>
-              <option value="52nd Lake Park">52nd Lake Park</option>
-              <option value="51st & Wentworth">51st & Wentworth</option>
-              <option value="18th & Canalport">18th & Canalport</option>
-              <option value="Hubbard & Desplaines">Hubbard & Desplaines</option>
-              <option value="Michigan/Erie & State/Grand">Michigan/Erie & State/Grand</option>
-              <option value="Other">Other (specify)</option>
-            </select>
-            <input type="text" id="otherLocation" name="otherLocation" class="form-control" placeholder="Specify location" style="margin-top: 8px; display: none;">
+            <div class="typeahead-container">
+              <input type="text" id="location" name="location" class="form-control" required placeholder="Type to search locations">
+              <div id="locationSuggestions" class="suggestions-container"></div>
+            </div>
           </div>
           
           <div class="form-group">
@@ -74,34 +67,134 @@
           </div>
         </div>
         
-        <!-- Provider Information Section -->
-        <div class="form-section">
-          <h2 class="section-title">Provider Information</h2>
-          
-          <div class="form-group">
-            <label for="providers" class="required-field">Provider Name</label>
-            <select id="providerName" name="providerName" class="form-control" required>
-              <option value="">-- Select provider --</option>
-              <option value="White, Ashley">White, Ashley</option>
-              <option value="Perry, Alexandra">Perry, Alexandra</option>
-              <option value="Leflore, Andrea">Leflore, Andrea</option>
-              <option value="Brown, Tarik">Brown, Tarik</option>
-              <option value="Burks, Ashley">Burks, Ashley</option>
-              <option value="Jara, Rolando">Jara, Rolando</option>
-              <option value="Taylor, Redrick">Taylor, Redrick</option>
-              <option value="Moore, Chezeray">Moore, Chezeray</option>
-              <option value="Morris, Dave">Morris, Dave</option>
-              <option value="Essenmacher, Tiffany">Essenmacher, Tiffany</option>
-              <option value="Pagliaruli, Cassandra">OTS- Pagliaruli, Cassandra</option>
-              <option value="Frazier, Danielle">Frazier, Danielle</option>
-              <option value="Harvey, Meshon">Harvey, Meshon</option>
-              <option value="Hahn, Mickey">Hahn, Mickey</option>
-              <option value="Sifuentes, Diana">Sifuentes, Diana</option>
-              <option value="Other">Other</option>
-            </select>
-            <input type="text" id="otherProvider" name="otherProvider" class="form-control" placeholder="Other provider name" style="margin-top: 8px; display: none;">
-          </div>
+
+<!-- Provider Information Section -->
+<div class="form-section">
+  <h2 class="section-title">Provider Information</h2>
+  
+  <div class="form-group">
+    <label for="providers" class="required-field">Provider Name</label>
+    <select id="providerName" name="providerName" class="form-control" required>
+      <option value="">-- Select provider --</option>
+      <option value="White, Ashley">White, Ashley</option>
+      <option value="Perry, Alexandra">Perry, Alexandra</option>
+      <option value="Leflore, Andrea">Leflore, Andrea</option>
+      <option value="Brown, Tarik">Brown, Tarik</option>
+      <option value="Burks, Ashley">Burks, Ashley</option>
+      <option value="Jara, Rolando">Jara, Rolando</option>
+      <option value="Taylor, Redrick">Taylor, Redrick</option>
+      <option value="Moore, Chezeray">Moore, Chezeray</option>
+      <option value="Morris, Dave">Morris, Dave</option>
+      <option value="Essenmacher, Tiffany">Essenmacher, Tiffany</option>
+      <option value="Pagliaruli, Cassandra">OTS- Pagliaruli, Cassandra</option>
+      <option value="Frazier, Danielle">Frazier, Danielle</option>
+      <option value="Harvey, Meshon">Harvey, Meshon</option>
+      <option value="Hahn, Mickey">Hahn, Mickey</option>
+      <option value="Sifuentes, Diana">Sifuentes, Diana</option>
+      <option value="Other">Other</option>
+    </select>
+    <input type="text" id="otherProvider" name="otherProvider" class="form-control" placeholder="Other provider name" style="margin-top: 8px; display: none;">
+  </div>
+</div>
+
+<!-- OT/OTS Section (Collapsible) -->
+<div class="form-section" id="otOtsSection">
+  <button type="button" class="md-accordion-header" onclick="toggleSection('otOtsContent', this)">
+    <span class="md-accordion-title">OT/OTS</span>
+    <span class="md-accordion-icon"></span>
+  </button>
+  
+  <div id="otOtsContent" class="md-accordion-content" style="display: none;">
+    <div class="form-group">
+      <label for="otProviderName">OT/OTS Provider Name</label>
+      <input type="text" id="otProviderName" name="otProviderName" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label>Intervention Provided</label>
+      <div class="multi-select-container">
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="Health Management"> Health Management</label>
         </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="Management of Living Space"> Management of Living Space</label>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="ADLs"> ADLs</label>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="IADLs"> IADLs</label>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="Advocacy Housing"> Advocacy Housing</label>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="Transition"> Transition</label>
+        </div>
+        <div class="checkbox-group">
+          <label><input type="checkbox" name="interventionProvided" value="Other"> Other</label>
+          <textarea id="otherIntervention" name="otherIntervention" class="form-control" rows="2" placeholder="Describe other intervention" style="margin-top: 8px; display: none;"></textarea>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Service Type</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="serviceType" value="Direct">
+          Direct
+        </label>
+      </div>
+      <div class="radio-group">
+        <label>
+          <input type="radio" name="serviceType" value="Indirect">
+          Indirect (Advocacy)
+        </label>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="followupNeededOT" name="followupNeededOT" value="Yes">
+          Follow-up Needed?
+        </label>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="otOtherNotes">Other (interventions provided / follow-up needed)</label>
+      <textarea id="otOtherNotes" name="otOtherNotes" class="form-control" rows="3" placeholder="Enter other interventions or follow-up needs..."></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="dapNote">DAP Note</label>
+      <textarea id="dapNote" name="dapNote" class="form-control" rows="4" placeholder="Enter DAP note..."></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- PN Section (Collapsible) -->
+<div class="form-section" id="pnSection">
+  <button type="button" class="md-accordion-header" onclick="toggleSection('pnContent', this)">
+    <span class="md-accordion-title">PN</span>
+    <span class="md-accordion-icon"></span>
+  </button>
+  
+  <div id="pnContent" class="md-accordion-content" style="display: none;">
+    <div class="form-group">
+      <label for="pnProviderName">Provider Name</label>
+      <input type="text" id="pnProviderName" name="pnProviderName" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="pnNote">Note</label>
+      <textarea id="pnNote" name="pnNote" class="form-control" rows="4" placeholder="Enter note..."></textarea>
+    </div>
+  </div>
+</div>
+
         
         <!-- Services Section -->
         <div class="form-section">
@@ -257,40 +350,6 @@
               </div>
             </div>
           </div>
-          
-          <div class="form-group">
-            <label for="resourceCounts"># of Resources Distributed</label>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;">
-              <div>
-                <label for="foodCount" style="font-weight: normal;">Food</label>
-                <input type="number" id="foodCount" name="foodCount" class="form-control" min="0" value="0">
-              </div>
-              <div>
-                <label for="hygieneKitCount" style="font-weight: normal;">Hygiene Kits</label>
-                <input type="number" id="hygieneKitCount" name="hygieneKitCount" class="form-control" min="0" value="0">
-              </div>
-              <div>
-                <label for="clothingCount" style="font-weight: normal;">Clothing Items</label>
-                <input type="number" id="clothingCount" name="clothingCount" class="form-control" min="0" value="0">
-              </div>
-              <div>
-                <label for="giftCardCount" style="font-weight: normal;">Gift Cards</label>
-                <input type="number" id="giftCardCount" name="giftCardCount" class="form-control" min="0" value="0">
-              </div>
-              <div>
-                <label for="harmReductionCount" style="font-weight: normal;">Harm Reduction Kits</label>
-                <input type="number" id="harmReductionCount" name="harmReductionCount" class="form-control" min="0" value="0">
-              </div>
-              <div>
-                <label for="narcanCount" style="font-weight: normal;">Narcan</label>
-                <input type="number" id="narcanCount" name="narcanCount" class="form-control" min="0" value="0">
-              </div>
-              <div>
-                <label for="ctaCardCount" style="font-weight: normal;">CTA Cards</label>
-                <input type="number" id="ctaCardCount" name="ctaCardCount" class="form-control" min="0" value="0">
-              </div>
-            </div>
-          </div>
         </div>
         
         <!-- Additional Information Section -->
@@ -357,6 +416,7 @@
       setupOtherCheckboxToggle('referralsProvided', 'otherReferrals');
       setupOtherCheckboxToggle('documentationNeeded', 'otherDocumentation');
       setupOtherCheckboxToggle('resourcesGiven', 'otherResources');
+      setupOtherCheckboxToggle('interventionProvided', 'otherIntervention');
       
       // Number inputs - prevent negative values
       const numberInputs = document.querySelectorAll('input[type="number"]');
@@ -365,6 +425,82 @@
           if (this.value < 0) this.value = 0;
         });
       });
+      
+      // Set up accordion panels initial state
+      const accordionHeaders = document.querySelectorAll('.md-accordion-header');
+      accordionHeaders.forEach(header => {
+        const contentId = header.getAttribute('onclick').match(/'([^']+)'/)[1];
+        const content = document.getElementById(contentId);
+        content.style.maxHeight = '0px';
+      });
+      
+      // Add styles for MD3 accordions
+      const style = document.createElement('style');
+      style.textContent = `
+        .md-accordion-header {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 0;
+          background: none;
+          border: none;
+          border-bottom: 1px solid var(--md-outline-variant);
+          cursor: pointer;
+          text-align: left;
+          font-size: var(--md-title-medium-font);
+          font-weight: var(--md-title-medium-weight);
+          color: var(--md-primary);
+          transition: background-color 0.2s ease;
+        }
+        
+        .md-accordion-header:hover {
+          background-color: rgba(0, 108, 250, 0.05);
+        }
+        
+        .md-accordion-title {
+          margin: 0;
+        }
+        
+        .md-accordion-icon {
+          width: 24px;
+          height: 24px;
+          position: relative;
+        }
+        
+        .md-accordion-icon::before,
+        .md-accordion-icon::after {
+          content: '';
+          position: absolute;
+          background-color: var(--md-primary);
+          transition: transform 0.3s ease;
+        }
+        
+        .md-accordion-icon::before {
+          top: 11px;
+          left: 3px;
+          width: 18px;
+          height: 2px;
+        }
+        
+        .md-accordion-icon::after {
+          top: 3px;
+          left: 11px;
+          width: 2px;
+          height: 18px;
+        }
+        
+        .md-accordion-icon.expanded::after {
+          transform: rotate(90deg);
+        }
+        
+        .md-accordion-content {
+          padding-top: 16px;
+          overflow: hidden;
+          transition: max-height 0.3s ease;
+        }
+      `;
+      document.head.appendChild(style);
     });
     
     // Helper function to set up "Other" checkbox toggle
@@ -425,6 +561,20 @@
       document.getElementById('otherReferrals').style.display = 'none';
       document.getElementById('otherDocumentation').style.display = 'none';
       document.getElementById('otherResources').style.display = 'none';
+      document.getElementById('otherIntervention').style.display = 'none';
+      
+      // Reset accordion panels state
+      const accordionContents = document.querySelectorAll('.md-accordion-content');
+      const accordionIcons = document.querySelectorAll('.md-accordion-icon');
+      
+      accordionContents.forEach(content => {
+        content.style.display = 'none';
+        content.style.maxHeight = '0px';
+      });
+      
+      accordionIcons.forEach(icon => {
+        icon.classList.remove('expanded');
+      });
       
       // Show form and hide other sections
       document.getElementById('outreachForm').style.display = 'block';
@@ -435,6 +585,31 @@
     // Navigate back to the outreach page
     function goToOutreachPage() {
       window.location.href = 'outreach.html';
+    }
+    
+    // Toggle visibility of collapsible sections
+    function toggleSection(contentId, headerBtn) {
+      const content = document.getElementById(contentId);
+      const icon = headerBtn.querySelector('.md-accordion-icon');
+      
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.classList.add('expanded');
+        
+        // Animate open with max-height
+        setTimeout(() => {
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }, 10); // Small delay to ensure display:block has taken effect
+      } else {
+        // Animate closed
+        content.style.maxHeight = '0px';
+        icon.classList.remove('expanded');
+        
+        // After animation completes, hide the content
+        setTimeout(() => {
+          content.style.display = 'none';
+        }, 300);
+      }
     }
   </script>
 </body>
