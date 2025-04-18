@@ -312,85 +312,198 @@
     });
     
     function fetchClientData(clientId) {
-      // Simulate API call to get client data
-      // In a real app, this would be an actual API call
-      
-      // Mock client data - would come from API in real application
-      const clientData = {
-        '172879': {
-          clientId: '172879',
-          firstName: 'Robert',
-          lastName: 'Smith',
-          programCode: '161 Cressey',
-          enrollmentDate: '11/13/2004',
-          birthDate: '12/24/1970',
-          age: '54',
-          gender: 'Male',
-          veteran: 'No',
-          livingArrangement: 'Single',
-          ethnicity: 'Hispanic/Latino',
-          race: 'White',
-          housingType: 'Transitional housing',
-          homeless: 'No',
-          disabilities: ['Alcohol abuse'], 
-          medicaid: 'Yes',
-          snapStatus: 'Currently receiving',
-          incomeRange: '$251-500',
-          primaryIncomeSource: 'TANF'
-        },
-        '171009': {
-          clientId: '171009',
-          firstName: 'James',
-          lastName: 'Johnson',
-          programCode: '161 Cressey',
-          enrollmentDate: '07/26/2005',
-          birthDate: '06/19/1968',
-          age: '56',
-          gender: 'Male',
-          veteran: 'No',
-          livingArrangement: 'Single',
-          ethnicity: 'Hispanic/Latino',
-          race: 'White',
-          housingType: 'Substance abuse treatment facility',
-          homeless: 'No',
-          disabilities: ['Developmental disability'],
-          medicaid: 'Yes',
-          snapStatus: 'Currently receiving',
-          incomeRange: '$251-500',
-          primaryIncomeSource: 'TANF'
-        },
-        '35446': {
-          clientId: '35446',
-          firstName: 'Maria',
-          lastName: 'Wilson',
-          programCode: '161 Cressey',
-          enrollmentDate: '07/26/2005',
-          birthDate: '05/04/2004',
-          age: '20',
-          gender: 'Female',
-          veteran: 'No',
-          livingArrangement: 'Single',
-          ethnicity: 'Non-Hispanic/Latino',
-          race: 'Black/African American',
-          housingType: 'Other',
-          homeless: 'No',
-          disabilities: ['Substance abuse'],
-          medicaid: 'Yes',
-          snapStatus: 'Not Eligible',
-          incomeRange: '$151-250',
-          primaryIncomeSource: 'SSDI'
-        }
-      };
-      
-      const client = clientData[clientId];
-      
-      if (client) {
-        populateForm(client);
-      } else {
-        alert('Client not found');
-        window.location.href = 'clients.html';
-      }
+  // Simulate API call to get client data
+  // In a real app, this would be an actual API call
+  
+  // Mock client data - would come from API in real application
+  const clientData = {
+    '172879': {
+      clientId: '172879',
+      firstName: 'Robert',
+      lastName: 'Smith',
+      programCode: '161 Cressey',
+      enrollmentDate: '11/13/2004',
+      birthDate: '12/24/1970',
+      age: '54',
+      gender: 'Male',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Hispanic/Latino',
+      race: 'White',
+      housingType: 'Transitional housing',
+      homeless: 'No',
+      disabilities: ['Alcohol abuse'], 
+      medicaid: 'Yes',
+      snapStatus: 'Currently receiving',
+      incomeRange: '$251-500',
+      primaryIncomeSource: 'TANF'
+    },
+    '171009': {
+      clientId: '171009',
+      firstName: 'James',
+      lastName: 'Johnson',
+      programCode: '161 Cressey',
+      enrollmentDate: '07/26/2005',
+      birthDate: '06/19/1968',
+      age: '56',
+      gender: 'Male',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Hispanic/Latino',
+      race: 'White',
+      housingType: 'Substance abuse treatment facility',
+      homeless: 'No',
+      disabilities: ['Developmental disability'],
+      medicaid: 'Yes',
+      snapStatus: 'Currently receiving',
+      incomeRange: '$251-500',
+      primaryIncomeSource: 'TANF'
+    },
+    '35446': {
+      clientId: '35446',
+      firstName: 'Maria',
+      lastName: 'Wilson',
+      programCode: '161 Cressey',
+      enrollmentDate: '07/26/2005',
+      birthDate: '05/04/2004',
+      age: '20',
+      gender: 'Female',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Non-Hispanic/Latino',
+      race: 'Black/African American',
+      housingType: 'Other',
+      homeless: 'No',
+      disabilities: ['Substance abuse'],
+      medicaid: 'Yes',
+      snapStatus: 'Not Eligible',
+      incomeRange: '$151-250',
+      primaryIncomeSource: 'SSDI'
+    },
+    '33127': {
+      clientId: '33127',
+      firstName: 'Lisa',
+      lastName: 'Thompson',
+      programCode: '161 Cressey',
+      enrollmentDate: '01/19/2008',
+      birthDate: '01/18/2008',
+      age: '17',
+      gender: 'Female',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Non-Hispanic/Latino',
+      race: 'Black/African American',
+      housingType: 'Substance abuse treatment facility',
+      homeless: 'Yes',
+      disabilities: ['Mental illness'],
+      medicaid: 'Yes',
+      snapStatus: 'Currently receiving',
+      incomeRange: '$501-1000',
+      primaryIncomeSource: 'Unemployment'
+    },
+    '257421': {
+      clientId: '257421',
+      firstName: 'Michael',
+      lastName: 'Davis',
+      programCode: '161 Cressey',
+      enrollmentDate: '03/20/2008',
+      birthDate: '12/08/1964',
+      age: '60',
+      gender: 'Male',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Non-Hispanic/Latino',
+      race: 'Black/African American',
+      housingType: 'Transitional housing',
+      homeless: 'No',
+      disabilities: ['Mental illness'],
+      medicaid: 'Yes',
+      snapStatus: 'Currently receiving',
+      incomeRange: '$501-1000',
+      primaryIncomeSource: 'SSDI'
+    },
+    '280784': {
+      clientId: '280784',
+      firstName: 'Carlos',
+      lastName: 'Rodriguez',
+      programCode: '161 Cressey',
+      enrollmentDate: '05/19/2009',
+      birthDate: '10/21/1969',
+      age: '55',
+      gender: 'Male',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Non-Hispanic/Latino',
+      race: 'Black/African American',
+      housingType: 'Permanent supportive housing',
+      homeless: 'No',
+      disabilities: ['Substance abuse'],
+      medicaid: 'Yes',
+      snapStatus: 'Currently receiving',
+      incomeRange: 'No Income',
+      primaryIncomeSource: 'SSI'
+    },
+    '170456': {
+      clientId: '170456',
+      firstName: 'David',
+      lastName: 'Lewis',
+      programCode: '161 Cressey',
+      enrollmentDate: '05/19/2009',
+      birthDate: '02/27/2006',
+      age: '19',
+      gender: 'Male',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Non-Hispanic/Latino',
+      race: 'Black/African American',
+      housingType: 'Permanent supportive housing',
+      homeless: 'No',
+      disabilities: ['Chronic health condition'],
+      medicaid: 'Yes',
+      snapStatus: 'Currently receiving',
+      incomeRange: 'No Income',
+      primaryIncomeSource: 'TANF'
     }
+  };
+  
+  // If client data doesn't exist, create a default entry using ID
+  if (!clientData[clientId]) {
+    // This handles the case when we click on a row for which we don't have mock data
+    const lastName = 'Client Last';
+    const firstName = 'Client First';
+    
+    clientData[clientId] = {
+      clientId: clientId,
+      firstName: firstName,
+      lastName: lastName,
+      programCode: '161 Cressey',
+      enrollmentDate: '01/01/2023',
+      birthDate: '01/01/1980',
+      age: '45',
+      gender: 'Unknown',
+      veteran: 'No',
+      livingArrangement: 'Single',
+      ethnicity: 'Unknown',
+      race: 'Unknown',
+      housingType: 'Unknown',
+      homeless: 'No',
+      disabilities: [],
+      medicaid: 'Unknown',
+      snapStatus: 'Unknown',
+      incomeRange: 'Unknown',
+      primaryIncomeSource: 'Unknown'
+    };
+  }
+  
+  const client = clientData[clientId];
+  
+  if (client) {
+    populateForm(client);
+  } else {
+    alert('Client not found');
+    window.location.href = 'clients.html';
+  }
+}
     
     function populateForm(client) {
       // Set text field values
