@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Client Form</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Enhanced responsive styles for the form */
+    .multi-checkbox-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    
+    /* Responsive form grid adjustments */
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr !important; /* Single column for mobile */
+      }
+      
+      .multi-checkbox-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1199px) {
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columns for tablets */
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .form-grid {
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 columns for desktops */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+        <a href="cm.html" class="nav-tab nav-tab-active">CM</a>
+        <a href="ot.html" class="nav-tab nav-tab-inactive">OT</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Page Title Section -->
+  <div class="page-title-section">
+    <h1 class="page-title">New Client Registration</h1>
+    <p class="page-subtitle">Enter client details to register them in the system</p>
+  </div>
+
+  <div class="main-container" style="width: 100%; max-width: 100%; padding: 24px 32px;"><!-- Full-width container -->
+    <div class="container" style="max-width: none; width: 100%;"><!-- Full-width content -->
+      <form id="clientForm" onsubmit="handleFormSubmit(this); return false;">
+        
+        <!-- Client Personal Information -->
+        <div class="form-section">
+          <h2 class="section-title">Personal Information</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="clientId" class="required-field">Client ID</label>
+              <input type="text" id="clientId" name="clientId" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="firstName" class="required-field">First Name</label>
+              <input type="text" id="firstName" name="firstName" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="lastName" class="required-field">Last Name</label>
+              <input type="text" id="lastName" name="lastName" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="programCode" class="required-field">Program Code</label>
+              <select id="programCode" name="programCode" class="form-control" required>
+                <option value="">-- Select Program --</option>
+                <option value="161 Cr">161 Cr</option>
+                <option value="1304">1304</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="enrollmentDate" class="required-field">Enrollment Date</label>
+              <input type="date" id="enrollmentDate" name="enrollmentDate" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="birthDate" class="required-field">Birth Date</label>
+              <input type="date" id="birthDate" name="birthDate" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" id="age" name="age" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="gender" class="required-field">Gender</label>
+              <select id="gender" name="gender" class="form-control" required>
+                <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Non-binary">Non-binary</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Housing and Demographics -->
+        <div class="form-section">
+          <h2 class="section-title">Housing & Demographics</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="veteran" class="required-field">Veteran</label>
+              <select id="veteran" name="veteran" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="livingArrangement" class="required-field">Living Arrangement</label>
+              <select id="livingArrangement" name="livingArrangement" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="Single">Single</option>
+                <option value="With Family">With Family</option>
+                <option value="With Partner">With Partner</option>
+                <option value="With Friends">With Friends</option>
+                <option value="Group Home">Group Home</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="ethnicity" class="required-field">Ethnicity</label>
+              <select id="ethnicity" name="ethnicity" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="Hispanic/Latino">Hispanic/Latino</option>
+                <option value="Non-Hispanic/Latino">Non-Hispanic/Latino</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="race" class="required-field">Race</label>
+              <select id="race" name="race" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="White">White</option>
+                <option value="Black/African American">Black/African American</option>
+                <option value="Asian">Asian</option>
+                <option value="American Indian/Alaska Native">American Indian/Alaska Native</option>
+                <option value="Native Hawaiian/Pacific Islander">Native Hawaiian/Pacific Islander</option>
+                <option value="Multiracial">Multiracial</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="housingType" class="required-field">Housing Type</label>
+              <select id="housingType" name="housingType" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="Emergency shelter">Emergency shelter</option>
+                <option value="Transitional housing">Transitional housing</option>
+                <option value="Permanent supportive housing">Permanent supportive housing</option>
+                <option value="Rental housing">Rental housing</option>
+                <option value="Substance abuse treatment facility">Substance abuse treatment facility</option>
+                <option value="Living with relatives">Living with relatives</option>
+                <option value="Non-Housing program">Non-Housing program</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="homeless" class="required-field">Currently Homeless</label>
+              <select id="homeless" name="homeless" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Health & Disability -->
+        <div class="form-section">
+          <h2 class="section-title">Health & Disability</h2>
+          
+          <div class="form-group">
+            <label>Disability Types</label>
+            <div class="multi-checkbox-container">
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Mental illness">
+                  Mental illness
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Alcohol abuse">
+                  Alcohol abuse
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Substance abuse">
+                  Substance abuse
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Physical disability">
+                  Physical disability
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Developmental disability">
+                  Developmental disability
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Chronic health condition">
+                  Chronic health condition
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="medicaid" class="required-field">Medicaid</label>
+            <select id="medicaid" name="medicaid" class="form-control" required>
+              <option value="">-- Select Option --</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="snapStatus" class="required-field">SNAP Status</label>
+            <select id="snapStatus" name="snapStatus" class="form-control" required>
+              <option value="">-- Select Option --</option>
+              <option value="Currently receiving">Currently receiving</option>
+              <option value="Not Eligible">Not Eligible</option>
+              <option value="Ineligible">Ineligible</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Income & Benefits -->
+        <div class="form-section">
+          <h2 class="section-title">Income & Benefits</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="incomeRange" class="required-field">Monthly Income Range</label>
+              <select id="incomeRange" name="incomeRange" class="form-control" required>
+                <option value="">-- Select Option --</option>
+                <option value="No Income">No Income</option>
+                <option value="$1-150">$1-150</option>
+                <option value="$151-250">$151-250</option>
+                <option value="$251-500">$251-500</option>
+                <option value="$501-1000">$501-1000</option>
+                <option value="$1001-1500">$1001-1500</option>
+                <option value="$1501-2000">$1501-2000</option>
+                <option value="$2001+">$2001+</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="primaryIncomeSource">Primary Income Source</label>
+              <select id="primaryIncomeSource" name="primaryIncomeSource" class="form-control">
+                <option value="">-- Select Option --</option>
+                <option value="Employment">Employment</option>
+                <option value="SSI">SSI</option>
+                <option value="SSDI">SSDI</option>
+                <option value="TANF">TANF</option>
+                <option value="Unemployment">Unemployment</option>
+                <option value="Pension">Pension</option>
+                <option value="Child Support">Child Support</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Form Buttons -->
+        <div class="form-buttons">
+          <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Calculate age automatically when birth date changes
+      const birthDateInput = document.getElementById('birthDate');
+      const ageInput = document.getElementById('age');
+      
+      birthDateInput.addEventListener('change', function() {
+        if (this.value) {
+          const birthDate = new Date(this.value);
+          const today = new Date();
+          let age = today.getFullYear() - birthDate.getFullYear();
+          const monthDiff = today.getMonth() - birthDate.getMonth();
+          
+          if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+          }
+          
+          ageInput.value = age;
+        }
+      });
+    });
+    
+    // Handle form submission
+    function handleFormSubmit(form) {
+      // In a real application, this would collect all form data and submit to server
+      
+      // For demo purposes, just show an alert
+      alert('Client registration form submitted successfully!');
+      
+      // Optionally redirect to another page
+      // window.location.href = 'clients.html';
+    }
+    
+    // Reset form fields
+    function resetForm() {
+      document.getElementById('clientForm').reset();
+      document.getElementById('age').value = '';
+    }
+  </script>
+</body>
+</html>
