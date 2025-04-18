@@ -5,6 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Management</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Fix for table width alignment issues */
+    .table-content {
+      overflow-x: auto;
+      width: 100%;
+    }
+    
+    .table-rows-container {
+      width: fit-content;
+      min-width: 100%;
+    }
+    
+    .table-row {
+      display: flex;
+      width: fit-content;
+      min-width: 100%;
+    }
+    
+    .fixed-columns {
+      position: sticky;
+      left: 0;
+      background-color: var(--md-surface);
+      box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.1);
+      z-index: 3;
+      display: flex;
+    }
+    
+    .scrollable-columns {
+      display: flex;
+      flex: 1;
+    }
+    
+    /* CM Table Column Widths */
+    #cmTable .col-date { width: 120px; }
+    #cmTable .col-days { width: 100px; }
+    #cmTable .col-provider { width: 150px; }
+    #cmTable .col-client { width: 150px; }
+    #cmTable .col-service { width: 150px; }
+    #cmTable .col-location { width: 150px; }
+    #cmTable .col-goals { width: 200px; }
+    #cmTable .col-progress { width: 200px; }
+    #cmTable .col-barriers { width: 150px; }
+    #cmTable .col-referrals { width: 150px; }
+    #cmTable .col-next-steps { width: 150px; }
+    #cmTable .col-notes { width: 200px; }
+    
+    /* OT Table Column Widths */
+    #otTable .col-date { width: 120px; }
+    #otTable .col-days { width: 100px; }
+    #otTable .col-provider { width: 150px; }
+    #otTable .col-client { width: 150px; }
+    #otTable .col-intervention { width: 150px; }
+    #otTable .col-assessment { width: 150px; }
+    #otTable .col-adl { width: 150px; }
+    #otTable .col-iadl { width: 150px; }
+    #otTable .col-mobility { width: 150px; }
+    #otTable .col-equipment { width: 150px; }
+    #otTable .col-recommendations { width: 200px; }
+    #otTable .col-notes { width: 200px; }
+  </style>
 </head>
   
 <body>
@@ -107,6 +167,26 @@
             <div class="column-cell col-notes">Client motivated to improve situation</div>
           </div>
         </div>
+        
+        <!-- Additional sample CM data row -->
+        <div class="table-row">
+          <div class="fixed-columns">
+            <div class="column-cell col-date">04/10/2025</div>
+            <div class="column-cell col-days">8</div>
+            <div class="column-cell col-provider">Jamal Silva</div>
+            <div class="column-cell col-client">Noah Kim</div>
+          </div>
+          <div class="scrollable-columns">
+            <div class="column-cell col-service">Employment</div>
+            <div class="column-cell col-location">Phone Call</div>
+            <div class="column-cell col-goals">Resume development</div>
+            <div class="column-cell col-progress">Draft completed</div>
+            <div class="column-cell col-barriers">Limited work history</div>
+            <div class="column-cell col-referrals">Skills training</div>
+            <div class="column-cell col-next-steps">Schedule interview prep</div>
+            <div class="column-cell col-notes">Client seeking entry-level positions</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -157,6 +237,26 @@
             <div class="column-cell col-notes">Improvement in grip strength</div>
           </div>
         </div>
+        
+        <!-- Additional sample OT data row -->
+        <div class="table-row">
+          <div class="fixed-columns">
+            <div class="column-cell col-date">04/16/2025</div>
+            <div class="column-cell col-days">2</div>
+            <div class="column-cell col-provider">Mohammed Ahmed</div>
+            <div class="column-cell col-client">Ava Hernandez</div>
+          </div>
+          <div class="scrollable-columns">
+            <div class="column-cell col-intervention">Home Assessment</div>
+            <div class="column-cell col-assessment">Follow-up</div>
+            <div class="column-cell col-adl">Minimal assistance</div>
+            <div class="column-cell col-iadl">Moderate difficulty</div>
+            <div class="column-cell col-mobility">Independent</div>
+            <div class="column-cell col-equipment">Shower chair, grab bars</div>
+            <div class="column-cell col-recommendations">Continue home modifications</div>
+            <div class="column-cell col-notes">Client reports increased confidence in bathroom safety</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -193,9 +293,35 @@
       });
 
       // Initialize with OT selected
-      cmToggle.checked = true;
-      otTable.style.display = 'none';
-      cmTable.style.display = 'flex';
+      otToggle.checked = true;
+      cmTable.style.display = 'none';
+      otTable.style.display = 'flex';
+
+      // Add client search functionality
+      const searchInput = document.getElementById('clientSearchInput');
+      
+      searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        
+        if (query === '') {
+          // Show all rows if query is empty
+          document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
+            row.style.display = '';
+          });
+          return;
+        }
+        
+        // Filter rows based on client name
+        document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
+          const clientName = row.querySelector('.col-client').textContent.toLowerCase();
+          
+          if (clientName.includes(query)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
 
       // Function to initialize drag scrolling for tables
       function initializeTableScroll() {
