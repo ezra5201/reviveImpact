@@ -380,39 +380,54 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Get the scrollable container
   const tableContent = document.querySelector('.table-content');
-
+  
   // Variables for drag scrolling
   let isDown = false;
   let startX;
   let scrollLeft;
-
+  let dragDistance = 0;
+  
   // Event listeners for mouse behavior
   tableContent.addEventListener('mousedown', function(e) {
     isDown = true;
     tableContent.style.cursor = 'grabbing';
     startX = e.pageX - tableContent.offsetLeft;
     scrollLeft = tableContent.scrollLeft;
+    dragDistance = 0;
     e.preventDefault(); // Prevent text selection while dragging
   });
-
+  
   tableContent.addEventListener('mouseleave', function() {
     isDown = false;
     tableContent.style.cursor = 'default';
   });
-
-  tableContent.addEventListener('mouseup', function() {
+  
+  tableContent.addEventListener('mouseup', function(e) {
+    // Consider it a click if drag distance is small
+    if (isDown && dragDistance < 5) {
+      const clickedRow = e.target.closest('.table-row');
+      if (clickedRow && !clickedRow.querySelector('.column-header')) {
+        const clientId = clickedRow.querySelector('.col-id').textContent.trim();
+        navigateToClientRecord(clientId);
+      }
+    }
+    
     isDown = false;
     tableContent.style.cursor = 'default';
   });
-
+  
   tableContent.addEventListener('mousemove', function(e) {
     if (!isDown) return;
     const x = e.pageX - tableContent.offsetLeft;
+    
+    // Calculate and update drag distance
+    dragDistance = Math.abs(x - startX);
+    
     // Use a multiplier for faster/slower scrolling
     const walk = (x - startX) * 1.5;
     tableContent.scrollLeft = scrollLeft - walk;
   });
-
+  
   // Add client search functionality
   const searchInput = document.getElementById('clientSearchInput');
   
@@ -439,17 +454,16 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-
+  
   // Make rows clickable to view client details
   document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
     row.style.cursor = 'pointer';
-    row.addEventListener('click', function() {
-      const clientId = this.querySelector('.col-id').textContent;
-      const clientName = this.querySelector('.col-name').textContent;
-      alert(`View details for client: ${clientName} (ID: ${clientId})`);
-      // In a real app, this would navigate to client details page
-    });
   });
+  
+  // Function to navigate to client record
+  function navigateToClientRecord(clientId) {
+    window.location.href = `client-record-ro.html?id=${clientId}`;
+  }
 });
 </script>
 
