@@ -3,478 +3,435 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReVive Clients</title>
+  <title>Client Record - Read Only</title>
   <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  
-<!-- Fixed Header -->
-<header>
-<div class="header-left">
-<div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
-<nav>
-<a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
-<a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
-<a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
-<a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
-<span class="nav-tab nav-tab-active">CLIENTS</span>
-<a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
-
-
-</nav>
-</div>
-
-<div class="header-right">
-<div class="search-container">
-<input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
-<span class="search-label">Client Search</span>
-<div class="suggestions-container" id="searchSuggestions"></div>
-</div>
-<div class="user-info">
-<span>Andrea Leflore</span>
-<div class="user-avatar"></div>
-</div>
-<button class="sign-out">Sign Out</button>
-</div>
-</header>
-
-<!-- Secondary Action Bar -->
-<div class="secondary-action-bar">
-  <div class="secondary-action-bar-left">
-    <a href="client-record.html" class="btn btn-primary" style="text-decoration: none;">New Client</a>
-  </div>
-  <div class="secondary-action-bar-right">
-    <!-- Filter options could go here -->
-  </div>
-</div>
-
-<!-- Page Title Section -->
-<div class="page-title-section">
-  <h1 class="page-title">Client Database</h1>
-  <p class="page-subtitle">View and manage client information and program status</p>
-</div>
-
-<!-- Table Container -->
-<div class="table-container">
-
-<!-- Scrollable Content -->
-<div class="table-content">
-<div class="table-rows-container">
-
-<!-- Sticky Table Header Row -->
-<div class="table-row">
-<!-- Fixed Columns Header -->
-<div class="fixed-columns">
-<div class="column-header col-id">Client ID ↓</div>
-<div class="column-header col-name">Client Name ↓</div>
-</div>
-
-<!-- Scrollable Columns Header -->
-<div class="scrollable-columns">
-<div class="column-header col-program">Program ↓</div>
-<div class="column-header col-entry-date">Entry Date ↓</div>
-<div class="column-header col-dob">DOB ↓</div>
-<div class="column-header col-age">Age ↓</div>
-<div class="column-header col-gender">Gender ↓</div>
-<div class="column-header col-veteran">Veteran ↓</div>
-<div class="column-header col-housing">Housing Status ↓</div>
-<div class="column-header col-ethnicity">Ethnicity ↓</div>
-<div class="column-header col-race">Race ↓</div>
-<div class="column-header col-housing-type">Housing Type ↓</div>
-<div class="column-header col-disability">Disability ↓</div>
-<div class="column-header col-disability-type">Disability Type ↓</div>
-<div class="column-header col-benefits">SNAP Benefits ↓</div>
-<div class="column-header col-income">Income Range ↓</div>
-<div class="column-header col-income-source">Income Source ↓</div>
-<div class="column-header col-medicaid">Medicaid ↓</div>
-<div class="column-header col-snap-status">SNAP Status ↓</div>
-<div class="column-header col-age-group">Age Group ↓</div>
-</div>
-</div>
-
-<!-- Row 1 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">172879</div>
-<div class="column-cell col-name">Smith, Robert</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">11/13/2004</div>
-<div class="column-cell col-dob">12/24/1970</div>
-<div class="column-cell col-age">54</div>
-<div class="column-cell col-gender">Male</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Hispan...</div>
-<div class="column-cell col-race">White</div>
-<div class="column-cell col-housing-type">Transitional...</div>
-<div class="column-cell col-disability">No</div>
-<div class="column-cell col-disability-type">Alcohol...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$251-...</div>
-<div class="column-cell col-income-source">TANF</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">51-61</div>
-</div>
-</div>
-
-<!-- Row 2 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">171009</div>
-<div class="column-cell col-name">Johnson, James</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">7/26/2005</div>
-<div class="column-cell col-dob">6/19/1968</div>
-<div class="column-cell col-age">56</div>
-<div class="column-cell col-gender">Male</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Hispan...</div>
-<div class="column-cell col-race">White</div>
-<div class="column-cell col-housing-type">Substance a...</div>
-<div class="column-cell col-disability">Yes</div>
-<div class="column-cell col-disability-type">Devel...</div>
-<div class="column-cell col-benefits">No</div>
-<div class="column-cell col-income">$251-...</div>
-<div class="column-cell col-income-source">TANF</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">51-61</div>
-</div>
-</div>
-
-<!-- Row 3 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">35446</div>
-<div class="column-cell col-name">Wilson, Maria</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">7/26/2005</div>
-<div class="column-cell col-dob">5/4/2004</div>
-<div class="column-cell col-age">20</div>
-<div class="column-cell col-gender">Female</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Other</div>
-<div class="column-cell col-disability">No</div>
-<div class="column-cell col-disability-type">Subst...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$151...</div>
-<div class="column-cell col-income-source">SSDI</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Not E...</div>
-<div class="column-cell col-age-group">18-30</div>
-</div>
-</div>
-
-<!-- Row 4 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">33127</div>
-<div class="column-cell col-name">Thompson, Lisa</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">01/19/2008</div>
-<div class="column-cell col-dob">01/18/2008</div>
-<div class="column-cell col-age">17</div>
-<div class="column-cell col-gender">Female</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Substance a...</div>
-<div class="column-cell col-disability">Yes</div>
-<div class="column-cell col-disability-type">Menta...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$501...</div>
-<div class="column-cell col-income-source">Unem...</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">13-17</div>
-</div>
-</div>
-
-<!-- Row 5 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">257421</div>
-<div class="column-cell col-name">Davis, Michael</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">3/20/2008</div>
-<div class="column-cell col-dob">12/8/1964</div>
-<div class="column-cell col-age">60</div>
-<div class="column-cell col-gender">Male</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Transitional...</div>
-<div class="column-cell col-disability">No</div>
-<div class="column-cell col-disability-type">Menta...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$501...</div>
-<div class="column-cell col-income-source">SSDI</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">51-61</div>
-</div>
-</div>
-
-<!-- Row 6 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">280784</div>
-<div class="column-cell col-name">Rodriguez, Carlos</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">5/19/2009</div>
-<div class="column-cell col-dob">10/21/1969</div>
-<div class="column-cell col-age">55</div>
-<div class="column-cell col-gender">Male</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Permanent...</div>
-<div class="column-cell col-disability">No</div>
-<div class="column-cell col-disability-type">Subst...</div>
-<div class="column-cell col-benefits">No</div>
-<div class="column-cell col-income">No Inc...</div>
-<div class="column-cell col-income-source">SSI</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">51-61</div>
-</div>
-</div>
-
-<!-- Row 7 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">170456</div>
-<div class="column-cell col-name">Lewis, David</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">5/19/2009</div>
-<div class="column-cell col-dob">2/27/2006</div>
-<div class="column-cell col-age">19</div>
-<div class="column-cell col-gender">Male</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Permanent...</div>
-<div class="column-cell col-disability">No</div>
-<div class="column-cell col-disability-type">Chroni...</div>
-<div class="column-cell col-benefits">No</div>
-<div class="column-cell col-income">No Inc...</div>
-<div class="column-cell col-income-source">TANF</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">18-30</div>
-</div>
-</div>
-
-<!-- Row 8 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">170783</div>
-<div class="column-cell col-name">Garcia, Juan</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">5/19/2009</div>
-<div class="column-cell col-dob">4/2/1999</div>
-<div class="column-cell col-age">26</div>
-<div class="column-cell col-gender">Male</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Substance a...</div>
-<div class="column-cell col-disability">Yes</div>
-<div class="column-cell col-disability-type">Subst...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$251-...</div>
-<div class="column-cell col-income-source">TANF</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">18-30</div>
-</div>
-</div>
-
-<!-- Row 9 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">200377</div>
-<div class="column-cell col-name">Walker, Michelle</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">11/5/2010</div>
-<div class="column-cell col-dob">11/11/1956</div>
-<div class="column-cell col-age">68</div>
-<div class="column-cell col-gender">Female</div>
-<div class="column-cell col-veteran">Yes</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Transitional...</div>
-<div class="column-cell col-disability">No</div>
-<div class="column-cell col-disability-type">Subst...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$501...</div>
-<div class="column-cell col-income-source">SSI</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Curre...</div>
-<div class="column-cell col-age-group">Above 62</div>
-</div>
-</div>
-
-<!-- Row 10 -->
-<div class="table-row">
-<div class="fixed-columns">
-<div class="column-cell col-id">421138</div>
-<div class="column-cell col-name">Martinez, Angela</div>
-</div>
-<div class="scrollable-columns">
-<div class="column-cell col-program">161 Cres...</div>
-<div class="column-cell col-entry-date">11/05/2010</div>
-<div class="column-cell col-dob">12/28/1962</div>
-<div class="column-cell col-age">62</div>
-<div class="column-cell col-gender">Female</div>
-<div class="column-cell col-veteran">No</div>
-<div class="column-cell col-housing">Single</div>
-<div class="column-cell col-ethnicity">Non-H...</div>
-<div class="column-cell col-race">Black...</div>
-<div class="column-cell col-housing-type">Emergency...</div>
-<div class="column-cell col-disability">Yes</div>
-<div class="column-cell col-disability-type">Menta...</div>
-<div class="column-cell col-benefits">Yes</div>
-<div class="column-cell col-income">$251-...</div>
-<div class="column-cell col-income-source">Emplo...</div>
-<div class="column-cell col-medicaid">Medic...</div>
-<div class="column-cell col-snap-status">Not E...</div>
-<div class="column-cell col-age-group">51-61</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Get the scrollable container
-  const tableContent = document.querySelector('.table-content');
-
-  // Variables for drag scrolling
-  let isDown = false;
-  let startX;
-  let scrollLeft;
-
-  // Event listeners for mouse behavior
-  tableContent.addEventListener('mousedown', function(e) {
-    isDown = true;
-    tableContent.style.cursor = 'grabbing';
-    startX = e.pageX - tableContent.offsetLeft;
-    scrollLeft = tableContent.scrollLeft;
-    e.preventDefault(); // Prevent text selection while dragging
-  });
-
-  tableContent.addEventListener('mouseleave', function() {
-    isDown = false;
-    tableContent.style.cursor = 'default';
-  });
-
-  tableContent.addEventListener('mouseup', function() {
-    isDown = false;
-    tableContent.style.cursor = 'default';
-  });
-
-  tableContent.addEventListener('mousemove', function(e) {
-    if (!isDown) return;
-    const x = e.pageX - tableContent.offsetLeft;
-    // Use a multiplier for faster/slower scrolling
-    const walk = (x - startX) * 1.5;
-    tableContent.scrollLeft = scrollLeft - walk;
-  });
-
-  // Add client search functionality
-  const searchInput = document.getElementById('clientSearchInput');
-  
-  searchInput.addEventListener('input', function() {
-    const query = this.value.trim().toLowerCase();
-    
-    if (query === '') {
-      // Show all rows if query is empty
-      document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
-        row.style.display = '';
-      });
-      return;
+  <style>
+    /* Additional styles for read-only form */
+    .form-control[readonly] {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+      color: #555;
     }
     
-    // Filter rows based on client name and ID
-    document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
-      const clientName = row.querySelector('.col-name').textContent.toLowerCase();
-      const clientId = row.querySelector('.col-id').textContent.toLowerCase();
+    input[type="checkbox"][disabled] {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    .edit-button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+    }
+    
+    /* Enhanced responsive styles for the form */
+    .multi-checkbox-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 8px;
+    }
+    
+    /* Responsive form grid adjustments */
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr !important; /* Single column for mobile */
+      }
       
-      if (clientName.includes(query) || clientId.includes(query)) {
-        row.style.display = '';
+      .multi-checkbox-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1199px) {
+      .form-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columns for tablets */
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .form-grid {
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 columns for desktops */
+      }
+    }
+
+    /* Back button style */
+    .back-button {
+      color: var(--md-primary);
+      background: none;
+      border: none;
+      font-size: var(--md-label-large-font);
+      font-weight: var(--md-label-large-weight);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 8px 0;
+      margin-bottom: 16px;
+    }
+
+    .back-button svg {
+      margin-right: 8px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+        <a href="clients.html" class="nav-tab nav-tab-active">CLIENTS</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Page Title Section -->
+  <div class="page-title-section">
+    <h1 class="page-title">Client Record</h1>
+    <p class="page-subtitle">View client information and program details</p>
+  </div>
+
+  <div class="main-container" style="width: 100%; max-width: 100%; padding: 24px 32px;">
+    <!-- Back button -->
+    <button class="back-button" onclick="goBack()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Clients
+    </button>
+    
+    <!-- Edit button container -->
+    <div class="edit-button-container">
+      <button id="editButton" class="btn btn-primary" onclick="enableEditMode()">Edit</button>
+    </div>
+
+    <div class="container" style="max-width: none; width: 100%;">
+      <form id="clientForm">
+        
+        <!-- Client Personal Information -->
+        <div class="form-section">
+          <h2 class="section-title">Personal Information</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="clientId">Client ID</label>
+              <input type="text" id="clientId" name="clientId" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="programCode">Program Code</label>
+              <input type="text" id="programCode" name="programCode" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="enrollmentDate">Enrollment Date</label>
+              <input type="text" id="enrollmentDate" name="enrollmentDate" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="birthDate">Birth Date</label>
+              <input type="text" id="birthDate" name="birthDate" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="text" id="age" name="age" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <input type="text" id="gender" name="gender" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Housing and Demographics -->
+        <div class="form-section">
+          <h2 class="section-title">Housing & Demographics</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="veteran">Veteran</label>
+              <input type="text" id="veteran" name="veteran" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="livingArrangement">Living Arrangement</label>
+              <input type="text" id="livingArrangement" name="livingArrangement" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="ethnicity">Ethnicity</label>
+              <input type="text" id="ethnicity" name="ethnicity" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="race">Race</label>
+              <input type="text" id="race" name="race" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="housingType">Housing Type</label>
+              <input type="text" id="housingType" name="housingType" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="homeless">Currently Homeless</label>
+              <input type="text" id="homeless" name="homeless" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Health & Disability -->
+        <div class="form-section">
+          <h2 class="section-title">Health & Disability</h2>
+          
+          <div class="form-group">
+            <label>Disability Types</label>
+            <div class="multi-checkbox-container">
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Mental illness" disabled>
+                  Mental illness
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Alcohol abuse" disabled>
+                  Alcohol abuse
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Substance abuse" disabled>
+                  Substance abuse
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Physical disability" disabled>
+                  Physical disability
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Developmental disability" disabled>
+                  Developmental disability
+                </label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="disability" value="Chronic health condition" disabled>
+                  Chronic health condition
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="medicaid">Medicaid</label>
+            <input type="text" id="medicaid" name="medicaid" class="form-control" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="snapStatus">SNAP Status</label>
+            <input type="text" id="snapStatus" name="snapStatus" class="form-control" readonly>
+          </div>
+        </div>
+        
+        <!-- Income & Benefits -->
+        <div class="form-section">
+          <h2 class="section-title">Income & Benefits</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="incomeRange">Monthly Income Range</label>
+              <input type="text" id="incomeRange" name="incomeRange" class="form-control" readonly>
+            </div>
+            
+            <div class="form-group">
+              <label for="primaryIncomeSource">Primary Income Source</label>
+              <input type="text" id="primaryIncomeSource" name="primaryIncomeSource" class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+        
+        <!-- No buttons in read-only mode -->
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get client data from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const clientId = urlParams.get('id');
+      
+      if (clientId) {
+        // In a real application, we would fetch this data from the server
+        // For demonstration, we're using mock data based on the client ID
+        fetchClientData(clientId);
       } else {
-        row.style.display = 'none';
+        alert('No client ID provided');
+        window.location.href = 'clients.html';
       }
     });
-  });
-
-  // Make rows clickable to view client details
-  document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
-    row.style.cursor = 'pointer';
-    row.addEventListener('click', function() {
-      const clientId = this.querySelector('.col-id').textContent;
-      const clientName = this.querySelector('.col-name').textContent;
-      alert(`View details for client: ${clientName} (ID: ${clientId})`);
-      // In a real app, this would navigate to client details page
-    });
-  });
-});
-</script>
-
-<style>
-/* Additional styles for client table columns width */
-.col-id { width: 100px; }
-.col-name { width: 200px; }
-.col-program { width: 120px; }
-.col-entry-date { width: 120px; }
-.col-dob { width: 120px; }
-.col-age { width: 80px; }
-.col-gender { width: 100px; }
-.col-veteran { width: 100px; }
-.col-housing { width: 120px; }
-.col-ethnicity { width: 120px; }
-.col-race { width: 120px; }
-.col-housing-type { width: 150px; }
-.col-disability { width: 100px; }
-.col-disability-type { width: 150px; }
-.col-benefits { width: 120px; }
-.col-income { width: 120px; }
-.col-income-source { width: 120px; }
-.col-medicaid { width: 120px; }
-.col-snap-status { width: 120px; }
-.col-age-group { width: 120px; }
-</style>
+    
+    function fetchClientData(clientId) {
+      // Simulate API call to get client data
+      // In a real app, this would be an actual API call
+      
+      // Mock client data - would come from API in real application
+      const clientData = {
+        '172879': {
+          clientId: '172879',
+          firstName: 'Robert',
+          lastName: 'Smith',
+          programCode: '161 Cressey',
+          enrollmentDate: '11/13/2004',
+          birthDate: '12/24/1970',
+          age: '54',
+          gender: 'Male',
+          veteran: 'No',
+          livingArrangement: 'Single',
+          ethnicity: 'Hispanic/Latino',
+          race: 'White',
+          housingType: 'Transitional housing',
+          homeless: 'No',
+          disabilities: ['Alcohol abuse'], 
+          medicaid: 'Yes',
+          snapStatus: 'Currently receiving',
+          incomeRange: '$251-500',
+          primaryIncomeSource: 'TANF'
+        },
+        '171009': {
+          clientId: '171009',
+          firstName: 'James',
+          lastName: 'Johnson',
+          programCode: '161 Cressey',
+          enrollmentDate: '07/26/2005',
+          birthDate: '06/19/1968',
+          age: '56',
+          gender: 'Male',
+          veteran: 'No',
+          livingArrangement: 'Single',
+          ethnicity: 'Hispanic/Latino',
+          race: 'White',
+          housingType: 'Substance abuse treatment facility',
+          homeless: 'No',
+          disabilities: ['Developmental disability'],
+          medicaid: 'Yes',
+          snapStatus: 'Currently receiving',
+          incomeRange: '$251-500',
+          primaryIncomeSource: 'TANF'
+        },
+        '35446': {
+          clientId: '35446',
+          firstName: 'Maria',
+          lastName: 'Wilson',
+          programCode: '161 Cressey',
+          enrollmentDate: '07/26/2005',
+          birthDate: '05/04/2004',
+          age: '20',
+          gender: 'Female',
+          veteran: 'No',
+          livingArrangement: 'Single',
+          ethnicity: 'Non-Hispanic/Latino',
+          race: 'Black/African American',
+          housingType: 'Other',
+          homeless: 'No',
+          disabilities: ['Substance abuse'],
+          medicaid: 'Yes',
+          snapStatus: 'Not Eligible',
+          incomeRange: '$151-250',
+          primaryIncomeSource: 'SSDI'
+        }
+      };
+      
+      const client = clientData[clientId];
+      
+      if (client) {
+        populateForm(client);
+      } else {
+        alert('Client not found');
+        window.location.href = 'clients.html';
+      }
+    }
+    
+    function populateForm(client) {
+      // Set text field values
+      document.getElementById('clientId').value = client.clientId;
+      document.getElementById('firstName').value = client.firstName;
+      document.getElementById('lastName').value = client.lastName;
+      document.getElementById('programCode').value = client.programCode;
+      document.getElementById('enrollmentDate').value = client.enrollmentDate;
+      document.getElementById('birthDate').value = client.birthDate;
+      document.getElementById('age').value = client.age;
+      document.getElementById('gender').value = client.gender;
+      document.getElementById('veteran').value = client.veteran;
+      document.getElementById('livingArrangement').value = client.livingArrangement;
+      document.getElementById('ethnicity').value = client.ethnicity;
+      document.getElementById('race').value = client.race;
+      document.getElementById('housingType').value = client.housingType;
+      document.getElementById('homeless').value = client.homeless;
+      document.getElementById('medicaid').value = client.medicaid;
+      document.getElementById('snapStatus').value = client.snapStatus;
+      document.getElementById('incomeRange').value = client.incomeRange;
+      document.getElementById('primaryIncomeSource').value = client.primaryIncomeSource;
+      
+      // Set checkboxes for disabilities
+      const disabilityCheckboxes = document.querySelectorAll('input[name="disability"]');
+      disabilityCheckboxes.forEach(checkbox => {
+        if (client.disabilities.includes(checkbox.value)) {
+          checkbox.checked = true;
+        }
+      });
+    }
+    
+    function goBack() {
+      window.location.href = 'clients.html';
+    }
+    
+    function enableEditMode() {
+      // In a real application, this would redirect to the editable form
+      // with the client ID as a parameter
+      const clientId = document.getElementById('clientId').value;
+      window.location.href = `client-record.html?id=${clientId}&mode=edit`;
+    }
+  </script>
 </body>
 </html>
