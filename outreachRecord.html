@@ -177,31 +177,12 @@
   </div>
 </div>
 
-<!-- PN Section (Collapsible) -->
-<div class="form-section" id="pnSection">
-  <button type="button" class="md-accordion-header" onclick="toggleSection('pnContent', this)">
-    <span class="md-accordion-title">PN</span>
-    <span class="md-accordion-icon"></span>
-  </button>
-  
-  <div id="pnContent" class="md-accordion-content" style="display: none;">
-    <div class="form-group">
-      <label for="pnProviderName">Provider Name</label>
-      <input type="text" id="pnProviderName" name="pnProviderName" class="form-control">
-    </div>
-    
-    <div class="form-group">
-      <label for="pnNote">Note</label>
-      <textarea id="pnNote" name="pnNote" class="form-control" rows="4" placeholder="Enter note..."></textarea>
-    </div>
-  </div>
-</div>
 
         
         <!-- Services Section -->
         <div class="form-section">
           <h2 class="section-title">Services & Resources</h2>
-          
+          <!--  
           <div class="form-group">
             <label>Services Provided</label>
             <div class="multi-select-container">
@@ -228,7 +209,9 @@
                 <input type="text" id="otherServices" name="otherServices" class="form-control" placeholder="Other services" style="margin-top: 8px; display: none;">
               </div>
             </div>
-          </div>
+          </div> 
+
+          -->
           
           <div class="form-group">
             <label>Referrals Provided</label>
@@ -306,17 +289,6 @@
               </div>
             </div>
           </div>
-          
-          <div class="form-group">
-            <label for="otDirectIndirect">OT Direct/Indirect</label>
-            <select id="otDirectIndirect" name="otDirectIndirect" class="form-control">
-              <option value="">-- Select option --</option>
-              <option value="Direct">Direct</option>
-              <option value="Indirect">Indirect</option>
-              <option value="N/A">N/A</option>
-            </select>
-          </div>
-        </div>
         
         <!-- Resources Section -->
         <div class="form-section">
