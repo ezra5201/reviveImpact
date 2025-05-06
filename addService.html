@@ -21,17 +21,17 @@
   </style>
 </head>
 <body>
-  <!-- Fixed Header -->
+  <!-- Fixed Header - Integrated from index.html -->
   <header>
     <div class="header-left">
       <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
       <nav>
-        <a href="index.html" class="nav-tab nav-tab-active">CONTACT LOG</a>
+        <span class="nav-tab nav-tab-active">CONTACT LOG</span>
         <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
         <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+        <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
         <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
-        <a href="cm.html" class="nav-tab nav-tab-inactive">CM</a>
-        <a href="ot.html" class="nav-tab nav-tab-inactive">OT</a>
       </nav>
     </div>
 
@@ -359,6 +359,16 @@
     </div>
   </div>
 
+  <!-- Secondary Action Bar -->
+  <div class="secondary-action-bar">
+    <div class="secondary-action-bar-left">
+      <!-- You can add additional action buttons or information here if needed -->
+    </div>
+    <div class="secondary-action-bar-right">
+      <!-- You can add additional action buttons or information here if needed -->
+    </div>
+  </div>
+
   <script>
     // Force today's date to show in date field immediately
     (function() {
@@ -445,8 +455,6 @@
         
         // Display client name prominently
         document.getElementById('clientNameText').textContent = clientParam;
-        document.getElementById('clientNameDisplay').style.display = 'block'; // Ensure it's visible
-        console.log('Setting client name from URL:', clientParam);
         
         // Find the client ID
         const selectedClient = clientData.find(c => c.name === clientParam);
@@ -456,12 +464,6 @@
       } else {
         // Initialize type-ahead for client input if no client specified
         initClientTypeAhead();
-        
-        // Hide the client name display initially if no client is selected
-        const clientNameDisplay = document.getElementById('clientNameDisplay');
-        if (clientNameDisplay) {
-          clientNameDisplay.style.display = 'none';
-        }
       }
     });
     
@@ -482,7 +484,6 @@
           suggestionContainer.style.display = 'none';
           selectedClientIdInput.value = '';
           document.getElementById('clientNameText').textContent = '';
-          document.getElementById('clientNameDisplay').style.display = 'none';
           return;
         }
         
@@ -568,8 +569,6 @@
           
           // Update prominently displayed client name
           document.getElementById('clientNameText').textContent = client.name;
-          document.getElementById('clientNameDisplay').style.display = 'block';
-          console.log('Setting client name from selection:', client.name);
           
           suggestionContainer.innerHTML = '';
           suggestionContainer.style.display = 'none';
@@ -710,31 +709,3 @@
           <p><strong>Program Status:</strong> ${data.programStatus || 'N/A'}</p>
           
           ${data.notes ? `<p><strong>Notes:</strong> ${data.notes}</p>` : ''}
-        </div>
-      `;
-    }
-    
-    function resetForm() {
-      document.getElementById('contactLogForm').reset();
-      
-      // Reset date to today
-      const today = new Date();
-      const formattedDate = today.toISOString().substr(0, 10);
-      document.getElementById('contactDate').value = formattedDate;
-      
-      // Show form and hide result
-      document.getElementById('contactLogForm').style.display = 'block';
-      document.getElementById('resultSection').style.display = 'none';
-    }
-    
-    function goToContactLog() {
-      window.location.href = 'index.html';
-    }
-    
-    function viewClientHistory() {
-      const clientName = document.getElementById('client').value;
-      window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
-    }
-  </script>
-</body>
-</html>
