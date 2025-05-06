@@ -835,39 +835,51 @@ document.addEventListener('DOMContentLoaded', function() {
 <div id="dialogCheckInForm" class="dialog-body" style="display: none;">
 <p class="dialog-prompt">Client objective for visiting today:</p>
 <div class="form-group">
-<div class="multi-select-container">
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="CM"> Case Management (CM)</label>
+<div class="multi-select-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+  <div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Case Management"> Case Management (CM)</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Employment"> Employment Services</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Food"> Food</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Healthcare"> Healthcare</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Housing"> Housing Support</label>
+    </div>
+  </div>
+  <div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="ID"> ID/Documentation</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Laundry"> Laundry</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Occupational"> Occupational Therapy (OT)</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Recreation"> Recreation</label>
+    </div>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="objective" value="Other"> Other</label>
+    </div>
+  </div>
 </div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="OT"> Occupational Therapy (OT)</label>
 </div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Food"> Food</label>
+
+<!-- New checkbox for "Client accessed food" with margin for spacing -->
+<div class="form-group" style="margin-top: 24px; margin-bottom: 24px;">
+  <div class="checkbox-group">
+    <label><input type="checkbox" name="accessedFood" value="Yes"> Client accessed food</label>
+  </div>
 </div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Recreation"> Recreation</label>
-</div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Laundry"> Laundry</label>
-</div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Housing"> Housing Support</label>
-</div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Healthcare"> Healthcare</label>
-</div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Employment"> Employment Services</label>
-</div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="ID"> ID/Documentation</label>
-</div>
-<div class="checkbox-group">
-<label><input type="checkbox" name="objective" value="Other"> Other</label>
-</div>
-</div>
-</div>
+
 <div class="form-group">
 <p class="form-label">Comments:</p>
 <textarea id="visitComments" rows="4" class="form-control" placeholder="Enter any additional notes or comments here..."></textarea>
