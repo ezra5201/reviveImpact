@@ -196,7 +196,7 @@
   <section class="contact-history">
     <div class="history-header">
       <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Meeting History</h2>
-      <button class="add-checkin-btn" id="addFollowupBtn">Add Followup</button>
+      <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
     </div>
 
     <div class="table-container">
@@ -223,7 +223,6 @@
             <td>
               <div class="meeting-action-buttons">
                 <button type="button" class="view-btn view-meeting-btn">View</button>
-                <button type="button" class="view-btn followup-btn" data-date="01-29-2024">Followup</button>
               </div>
             </td>
           </tr>
@@ -237,7 +236,6 @@
             <td>
               <div class="meeting-action-buttons">
                 <button type="button" class="view-btn view-meeting-btn">View</button>
-                <button type="button" class="view-btn followup-btn" data-date="12-15-2023">Followup</button>
               </div>
             </td>
           </tr>
@@ -251,7 +249,6 @@
             <td>
               <div class="meeting-action-buttons">
                 <button type="button" class="view-btn view-meeting-btn">View</button>
-                <button type="button" class="view-btn followup-btn" data-date="11-02-2023">Followup</button>
               </div>
             </td>
           </tr>
@@ -265,7 +262,6 @@
             <td>
               <div class="meeting-action-buttons">
                 <button type="button" class="view-btn view-meeting-btn">View</button>
-                <button type="button" class="view-btn followup-btn" data-date="10-10-2023">Followup</button>
               </div>
             </td>
           </tr>
@@ -279,7 +275,6 @@
             <td>
               <div class="meeting-action-buttons">
                 <button type="button" class="view-btn view-meeting-btn">View</button>
-                <button type="button" class="view-btn followup-btn" data-date="09-05-2023">Followup</button>
               </div>
             </td>
           </tr>
@@ -302,7 +297,7 @@
   </div>
 </div>
 
-<script>
+  <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Store client name for passing to the dialog
     window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
@@ -312,7 +307,7 @@
     const followupFormIframe = document.getElementById('followupFormIframe');
     const closeFollowupDialog = document.getElementById('closeFollowupDialog');
     
-    // Add Meeting button functionality
+    // Add CM Followup button functionality
     const addFollowupBtn = document.getElementById('addFollowupBtn');
     if (addFollowupBtn) {
       addFollowupBtn.addEventListener('click', function() {
@@ -320,14 +315,7 @@
       });
     }
     
-    // Followup buttons in the table rows
-    const followupButtons = document.querySelectorAll('.followup-btn');
-    followupButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const date = this.getAttribute('data-date');
-        openFollowupDialog(date);
-      });
-    });
+    // Remove the followupButtons event listeners since we removed those buttons
     
     // View meeting buttons
     const viewMeetingButtons = document.querySelectorAll('.view-meeting-btn');
@@ -357,7 +345,8 @@
         params.append('referenceDate', referenceDate);
       }
       
-      followupFormIframe.src = `followup-dialog.html?${params.toString()}`;
+      // Updated to use CM-Dialog.html instead of followup-dialog.html
+      followupFormIframe.src = `CM-Dialog.html?${params.toString()}`;
       
       // Show the dialog
       followupDialogOverlay.style.display = 'flex';
