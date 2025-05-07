@@ -82,32 +82,32 @@
   </style>
 </head>
 <body>
-<!-- Fixed Header (remains unchanged from original file) -->
+<!-- Fixed Header -->
 <header>
   <div class="header-left">
-  <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
- 
-  <nav>
-    <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
-    <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
-    <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
-    <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
-    <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
-    <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
-  </nav>
+    <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+   
+    <nav>
+      <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+      <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+      <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+      <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+      <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+      <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+    </nav>
   </div>
   
   <div class="header-right">
-  <div class="search-container">
-  <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
-  <span class="search-label">Client Search</span>
-  <div class="suggestions-container" id="searchSuggestions"></div>
-  </div>
-  <div class="user-info">
-  <span>Andrea Leflore</span>
-  <div class="user-avatar"></div>
-  </div>
-  <button class="sign-out">Sign Out</button>
+    <div class="search-container">
+      <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+      <span class="search-label">Client Search</span>
+      <div class="suggestions-container" id="searchSuggestions"></div>
+    </div>
+    <div class="user-info">
+      <span>Andrea Leflore</span>
+      <div class="user-avatar"></div>
+    </div>
+    <button class="sign-out">Sign Out</button>
   </div>
 </header>
 
@@ -271,19 +271,6 @@
   </div>
 </div>
 
-<!-- Dialog Overlay for the Followup Form -->
-<div class="dialog-overlay" id="followupDialogOverlay">
-  <div class="dialog-container">
-    <div class="dialog-header">
-      <h2 class="dialog-title">Case Manager Followup</h2>
-      <button class="dialog-close" id="closeFollowupDialog">&times;</button>
-    </div>
-    <div class="dialog-body">
-      <iframe id="followupFormIframe" class="dialog-iframe" src="about:blank"></iframe>
-    </div>
-  </div>
-</div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Store client name for passing to the dialog
@@ -302,13 +289,14 @@
       });
     }
     
-    // View meeting buttons
-    const viewMeetingButtons = document.querySelectorAll('.view-meeting-btn');
-    viewMeetingButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const date = this.closest('tr').querySelector('td:first-child').textContent;
-        alert(`Viewing meeting details for ${date}`);
+    // Make table rows clickable to view details
+    const tableRows = document.querySelectorAll('.contact-table tbody tr');
+    tableRows.forEach(row => {
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', function() {
+        const date = this.cells[0].textContent;
         // In a real implementation, this would open a read-only view of the meeting
+        alert(`Viewing meeting details for ${date}`);
       });
     });
     
@@ -330,7 +318,7 @@
         params.append('referenceDate', referenceDate);
       }
       
-      // Updated to use CM-Dialog.html instead of followup-dialog.html
+      // Load the CM-Dialog.html in the iframe
       followupFormIframe.src = `CM-Dialog.html?${params.toString()}`;
       
       // Show the dialog
@@ -340,7 +328,7 @@
       document.body.style.overflow = 'hidden';
     }
     
-    // Function to close the followup dialog
+    // Function to hide the followup dialog
     function hideFollowupDialog() {
       // Hide the dialog
       followupDialogOverlay.style.display = 'none';
@@ -361,32 +349,7 @@
       alert('Followup submitted successfully! The meeting history will be updated.');
     };
     
-    // Make table headers sortable (original code)
-    const sortableHeaders = document.querySelectorAll('th.sortable');
-    sortableHeaders.forEach(header => {
-      header.addEventListener('click', function() {
-        // Sort implementation would go here
-        // For demonstration, we'll just toggle the arrow
-        if (this.textContent.includes('↓')) {
-          this.textContent = this.textContent.replace('↓', '↑');
-        } else {
-          this.textContent = this.textContent.replace('↑', '↓');
-        }
-      });
-    });
-  });
-</script>
-    
-    // Callback function for when followup is submitted (called from iframe)
-    window.onFollowupSubmitted = function() {
-      closeFollowupDialog();
-      
-      // Refresh the client history table
-      // In a real implementation, this would reload data from the server
-      alert('Followup submitted successfully! The meeting history will be updated.');
-    };
-    
-    // Make table headers sortable (original code)
+    // Make table headers sortable
     const sortableHeaders = document.querySelectorAll('th.sortable');
     sortableHeaders.forEach(header => {
       header.addEventListener('click', function() {
