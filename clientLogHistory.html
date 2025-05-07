@@ -6,78 +6,10 @@
   <title>Client Contact-Log History</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Additional styles for dialog integration */
+    /* Additional styles for the action buttons */
     .meeting-action-buttons {
       display: flex;
       gap: 8px;
-    }
-    
-    /* Dialog overlay for the iframe approach */
-    .dialog-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    
-    .dialog-container {
-      width: 90%;
-      height: 90%;
-      max-width: 1200px;
-      background: white;
-      border-radius: var(--md-shape-corner-large);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      box-shadow: var(--md-elevation-3);
-    }
-    
-    .dialog-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px;
-      border-bottom: 1px solid var(--md-outline-variant);
-      background-color: var(--md-surface);
-    }
-    
-    .dialog-title {
-      font-size: var(--md-headline-small-font);
-      margin: 0;
-    }
-    
-    .dialog-close {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-    
-    .dialog-close:hover {
-      background-color: var(--md-surface-variant);
-    }
-    
-    .dialog-body {
-      flex: 1;
-      overflow: hidden;
-    }
-    
-    .dialog-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
     }
   </style>
 </head>
@@ -258,34 +190,16 @@
   </section>
 </div>
 
-<!-- Dialog Overlay for the Followup Form -->
-<div class="dialog-overlay" id="followupDialogOverlay">
-  <div class="dialog-container">
-    <div class="dialog-header">
-      <h2 class="dialog-title">Case Manager Followup</h2>
-      <button class="dialog-close" id="closeFollowupDialog">&times;</button>
-    </div>
-    <div class="dialog-body">
-      <iframe id="followupFormIframe" class="dialog-iframe" src="about:blank"></iframe>
-    </div>
-  </div>
-</div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Store client name for passing to the dialog
+    // Store client name for passing to the new page
     window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
     
-    // Get dialog elements
-    const followupDialogOverlay = document.getElementById('followupDialogOverlay');
-    const followupFormIframe = document.getElementById('followupFormIframe');
-    const closeFollowupDialog = document.getElementById('closeFollowupDialog');
-    
-    // Add CM Followup button functionality
+    // Add CM Followup button functionality - open in new tab
     const addFollowupBtn = document.getElementById('addFollowupBtn');
     if (addFollowupBtn) {
       addFollowupBtn.addEventListener('click', function() {
-        openFollowupDialog();
+        openFollowupInNewTab();
       });
     }
     
@@ -300,54 +214,18 @@
       });
     });
     
-    // Close dialog button
-    closeFollowupDialog.addEventListener('click', function() {
-      hideFollowupDialog();
-    });
-    
-    // Function to open the followup dialog
-    function openFollowupDialog(referenceDate = null) {
+    // Function to open the followup form in a new tab
+    function openFollowupInNewTab() {
       // Extract client name from header (remove the age in parentheses)
       const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
       
-      // Set the iframe source
+      // Create URL with parameters
       const params = new URLSearchParams();
       params.append('client', clientName);
       
-      if (referenceDate) {
-        params.append('referenceDate', referenceDate);
-      }
-      
-      // Load the CM-Dialog.html in the iframe
-      followupFormIframe.src = `CM-Dialog.html?${params.toString()}`;
-      
-      // Show the dialog
-      followupDialogOverlay.style.display = 'flex';
-      
-      // Disable scrolling on the main page
-      document.body.style.overflow = 'hidden';
+      // Open the CM-Dialog.html in a new tab
+      window.open(`CM-Dialog.html?${params.toString()}`, '_blank');
     }
-    
-    // Function to hide the followup dialog
-    function hideFollowupDialog() {
-      // Hide the dialog
-      followupDialogOverlay.style.display = 'none';
-      
-      // Clear the iframe source
-      followupFormIframe.src = 'about:blank';
-      
-      // Re-enable scrolling
-      document.body.style.overflow = 'auto';
-    }
-    
-    // Callback function for when followup is submitted (called from iframe)
-    window.onFollowupSubmitted = function() {
-      hideFollowupDialog();
-      
-      // Refresh the client history table
-      // In a real implementation, this would reload data from the server
-      alert('Followup submitted successfully! The meeting history will be updated.');
-    };
     
     // Make table headers sortable
     const sortableHeaders = document.querySelectorAll('th.sortable');
