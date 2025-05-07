@@ -5,9 +5,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Client Contact-Log History</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for dialog integration */
+    .meeting-action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+    
+    /* Dialog overlay for the iframe approach */
+    .dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .dialog-container {
+      width: 90%;
+      height: 90%;
+      max-width: 1200px;
+      background: white;
+      border-radius: var(--md-shape-corner-large);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--md-elevation-3);
+    }
+    
+    .dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid var(--md-outline-variant);
+      background-color: var(--md-surface);
+    }
+    
+    .dialog-title {
+      font-size: var(--md-headline-small-font);
+      margin: 0;
+    }
+    
+    .dialog-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .dialog-close:hover {
+      background-color: var(--md-surface-variant);
+    }
+    
+    .dialog-body {
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .dialog-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
 </head>
 <body>
-<!-- Fixed Header -->
+<!-- Fixed Header (remains unchanged from original file) -->
 <header>
   <div class="header-left">
   <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
@@ -19,8 +94,6 @@
     <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
     <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
     <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
-    
-    
   </nav>
   </div>
   
@@ -42,8 +115,8 @@
 <div class="main-container">
   <!-- Client Header -->
   <div class="client-header">
-    <h1 class="client-name">Johnson, Peter (59)</h1>
-    <a href="client.-record.html" class="forward-link">View Full Record</a>
+    <h1 class="client-name" id="clientNameHeader">Johnson, Peter (59)</h1>
+    <a href="client-record.html" class="forward-link">View Full Record</a>
   </div>
 
   <!-- Client Information Section -->
@@ -123,7 +196,7 @@
   <section class="contact-history">
     <div class="history-header">
       <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Meeting History</h2>
-      <button class="add-checkin-btn">Add Meeting</button>
+      <button class="add-checkin-btn" id="addFollowupBtn">Add Followup</button>
     </div>
 
     <div class="table-container">
@@ -136,6 +209,7 @@
             <th>Services Provided ↓</th>
             <th>Provider ↓</th>
             <th>IDHS Categories ↓</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -146,6 +220,12 @@
             <td>OT</td>
             <td>Alexandra Perry</td>
             <td>Health Contact - Consultation / Individual</td>
+            <td>
+              <div class="meeting-action-buttons">
+                <button type="button" class="view-btn view-meeting-btn">View</button>
+                <button type="button" class="view-btn followup-btn" data-date="01-29-2024">Followup</button>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>12-15-2023</td>
@@ -154,6 +234,12 @@
             <td>Case Management</td>
             <td>Elena Ahmed</td>
             <td>Health Contact - Consultation / Individual</td>
+            <td>
+              <div class="meeting-action-buttons">
+                <button type="button" class="view-btn view-meeting-btn">View</button>
+                <button type="button" class="view-btn followup-btn" data-date="12-15-2023">Followup</button>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>11-02-2023</td>
@@ -162,6 +248,12 @@
             <td>Follow-up Services</td>
             <td>Jamal Silva</td>
             <td>Housing - Follow-up Services</td>
+            <td>
+              <div class="meeting-action-buttons">
+                <button type="button" class="view-btn view-meeting-btn">View</button>
+                <button type="button" class="view-btn followup-btn" data-date="11-02-2023">Followup</button>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>10-10-2023</td>
@@ -170,6 +262,12 @@
             <td>OT</td>
             <td>Alexandra Perry</td>
             <td>Health Contact - Consultation / Individual</td>
+            <td>
+              <div class="meeting-action-buttons">
+                <button type="button" class="view-btn view-meeting-btn">View</button>
+                <button type="button" class="view-btn followup-btn" data-date="10-10-2023">Followup</button>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>09-05-2023</td>
@@ -178,6 +276,12 @@
             <td>Housing Location / Inspection</td>
             <td>Sonia Singh</td>
             <td>Housing - Location / Inspection</td>
+            <td>
+              <div class="meeting-action-buttons">
+                <button type="button" class="view-btn view-meeting-btn">View</button>
+                <button type="button" class="view-btn followup-btn" data-date="09-05-2023">Followup</button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -185,9 +289,105 @@
   </section>
 </div>
 
+<!-- Dialog Overlay for the Followup Form -->
+<div class="dialog-overlay" id="followupDialogOverlay">
+  <div class="dialog-container">
+    <div class="dialog-header">
+      <h2 class="dialog-title">Case Manager Followup</h2>
+      <button class="dialog-close" id="closeFollowupDialog">&times;</button>
+    </div>
+    <div class="dialog-body">
+      <iframe id="followupFormIframe" class="dialog-iframe" src="about:blank"></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Make table headers sortable
+    // Store client name for passing to the dialog
+    window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
+    
+    // Get dialog elements
+    const followupDialogOverlay = document.getElementById('followupDialogOverlay');
+    const followupFormIframe = document.getElementById('followupFormIframe');
+    const closeFollowupDialog = document.getElementById('closeFollowupDialog');
+    
+    // Add Meeting button functionality
+    const addFollowupBtn = document.getElementById('addFollowupBtn');
+    if (addFollowupBtn) {
+      addFollowupBtn.addEventListener('click', function() {
+        openFollowupDialog();
+      });
+    }
+    
+    // Followup buttons in the table rows
+    const followupButtons = document.querySelectorAll('.followup-btn');
+    followupButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const date = this.getAttribute('data-date');
+        openFollowupDialog(date);
+      });
+    });
+    
+    // View meeting buttons
+    const viewMeetingButtons = document.querySelectorAll('.view-meeting-btn');
+    viewMeetingButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const date = this.closest('tr').querySelector('td:first-child').textContent;
+        alert(`Viewing meeting details for ${date}`);
+        // In a real implementation, this would open a read-only view of the meeting
+      });
+    });
+    
+    // Close dialog button
+    closeFollowupDialog.addEventListener('click', function() {
+      hideFollowupDialog();
+    });
+    
+    // Function to open the followup dialog
+    function openFollowupDialog(referenceDate = null) {
+      // Extract client name from header (remove the age in parentheses)
+      const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
+      
+      // Set the iframe source
+      const params = new URLSearchParams();
+      params.append('client', clientName);
+      
+      if (referenceDate) {
+        params.append('referenceDate', referenceDate);
+      }
+      
+      followupFormIframe.src = `followup-dialog.html?${params.toString()}`;
+      
+      // Show the dialog
+      followupDialogOverlay.style.display = 'flex';
+      
+      // Disable scrolling on the main page
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Function to close the followup dialog
+    function hideFollowupDialog() {
+      // Hide the dialog
+      followupDialogOverlay.style.display = 'none';
+      
+      // Clear the iframe source
+      followupFormIframe.src = 'about:blank';
+      
+      // Re-enable scrolling
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Callback function for when followup is submitted (called from iframe)
+    window.onFollowupSubmitted = function() {
+      closeFollowupDialog();
+      
+      // Refresh the client history table
+      // In a real implementation, this would reload data from the server
+      alert('Followup submitted successfully! The meeting history will be updated.');
+    };
+    
+    // Make table headers sortable (original code)
     const sortableHeaders = document.querySelectorAll('th.sortable');
     sortableHeaders.forEach(header => {
       header.addEventListener('click', function() {
@@ -198,55 +398,6 @@
         } else {
           this.textContent = this.textContent.replace('↑', '↓');
         }
-      });
-    });
-
-    // Add event listeners for the navigation tabs
-    const navItems = document.querySelectorAll('.nav-tab');
-    navItems.forEach(item => {
-      item.addEventListener('click', function(e) {
-        // If it's not already active
-        if (!this.classList.contains('nav-tab-active')) {
-          // Remove active class from all items
-          navItems.forEach(item => {
-            item.classList.remove('nav-tab-active');
-            item.classList.add('nav-tab-inactive');
-          });
-          
-          // Add active class to clicked item
-          this.classList.add('nav-tab-active');
-          this.classList.remove('nav-tab-inactive');
-        }
-      });
-    });
-
-    // Full Record link functionality
-    const fullRecordLink = document.querySelector('.forward-link');
-    if (fullRecordLink) {
-      fullRecordLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        // In a real app, this would open the full client record
-        alert('Opening full client record');
-      });
-    }
-
-    // Add Meeting button functionality
-    const addCheckinBtn = document.querySelector('.add-checkin-btn');
-    if (addCheckinBtn) {
-      addCheckinBtn.addEventListener('click', function() {
-        // In a real app, this would open the new check-in form
-        alert('Opening new meeting form');
-      });
-    }
-
-    // Make table rows clickable to view details
-    const tableRows = document.querySelectorAll('.contact-table tbody tr');
-    tableRows.forEach(row => {
-      row.style.cursor = 'pointer';
-      row.addEventListener('click', function() {
-        const date = this.cells[0].textContent;
-        // In a real app, this would open the meeting details
-        alert(`Opening meeting details for ${date}`);
       });
     });
   });
