@@ -16,30 +16,30 @@
       padding-top: 112px; /* Adjusted for fixed header */
     }
     
-    /* Progress bar at the top */
-    .form-progress {
+    /* Progress steps navigation in secondary action bar */
+    .progress-steps-nav {
       display: flex;
-      padding: 0 24px;
-      border-bottom: 1px solid var(--md-outline-variant, #C4C6D0);
       overflow-x: auto;
-      background-color: var(--md-surface, #FEFBFF);
-      position: sticky;
-      top: 112px; /* Adjusted for fixed header */
-      z-index: 5;
+      white-space: nowrap;
+      gap: 8px;
+      width: 100%;
+      padding: 4px 0;
     }
     
     .progress-step {
-      padding: 12px 16px;
+      padding: 8px 12px;
       font-size: 14px;
       color: var(--md-on-surface-variant, #44474F);
       position: relative;
       cursor: pointer;
-      white-space: nowrap;
+      border-radius: var(--md-shape-corner-small, 4px);
+      transition: all 0.2s ease;
     }
     
     .progress-step.active {
-      color: var(--md-primary, #006CFA);
+      color: var(--md-on-primary-container, #001A41);
       font-weight: 500;
+      background-color: var(--md-primary-container, #D8E2FF);
     }
     
     .progress-step.completed::after {
@@ -326,23 +326,21 @@
   <!-- Secondary Action Bar -->
   <div class="secondary-action-bar">
     <div class="secondary-action-bar-left">
-      <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
-      <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+      <div class="progress-steps-nav">
+        <div class="progress-step active" data-section="basicInfo">1. Basic Info</div>
+        <div class="progress-step" data-section="clientStatus">2. Status</div>
+        <div class="progress-step" data-section="clientGoals">3. Goals</div>
+        <div class="progress-step" data-section="barriersReferrals">4. Barriers & Referrals</div>
+        <div class="progress-step" data-section="nextSteps">5. Next Steps</div>
+        <div class="progress-step" data-section="clinical">6. Clinical</div>
+      </div>
     </div>
     <div class="secondary-action-bar-right">
       <!-- You can add additional action buttons here if needed -->
     </div>
   </div>
 
-  <!-- Progress tracker -->
-  <div class="form-progress">
-    <div class="progress-step active" data-section="basicInfo">1. Basic Info</div>
-    <div class="progress-step" data-section="clientStatus">2. Status</div>
-    <div class="progress-step" data-section="clientGoals">3. Goals</div>
-    <div class="progress-step" data-section="barriersReferrals">4. Barriers & Referrals</div>
-    <div class="progress-step" data-section="nextSteps">5. Next Steps</div>
-    <div class="progress-step" data-section="clinical">6. Clinical</div>
-  </div>
+  <!-- Progress tracker - removed, now in secondary action bar -->
 
   <div style="padding: 24px;">
     <h1 id="clientNameDisplay" style="margin-bottom: 24px; font-size: 24px;">Case Manager Followup</h1>
@@ -808,7 +806,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // DOM elements
+              // DOM elements
       const clientNameDisplay = document.getElementById('clientNameDisplay');
       const accordionSections = document.querySelectorAll('.accordion-section');
       const progressSteps = document.querySelectorAll('.progress-step');
@@ -816,23 +814,21 @@
       const nextStepBtn = document.getElementById('nextStepBtn');
       const submitFormBtn = document.getElementById('submitFormBtn');
       const saveAsDraftBtn = document.getElementById('saveAsDraftBtn');
-      const saveBtn = document.getElementById('saveBtn');
-      const submitBtn = document.getElementById('submitBtn');
       
       // Connect secondary action bar buttons to form buttons
-      saveBtn.addEventListener('click', function() {
-        saveAsDraftBtn.click();
-      });
+      // saveBtn.addEventListener('click', function() {
+      //   saveAsDraftBtn.click();
+      // });
       
-      submitBtn.addEventListener('click', function() {
-        // If submit form button is visible, click it
-        if (submitFormBtn.style.display !== 'none') {
-          submitFormBtn.click();
-        } else {
-          // Otherwise, finish all sections and then submit
-          completeAllSectionsAndSubmit();
-        }
-      });
+      // submitBtn.addEventListener('click', function() {
+      //   // If submit form button is visible, click it
+      //   if (submitFormBtn.style.display !== 'none') {
+      //     submitFormBtn.click();
+      //   } else {
+      //     // Otherwise, finish all sections and then submit
+      //     completeAllSectionsAndSubmit();
+      //   }
+      // });
       
       // Function to complete all sections and submit
       function completeAllSectionsAndSubmit() {
