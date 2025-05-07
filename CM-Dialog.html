@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Manager Followup</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dialog-specific styles */
+    .dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    
+    .dialog-content {
+      background-color: var(--md-surface);
+      border-radius: var(--md-shape-corner-large);
+      box-shadow: var(--md-elevation-3);
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--md-outline-variant);
+      position: sticky;
+      top: 0;
+      background-color: var(--md-surface);
+      z-index: 10;
+    }
+    
+    .dialog-title {
+      font-size: var(--md-headline-small-font);
+      font-weight: 500;
+      margin: 0;
+    }
+    
+    .dialog-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      color: var(--md-on-surface-variant);
+    }
+    
+    .dialog-close:hover {
+      background-color: var(--md-surface-variant);
+    }
+    
+    .dialog-body {
+      padding: 24px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .dialog-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 16px 24px;
+      border-top: 1px solid var(--md-outline-variant);
+      position: sticky;
+      bottom: 0;
+      background-color: var(--md-surface);
+      z-index: 10;
+    }
+    
+    /* Progress bar at the top */
+    .form-progress {
+      display: flex;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--md-outline-variant);
+      overflow-x: auto;
+      background-color: var(--md-surface);
+      position: sticky;
+      top: 64px; /* Height of the dialog header */
+      z-index: 5;
+    }
+    
+    .progress-step {
+      padding: 12px 16px;
+      font-size: var(--md-label-large-font);
+      color: var(--md-on-surface-variant);
+      position: relative;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    
+    .progress-step.active {
+      color: var(--md-primary);
+      font-weight: 500;
+    }
+    
+    .progress-step.completed::after {
+      content: "✓";
+      margin-left: 4px;
+      color: var(--md-primary);
+    }
+    
+    /* Accordion styles */
+    .accordion-section {
+      margin-bottom: 16px;
+      border: 1px solid var(--md-outline-variant);
+      border-radius: var(--md-shape-corner-medium);
+      overflow: hidden;
+    }
+    
+    .accordion-header {
+      padding: 16px;
+      background-color: var(--md-surface-variant);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .accordion-title {
+      font-size: var(--md-title-medium-font);
+      font-weight: var(--md-title-medium-weight);
+      margin: 0;
+      color: var(--md-on-surface);
+    }
+    
+    .accordion-content {
+      padding: 16px;
+      background-color: var(--md-surface);
+      display: none;
+    }
+    
+    .accordion-content.open {
+      display: block;
+    }
+    
+    .accordion-indicator {
+      color: var(--md-on-surface-variant);
+      transition: transform 0.3s ease;
+    }
+    
+    .accordion-indicator.open {
+      transform: rotate(180deg);
+    }
+    
+    .accordion-section.completed .accordion-header {
+      border-left: 4px solid var(--md-primary);
+    }
+    
+    .accordion-completion-indicator {
+      font-size: var(--md-label-large-font);
+      font-weight: 500;
+      color: var(--md-primary);
+      margin-right: 12px;
+      display: none;
+    }
+    
+    .accordion-section.completed .accordion-completion-indicator {
+      display: inline;
+    }
+    
+    /* Goal container styles */
+    .goal-container {
+      margin-bottom: 16px;
+      padding: 16px;
+      background-color: var(--md-surface-variant);
+      border-radius: var(--md-shape-corner-small);
+    }
+    
+    .goal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .goal-title {
+      font-size: var(--md-title-medium-font);
+      font-weight: var(--md-title-medium-weight);
+      color: var(--md-on-surface);
+      margin: 0;
+    }
+    
+    .goal-status-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .progress-indicator {
+      width: 100%;
+      height: 8px;
+      background-color: var(--md-outline-variant);
+      border-radius: 4px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: var(--md-primary);
+      border-radius: 4px;
+    }
+    
+    /* Floating action button for mobile */
+    @media (max-width: 768px) {
+      .mobile-fab {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: var(--md-primary);
+        color: var(--md-on-primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: var(--md-elevation-3);
+        z-index: 100;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      
+      .mobile-fab:hover {
+        background-color: var(--md-primary);
+        box-shadow: var(--md-elevation-4);
+      }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .dialog-content {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr !important;
+      }
+      
+      .form-progress {
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .dialog-body {
+        padding: 16px;
+      }
+    }
+    
+    /* Form grid layout */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    /* Loading indicator */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1100;
+    }
+    
+    .loading-spinner {
+      border: 4px solid var(--md-surface-variant);
+      border-top: 4px solid var(--md-primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="dialog-overlay" id="followupDialog">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h2 class="dialog-title">Case Manager Followup: <span id="clientNameDisplay">Client Name</span></h2>
+        <button class="dialog-close" id="closeDialog">&times;</button>
+      </div>
+      
+      <!-- Progress tracker -->
+      <div class="form-progress">
+        <div class="progress-step active" data-section="basicInfo">1. Basic Info</div>
+        <div class="progress-step" data-section="clientStatus">2. Status</div>
+        <div class="progress-step" data-section="clientGoals">3. Goals</div>
+        <div class="progress-step" data-section="barriersReferrals">4. Barriers & Referrals</div>
+        <div class="progress-step" data-section="nextSteps">5. Next Steps</div>
+        <div class="progress-step" data-section="clinical">6. Clinical</div>
+      </div>
+      
+      <div class="dialog-body">
+        <form id="followupForm">
+          <!-- Basic Information Section -->
+          <div class="accordion-section" id="basicInfo">
+            <div class="accordion-header">
+              <div>
+                <span class="accordion-completion-indicator">✓</span>
+                <h3 class="accordion-title">Basic Information</h3>
+              </div>
+              <span class="accordion-indicator">▼</span>
+            </div>
+            <div class="accordion-content open">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="followupDate" class="required-field">Date</label>
+                  <input type="date" id="followupDate" name="followupDate" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="caseManager" class="required-field">Case Manager</label>
+                  <select id="caseManager" name="caseManager" class="form-control" required>
+                    <option value="">-- Select case manager --</option>
+                    <option value="Andrea Leflore">Andrea Leflore</option>
+                    <option value="Jara, Rolando">Jara, Rolando</option>
+                    <option value="Burks, Ashley">Burks, Ashley</option>
+                    <option value="White, Ashley">White, Ashley</option>
+                    <option value="Perry, Alexandra">Perry, Alexandra</option>
+                    <option value="Brown, Tarik">Brown, Tarik</option>
+                    <option value="Taylor, Redrick">Taylor, Redrick</option>
+                    <option value="Moore, Chezeray">Moore, Chezeray</option>
+                    <option value="Morris, Dave">Morris, Dave</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="meetingType" class="required-field">Meeting Type</label>
+                  <select id="meetingType" name="meetingType" class="form-control" required>
+                    <option value="">-- Select meeting type --</option>
+                    <option value="In-person">In-person</option>
+                    <option value="Phone Call">Phone Call</option>
+                    <option value="Video Call">Video Call</option>
+                    <option value="Home Visit">Home Visit</option>
+                    <option value="Collateral Contact">Collateral Contact</option>
+                    <option value="Note Only">Note Only</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="duration" class="required-field">Duration (minutes)</label>
+                  <input type="number" id="duration" name="duration" class="form-control" min="1" max="240" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="location">Location</label>
+                  <input type="text" id="location" name="location" class="form-control" placeholder="Where meeting took place...">
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Client Status Section -->
+          <div class="accordion-section" id="clientStatus">
+            <div class="accordion-header">
+              <div>
+                <span class="accordion-completion-indicator">✓</span>
+                <h3 class="accordion-title">Client Status</h3>
+              </div>
+              <span class="accordion-indicator">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="form-group">
+                <label for="currentStatus" class="required-field">Current Status Assessment</label>
+                <select id="currentStatus" name="currentStatus" class="form-control" required>
+                  <option value="">-- Select status --</option>
+                  <option value="Stable">Stable</option>
+                  <option value="Making Progress">Making Progress</option>
+                  <option value="Maintaining">Maintaining</option>
+                  <option value="Struggling">Struggling</option>
+                  <option value="Crisis">Crisis</option>
+                  <option value="Disengaged">Disengaged</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label class="required-field">Areas Discussed (select all that apply)</label>
+                <div class="areas-discussed-container">
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Housing"> Housing</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Employment"> Employment</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Education"> Education</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Income/Benefits"> Income/Benefits</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Mental Health"> Mental Health</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Physical Health"> Physical Health</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Substance Use"> Substance Use</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Life Skills"> Life Skills</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Family Relationships"> Family Relationships</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Legal Issues"> Legal Issues</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="areasDiscussed" value="Documentation"> Documentation</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="areasDiscussed" value="Other" id="otherAreaCheckbox">
+                      Other
+                    </label>
+                    <input type="text" id="otherAreaDiscussed" name="otherAreaDiscussed" class="form-control" placeholder="Specify other area" style="margin-top: 4px; display: none;">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="contactSummary" class="required-field">Contact Summary</label>
+                <textarea id="contactSummary" name="contactSummary" class="form-control" rows="4" required placeholder="Briefly summarize what was discussed during this contact..."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Client Goals Section -->
+          <div class="accordion-section" id="clientGoals">
+            <div class="accordion-header">
+              <div>
+                <span class="accordion-completion-indicator">✓</span>
+                <h3 class="accordion-title">Client Goals Progress</h3>
+              </div>
+              <span class="accordion-indicator">▼</span>
+            </div>
+            <div class="accordion-content">
+              <!-- Goal 1 (Pre-populated from the client's record) -->
+              <div class="goal-container">
+                <div class="goal-header">
+                  <h3 class="goal-title">Goal 1: <span id="goal1Title">Secure permanent housing</span></h3>
+                  <div class="goal-status-container">
+                    <label for="goal1Status">Status:</label>
+                    <select id="goal1Status" name="goal1Status" class="form-control" style="width: auto;">
+                      <option value="Not Started">Not Started</option>
+                      <option value="In Progress" selected>In Progress</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Deferred">Deferred</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="progress-indicator">
+                  <div class="progress-bar" style="width: 35%;"></div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 16px;">
+                  <label for="goal1Progress">Progress Update</label>
+                  <textarea id="goal1Progress" name="goal1Progress" class="form-control" rows="2" placeholder="Describe progress made toward this goal..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="goal1NextSteps">Next Steps</label>
+                  <textarea id="goal1NextSteps" name="goal1NextSteps" class="form-control" rows="2" placeholder="Outline next steps for this goal..."></textarea>
+                </div>
+              </div>
+              
+              <!-- Goal 2 (Pre-populated from the client's record) -->
+              <div class="goal-container">
+                <div class="goal-header">
+                  <h3 class="goal-title">Goal 2: <span id="goal2Title">Obtain state ID</span></h3>
+                  <div class="goal-status-container">
+                    <label for="goal2Status">Status:</label>
+                    <select id="goal2Status" name="goal2Status" class="form-control" style="width: auto;">
+                      <option value="Not Started">Not Started</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Completed" selected>Completed</option>
+                      <option value="Deferred">Deferred</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="progress-indicator">
+                  <div class="progress-bar" style="width: 100%;"></div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 16px;">
+                  <label for="goal2Progress">Progress Update</label>
+                  <textarea id="goal2Progress" name="goal2Progress" class="form-control" rows="2" placeholder="Describe progress made toward this goal..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="goal2NextSteps">Next Steps</label>
+                  <textarea id="goal2NextSteps" name="goal2NextSteps" class="form-control" rows="2" placeholder="Outline next steps for this goal..."></textarea>
+                </div>
+              </div>
+              
+              <!-- Goal 3 (Pre-populated from the client's record) -->
+              <div class="goal-container">
+                <div class="goal-header">
+                  <h3 class="goal-title">Goal 3: <span id="goal3Title">Connect with mental health services</span></h3>
+                  <div class="goal-status-container">
+                    <label for="goal3Status">Status:</label>
+                    <select id="goal3Status" name="goal3Status" class="form-control" style="width: auto;">
+                      <option value="Not Started">Not Started</option>
+                      <option value="In Progress" selected>In Progress</option>
+                      <option value="Completed">Completed</option>
+                      <option value="Deferred">Deferred</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="progress-indicator">
+                  <div class="progress-bar" style="width: 50%;"></div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 16px;">
+                  <label for="goal3Progress">Progress Update</label>
+                  <textarea id="goal3Progress" name="goal3Progress" class="form-control" rows="2" placeholder="Describe progress made toward this goal..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="goal3NextSteps">Next Steps</label>
+                  <textarea id="goal3NextSteps" name="goal3NextSteps" class="form-control" rows="2" placeholder="Outline next steps for this goal..."></textarea>
+                </div>
+              </div>
+              
+              <!-- Add new goal button -->
+              <button type="button" id="addGoalBtn" class="btn btn-secondary" style="margin-top: 16px;">+ Add New Goal</button>
+            </div>
+          </div>
+          
+          <!-- Barriers and Referrals Section -->
+          <div class="accordion-section" id="barriersReferrals">
+            <div class="accordion-header">
+              <div>
+                <span class="accordion-completion-indicator">✓</span>
+                <h3 class="accordion-title">Barriers and Referrals</h3>
+              </div>
+              <span class="accordion-indicator">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="form-group">
+                <label for="barriers">Current Barriers</label>
+                <textarea id="barriers" name="barriers" class="form-control" rows="3" placeholder="Describe any barriers currently impacting the client's progress..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label>Referrals Made</label>
+                <div class="referrals-container">
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Housing"> Housing</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Employment"> Employment</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Education"> Education</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Mental Health"> Mental Health</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Physical Health"> Physical Health</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Substance Use"> Substance Use</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Legal Services"> Legal Services</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Benefits/Entitlements"> Benefits</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label><input type="checkbox" name="referrals" value="Food Assistance"> Food Assistance</label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="referrals" value="Other" id="otherReferralCheckbox">
+                      Other
+                    </label>
+                    <input type="text" id="otherReferral" name="otherReferral" class="form-control" placeholder="Specify other referral" style="margin-top: 4px; display: none;">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="referralDetails">Referral Details</label>
+                <textarea id="referralDetails" name="referralDetails" class="form-control" rows="3" placeholder="Provide details about referrals made, including organization names, contact information, and follow-up plans..."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Next Steps Section -->
+          <div class="accordion-section" id="nextSteps">
+            <div class="accordion-header">
+              <div>
+                <span class="accordion-completion-indicator">✓</span>
+                <h3 class="accordion-title">Next Steps and Plan</h3>
+              </div>
+              <span class="accordion-indicator">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="form-group">
+                <label for="clientTasks" class="required-field">Client Tasks Before Next Meeting</label>
+                <textarea id="clientTasks" name="clientTasks" class="form-control" rows="3" required placeholder="Tasks the client agreed to complete before the next meeting..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="cmTasks" class="required-field">Case Manager Tasks</label>
+                <textarea id="cmTasks" name="cmTasks" class="form-control" rows="3" required placeholder="Tasks you as the case manager will complete to support the client..."></textarea>
+              </div>
+              
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="nextMeetingDate">Next Scheduled Meeting</label>
+                  <input type="date" id="nextMeetingDate" name="nextMeetingDate" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                  <label for="nextMeetingType">Next Meeting Type</label>
+                  <select id="nextMeetingType" name="nextMeetingType" class="form-control">
+                    <option value="">-- Select meeting type --</option>
+                    <option value="In-person">In-person</option>
+                    <option value="Phone Call">Phone Call</option>
+                    <option value="Video Call">Video Call</option>
+                    <option value="Home Visit">Home Visit</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="nextMeetingNotes">Next Meeting Notes</label>
+                <textarea id="nextMeetingNotes" name="nextMeetingNotes" class="form-control" rows="2" placeholder="Any notes about the next meeting (location, special focus, etc.)..."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Clinical Considerations Section -->
+          <div class="accordion-section" id="clinical">
+            <div class="accordion-header">
+              <div>
+                <span class="accordion-completion-indicator">✓</span>
+                <h3 class="accordion-title">Clinical Considerations</h3>
+              </div>
+              <span class="accordion-indicator">▼</span>
+            </div>
+            <div class="accordion-content">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="mentalHealthStatus">Mental Health Status</label>
+                  <select id="mentalHealthStatus" name="mentalHealthStatus" class="form-control">
+                    <option value="">-- Select status --</option>
+                    <option value="Stable">Stable</option>
+                    <option value="Improving">Improving</option>
+                    <option value="Deteriorating">Deteriorating</option>
+                    <option value="Crisis">Crisis</option>
+                    <option value="Unknown">Unknown</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="substanceUseStatus">Substance Use Status</label>
+                  <select id="substanceUseStatus" name="substanceUseStatus" class="form-control">
+                    <option value="">-- Select status --</option>
+                    <option value="No reported use">No reported use</option>
+                    <option value="In recovery">In recovery</option>
+                    <option value="Active use">Active use</option>
+                    <option value="Reduced use">Reduced use</option>
+                    <option value="Increased use">Increased use</option>
+                    <option value="In treatment">In treatment</option>
+                    <option value="Unknown">Unknown</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="supportiveSystems">Supportive Systems</label>
+                <textarea id="supportiveSystems" name="supportiveSystems" class="form-control" rows="2" placeholder="Note any family, friends, or other supportive relationships..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label>Safety Assessment</label>
+                <div class="safety-risks-container">
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="safetyRisks" value="Suicide risk">
+                      Suicide risk
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="safetyRisks" value="Self-harm">
+                      Self-harm
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="safetyRisks" value="Risk of harm to others">
+                      Risk of harm to others
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="safetyRisks" value="Domestic violence">
+                      Domestic violence
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="safetyRisks" value="Environmental dangers">
+                      Environmental dangers
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="safetyRisks" value="None identified">
+                      None identified
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="safetyPlan">Safety Plan (if applicable)</label>
+                <textarea id="safetyPlan" name="safetyPlan" class="form-control" rows="3" placeholder="Document safety plan if any safety risks are identified..."></textarea>
+              </div>
+              
+              <div class="form-group">
+                <label for="privateNotes">Private Notes (not shared with client)</label>
+                <textarea id="privateNotes" name="privateNotes" class="form-control" rows="3" placeholder="Notes for case management purposes only, not to be shared with client..."></textarea>
+              </div>
+              
+              <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+                <label for="supervisorReview" style="margin-bottom: 0; font-weight: 500;">Request Supervisor Review</label>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="supervisorReview" name="supervisorReview">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              
+              <div id="supervisorReviewSection" style="display: none; margin-top: 16px; padding: 16px; background-color: var(--md-surface-variant); border-radius: var(--md-shape-corner-small);">
+                <div class="form-group">
+                  <label for="supervisorName">Supervisor Name</label>
+                  <select id="supervisorName" name="supervisorName" class="form-control">
+                    <option value="">-- Select supervisor --</option>
+                    <option value="Elena Ahmed">Elena Ahmed</option>
+                    <option value="Sonia Singh">Sonia Singh</option>
+                    <option value="Leila Garcia">Leila Garcia</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="reviewReason">Reason for Review</label>
+                  <textarea id="reviewReason" name="reviewReason" class="form-control" rows="2" placeholder="Specify reason for requesting supervisor review..."></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <div class="dialog-footer">
+        <button type="button" class="btn btn-secondary" id="prevStepBtn">Previous</button>
+        <button type="button" class="btn btn-secondary" id="saveAsDraftBtn">Save as Draft</button>
+        <button type="button" class="btn btn-primary" id="nextStepBtn">Next</button>
+        <button type="button" class="btn btn-primary" id="submitFormBtn" style="display: none;">Submit</button>
+      </div>
+      
+      <!-- Loading overlay -->
+      <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // DOM elements
+      const followupDialog = document.getElementById('followupDialog');
+      const closeDialogBtn = document.getElementById('closeDialog');
+      const clientNameDisplay = document.getElementById('clientNameDisplay');
+      const accordionSections = document.querySelectorAll('.accordion-section');
+      const progressSteps = document.querySelectorAll('.progress-step');
+      const prevStepBtn = document.getElementById('prevStepBtn');
+      const nextStepBtn = document.getElementById('nextStepBtn');
+      const submitFormBtn = document.getElementById('submitFormBtn');
+      const saveAsDraftBtn = document.getElementById('saveAsDraftBtn');
+      
+      // Set current client name from URL or parent window
+      function setClientName() {
+        // Try to get from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const clientParam = urlParams.get('client');
+        
+        if (clientParam) {
+          clientNameDisplay.textContent = clientParam;
+        } else if (window.opener && window.opener.currentClientName) {
+          // Try to get from parent window
+          clientNameDisplay.textContent = window.opener.currentClientName;
+        } else {
+          // Default
+          clientNameDisplay.textContent = "Client";
+        }
+      }
+      
+      // Initialize form with default values
+      function initializeForm() {
+        // Set today's date
+        const today = new Date();
+        const formattedDate = today.toISOString().substring(0, 10);
+        document.getElementById('followupDate').value = formattedDate;
+        
+        // Set default case manager (would be pulled from user session in real app)
+        const caseManagerSelect = document.getElementById('caseManager');
+        if (caseManagerSelect) {
+          // Find and select the option for the current user
+          for (let i = 0; i < caseManagerSelect.options.length; i++) {
+            if (caseManagerSelect.options[i].value === 'Andrea Leflore') {
+              caseManagerSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+        
+        // Set default meeting duration
+        document.getElementById('duration').value = 30;
+        
+        // Initialize accordion sections
+        initializeAccordions();
+        
+        // Initialize progress tracking
+        updateProgressIndicator();
+        
+        // Initialize form navigation
+        initializeFormNavigation();
+        
+        // Initialize "Other" field toggles
+        initializeOtherFields();
+        
+        // Initialize goal status updates
+        initializeGoalStatusUpdates();
+        
+        // Add new goal button functionality
+        initializeAddGoalButton();
+        
+        // Initialize supervisor review toggle
+        initializeSupervisorReviewToggle();
+        
+        // Initialize "None identified" safety risk mutual exclusion
+        initializeSafetyRisks();
+      }
+      
+      // Initialize accordion functionality
+      function initializeAccordions() {
+        accordionSections.forEach(section => {
+          const header = section.querySelector('.accordion-header');
+          const content = section.querySelector('.accordion-content');
+          const indicator = section.querySelector('.accordion-indicator');
+          
+          header.addEventListener('click', function() {
+            // Close all other sections first
+            accordionSections.forEach(otherSection => {
+              if (otherSection !== section) {
+                otherSection.querySelector('.accordion-content').classList.remove('open');
+                otherSection.querySelector('.accordion-indicator').classList.remove('open');
+              }
+            });
+            
+            // Toggle current section
+            content.classList.toggle('open');
+            indicator.classList.toggle('open');
+            
+            // Update progress tracking
+            updateProgressIndicator();
+          });
+        });
+        
+        // By default, only show the first section
+        accordionSections.forEach((section, index) => {
+          const content = section.querySelector('.accordion-content');
+          const indicator = section.querySelector('.accordion-indicator');
+          
+          if (index === 0) {
+            content.classList.add('open');
+            indicator.classList.add('open');
+          } else {
+            content.classList.remove('open');
+            indicator.classList.remove('open');
+          }
+        });
+      }
+      
+      // Initialize progress steps navigation
+      function initializeFormNavigation() {
+        // Click handlers for progress steps
+        progressSteps.forEach(step => {
+          step.addEventListener('click', function() {
+            const sectionId = this.getAttribute('data-section');
+            navigateToSection(sectionId);
+          });
+        });
+        
+        // Previous button
+        prevStepBtn.addEventListener('click', function() {
+          const currentSection = getCurrentSection();
+          const currentIndex = getIndexOfSection(currentSection);
+          
+          if (currentIndex > 0) {
+            const prevSection = accordionSections[currentIndex - 1].id;
+            navigateToSection(prevSection);
+          }
+        });
+        
+        // Next button
+        nextStepBtn.addEventListener('click', function() {
+          const currentSection = getCurrentSection();
+          const currentIndex = getIndexOfSection(currentSection);
+          
+          if (validateCurrentSection(currentSection)) {
+            // Mark current section as completed
+            accordionSections[currentIndex].classList.add('completed');
+            updateProgressIndicator();
+            
+            if (currentIndex < accordionSections.length - 1) {
+              const nextSection = accordionSections[currentIndex + 1].id;
+              navigateToSection(nextSection);
+            } else {
+              // We're on the last section, show submit button
+              nextStepBtn.style.display = 'none';
+              submitFormBtn.style.display = 'inline-block';
+            }
+          } else {
+            alert('Please complete all required fields in this section before proceeding.');
+          }
+        });
+        
+        // Submit button
+        submitFormBtn.addEventListener('click', function() {
+          const currentSection = getCurrentSection();
+          
+          if (validateCurrentSection(currentSection)) {
+            submitForm();
+          } else {
+            alert('Please complete all required fields in this section before submitting.');
+          }
+        });
+      }
+      
+      // Navigate to a specific section
+      function navigateToSection(sectionId) {
+        // Close all sections
+        accordionSections.forEach(section => {
+          section.querySelector('.accordion-content').classList.remove('open');
+          section.querySelector('.accordion-indicator').classList.remove('open');
+        });
+        
+        // Open the target section
+        const targetSection = document.getElementById(sectionId);
+        targetSection.querySelector('.accordion-content').classList.add('open');
+        targetSection.querySelector('.accordion-indicator').classList.add('open');
+        
+        // Update active progress step
+        progressSteps.forEach(step => {
+          step.classList.remove('active');
+          if (step.getAttribute('data-section') === sectionId) {
+            step.classList.add('active');
+          }
+        });
+        
+        // Update buttons
+        const currentIndex = getIndexOfSection(sectionId);
+        prevStepBtn.disabled = currentIndex === 0;
+        
+        if (currentIndex === accordionSections.length - 1) {
+          nextStepBtn.style.display = 'none';
+          submitFormBtn.style.display = 'inline-block';
+        } else {
+          nextStepBtn.style.display = 'inline-block';
+          submitFormBtn.style.display = 'none';
+        }
+        
+        // Scroll to the top of the section
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Get the currently visible section
+      function getCurrentSection() {
+        for (let i = 0; i < accordionSections.length; i++) {
+          if (accordionSections[i].querySelector('.accordion-content').classList.contains('open')) {
+            return accordionSections[i].id;
+          }
+        }
+        return null;
+      }
+      
+      // Get the index of a section by ID
+      function getIndexOfSection(sectionId) {
+        for (let i = 0; i < accordionSections.length; i++) {
+          if (accordionSections[i].id === sectionId) {
+            return i;
+          }
+        }
+        return -1;
+      }
+      
+      // Update progress indicators
+      function updateProgressIndicator() {
+        // Update progress steps
+        progressSteps.forEach((step, index) => {
+          const sectionId = step.getAttribute('data-section');
+          const section = document.getElementById(sectionId);
+          
+          if (section.classList.contains('completed')) {
+            step.classList.add('completed');
+          } else {
+            step.classList.remove('completed');
+          }
+        });
+      }
+      
+      // Validate the current section before proceeding
+      function validateCurrentSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const requiredFields = section.querySelectorAll('[required]');
+        
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+          if (!field.value) {
+            isValid = false;
+            field.classList.add('invalid');
+          } else {
+            field.classList.remove('invalid');
+          }
+        });
+        
+        return isValid;
+      }
+      
+      // Initialize "Other" field toggles
+      function initializeOtherFields() {
+        // Areas discussed "Other" toggle
+        const otherAreaCheckbox = document.getElementById('otherAreaCheckbox');
+        const otherAreaInput = document.getElementById('otherAreaDiscussed');
+        
+        otherAreaCheckbox.addEventListener('change', function() {
+          otherAreaInput.style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // Referrals "Other" toggle
+        const otherReferralCheckbox = document.getElementById('otherReferralCheckbox');
+        const otherReferralInput = document.getElementById('otherReferral');
+        
+        otherReferralCheckbox.addEventListener('change', function() {
+          otherReferralInput.style.display = this.checked ? 'block' : 'none';
+        });
+      }
+      
+      // Initialize goal status updates
+      function initializeGoalStatusUpdates() {
+        // Goal 1 status
+        const goal1Status = document.getElementById('goal1Status');
+        const goal1ProgressBar = document.querySelector('#goal1Title').closest('.goal-container').querySelector('.progress-bar');
+        
+        goal1Status.addEventListener('change', function() {
+          updateGoalProgressBar(this.value, goal1ProgressBar);
+        });
+        
+        // Goal 2 status
+        const goal2Status = document.getElementById('goal2Status');
+        const goal2ProgressBar = document.querySelector('#goal2Title').closest('.goal-container').querySelector('.progress-bar');
+        
+        goal2Status.addEventListener('change', function() {
+          updateGoalProgressBar(this.value, goal2ProgressBar);
+        });
+        
+        // Goal 3 status
+        const goal3Status = document.getElementById('goal3Status');
+        const goal3ProgressBar = document.querySelector('#goal3Title').closest('.goal-container').querySelector('.progress-bar');
+        
+        goal3Status.addEventListener('change', function() {
+          updateGoalProgressBar(this.value, goal3ProgressBar);
+        });
+      }
+      
+      // Update goal progress bar based on status
+      function updateGoalProgressBar(status, progressBar) {
+        switch(status) {
+          case 'Not Started':
+            progressBar.style.width = '0%';
+            progressBar.style.backgroundColor = 'var(--md-primary)';
+            break;
+          case 'In Progress':
+            progressBar.style.width = '50%';
+            progressBar.style.backgroundColor = 'var(--md-primary)';
+            break;
+          case 'Completed':
+            progressBar.style.width = '100%';
+            progressBar.style.backgroundColor = 'var(--md-primary)';
+            break;
+          case 'Deferred':
+            progressBar.style.width = '0%';
+            progressBar.style.backgroundColor = 'var(--md-outline-variant)';
+            break;
+          default:
+            progressBar.style.width = '0%';
+            progressBar.style.backgroundColor = 'var(--md-primary)';
+        }
+      }
+      
+      // Initialize add goal button
+      function initializeAddGoalButton() {
+        const addGoalBtn = document.getElementById('addGoalBtn');
+        let goalCount = 3; // Start with 3 goals
+        
+        addGoalBtn.addEventListener('click', function() {
+          goalCount++;
+          
+          // Create new goal container
+          const newGoal = document.createElement('div');
+          newGoal.className = 'goal-container';
+          newGoal.innerHTML = `
+            <div class="goal-header">
+              <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                <h3 class="goal-title">Goal ${goalCount}:</h3>
+                <input type="text" id="goal${goalCount}Title" name="goal${goalCount}Title" class="form-control" placeholder="Enter new goal..." style="flex: 1;">
+                <button type="button" class="remove-goal" style="background: none; border: none; color: var(--md-error); cursor: pointer; font-size: 18px; padding: 4px 8px;">&times;</button>
+              </div>
+              <div class="goal-status-container">
+                <label for="goal${goalCount}Status">Status:</label>
+                <select id="goal${goalCount}Status" name="goal${goalCount}Status" class="form-control" style="width: auto;">
+                  <option value="Not Started" selected>Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Deferred">Deferred</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="progress-indicator">
+              <div class="progress-bar" style="width: 0%;"></div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 16px;">
+              <label for="goal${goalCount}Progress">Progress Update</label>
+              <textarea id="goal${goalCount}Progress" name="goal${goalCount}Progress" class="form-control" rows="2" placeholder="Describe progress made toward this goal..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="goal${goalCount}NextSteps">Next Steps</label>
+              <textarea id="goal${goalCount}NextSteps" name="goal${goalCount}NextSteps" class="form-control" rows="2" placeholder="Outline next steps for this goal..."></textarea>
+            </div>
+          `;
+          
+          // Insert new goal before the Add Goal button
+          addGoalBtn.parentNode.insertBefore(newGoal, addGoalBtn);
+          
+          // Add event listener to remove button
+          const removeBtn = newGoal.querySelector('.remove-goal');
+          removeBtn.addEventListener('click', function() {
+            newGoal.remove();
+          });
+          
+          // Add event listeners to status dropdown to update progress bar
+          const statusDropdown = newGoal.querySelector(`#goal${goalCount}Status`);
+          const progressBar = newGoal.querySelector('.progress-bar');
+          
+          statusDropdown.addEventListener('change', function() {
+            updateGoalProgressBar(this.value, progressBar);
+          });
+        });
+      }
+      
+      // Initialize supervisor review toggle
+      function initializeSupervisorReviewToggle() {
+        const supervisorReviewCheckbox = document.getElementById('supervisorReview');
+        const supervisorReviewSection = document.getElementById('supervisorReviewSection');
+        
+        supervisorReviewCheckbox.addEventListener('change', function() {
+          supervisorReviewSection.style.display = this.checked ? 'block' : 'none';
+        });
+      }
+      
+      // Initialize safety risks mutual exclusion
+      function initializeSafetyRisks() {
+        const safetyRisks = document.querySelectorAll('input[name="safetyRisks"]');
+        const noneIdentifiedOption = document.querySelector('input[name="safetyRisks"][value="None identified"]');
+        
+        safetyRisks.forEach(risk => {
+          risk.addEventListener('change', function() {
+            if (this.value === "None identified" && this.checked) {
+              // Uncheck all other options
+              safetyRisks.forEach(otherRisk => {
+                if (otherRisk !== this) {
+                  otherRisk.checked = false;
+                }
+              });
+            } else if (this.checked) {
+              // If any other option is checked, uncheck "None identified"
+              noneIdentifiedOption.checked = false;
+            }
+          });
+        });
+      }
+      
+      // Submit the form
+      function submitForm() {
+        // Show loading overlay
+        document.getElementById('loadingOverlay').style.display = 'flex';
+        
+        // In a real implementation, this would submit to a server
+        // For demo purposes, we'll simulate a submission delay
+        setTimeout(function() {
+          // Hide loading overlay
+          document.getElementById('loadingOverlay').style.display = 'none';
+          
+          // Show success message and close dialog
+          alert('Followup record submitted successfully!');
+          
+          // If opened as a dialog from another page, notify the opener
+          if (window.opener) {
+            try {
+              window.opener.onFollowupSubmitted();
+            } catch (e) {
+              console.error('Error notifying opener:', e);
+            }
+          }
+          
+          closeDialog();
+        }, 1500);
+      }
+      
+      // Save as draft
+      saveAsDraftBtn.addEventListener('click', function() {
+        alert('Followup saved as draft. You can access it later from your drafts folder.');
+      });
+      
+      // Close dialog
+      function closeDialog() {
+        if (window.opener) {
+          // If opened as a pop-up window, close it
+          window.close();
+        } else {
+          // If embedded in page, hide the dialog
+          followupDialog.style.display = 'none';
+        }
+      }
+      
+      // Close dialog button
+      closeDialogBtn.addEventListener('click', closeDialog);
+      
+      // Initialize the form
+      setClientName();
+      initializeForm();
+    });
+  </script>
+</body>
+</html>
