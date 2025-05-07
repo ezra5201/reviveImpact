@@ -271,6 +271,19 @@
   </div>
 </div>
 
+<!-- Dialog Overlay for the Followup Form -->
+<div class="dialog-overlay" id="followupDialogOverlay">
+  <div class="dialog-container">
+    <div class="dialog-header">
+      <h2 class="dialog-title">Case Manager Followup</h2>
+      <button class="dialog-close" id="closeFollowupDialog">&times;</button>
+    </div>
+    <div class="dialog-body">
+      <iframe id="followupFormIframe" class="dialog-iframe" src="about:blank"></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Store client name for passing to the dialog
@@ -320,8 +333,6 @@
       // Updated to use CM-Dialog.html instead of followup-dialog.html
       followupFormIframe.src = `CM-Dialog.html?${params.toString()}`;
       
-      console.log("Loading iframe with URL:", followupFormIframe.src);
-      
       // Show the dialog
       followupDialogOverlay.style.display = 'flex';
       
@@ -350,7 +361,32 @@
       alert('Followup submitted successfully! The meeting history will be updated.');
     };
     
-    // Make table headers sortable
+    // Make table headers sortable (original code)
+    const sortableHeaders = document.querySelectorAll('th.sortable');
+    sortableHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        // Sort implementation would go here
+        // For demonstration, we'll just toggle the arrow
+        if (this.textContent.includes('↓')) {
+          this.textContent = this.textContent.replace('↓', '↑');
+        } else {
+          this.textContent = this.textContent.replace('↑', '↓');
+        }
+      });
+    });
+  });
+</script>
+    
+    // Callback function for when followup is submitted (called from iframe)
+    window.onFollowupSubmitted = function() {
+      closeFollowupDialog();
+      
+      // Refresh the client history table
+      // In a real implementation, this would reload data from the server
+      alert('Followup submitted successfully! The meeting history will be updated.');
+    };
+    
+    // Make table headers sortable (original code)
     const sortableHeaders = document.querySelectorAll('th.sortable');
     sortableHeaders.forEach(header => {
       header.addEventListener('click', function() {
