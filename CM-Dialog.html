@@ -123,7 +123,9 @@
 
   <section class="contact-history">
     <div class="history-header">
-      <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Engagement History</h2>
+      <h2 class="section-title" style="margin: 0; border: none; padding: 0;">
+        Client Engagement History
+      </h2>
       <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
     </div>
     <div class="table-container">
@@ -160,52 +162,52 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Store client name
-    window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
-    
-    const followupDialogOverlay = document.getElementById('followupDialogOverlay');
-    const followupFormIframe = document.getElementById('followupFormIframe');
-    const closeFollowupDialogBtn = document.getElementById('closeFollowupDialog');
-    const addFollowupBtn = document.getElementById('addFollowupBtn');
+document.addEventListener('DOMContentLoaded', function() {
+  // Store client name
+  window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
+  
+  const followupDialogOverlay = document.getElementById('followupDialogOverlay');
+  const followupFormIframe = document.getElementById('followupFormIframe');
+  const closeFollowupDialogBtn = document.getElementById('closeFollowupDialog');
+  const addFollowupBtn = document.getElementById('addFollowupBtn');
 
-    // Open dialog
-    function openFollowupDialog(referenceDate = null) {
-      const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
-      const params = new URLSearchParams();
-      params.append('client', clientName);
-      if (referenceDate) params.append('referenceDate', referenceDate);
-      followupFormIframe.src = `CM-Dialog.html?${params.toString()}`;
-      followupDialogOverlay.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    }
+  // Open dialog
+  function openFollowupDialog(referenceDate = null) {
+    const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
+    const params = new URLSearchParams();
+    params.append('client', clientName);
+    if (referenceDate) params.append('referenceDate', referenceDate);
+    followupFormIframe.src = `CM-Dialog.html?${params.toString()}`;
+    followupDialogOverlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
 
-    // Close dialog
-    function hideFollowupDialog() {
-      followupDialogOverlay.style.display = 'none';
-      followupFormIframe.src = 'about:blank';
-      document.body.style.overflow = 'auto';
-    }
+  // Close dialog
+  function hideFollowupDialog() {
+    followupDialogOverlay.style.display = 'none';
+    followupFormIframe.src = 'about:blank';
+    document.body.style.overflow = 'auto';
+  }
 
-    // Wire up buttons
-    if (addFollowupBtn) addFollowupBtn.addEventListener('click', openFollowupDialog);
-    closeFollowupDialogBtn.addEventListener('click', hideFollowupDialog);
+  // Wire up buttons
+  if (addFollowupBtn) addFollowupBtn.addEventListener('click', openFollowupDialog);
+  closeFollowupDialogBtn.addEventListener('click', hideFollowupDialog);
 
-    // Called from inside iframe on submit
-    window.onFollowupSubmitted = function() {
-      hideFollowupDialog();
-      alert('Followup submitted successfully! The meeting history will be updated.');
-    };
+  // Callback when followup is submitted (inside iframe)
+  window.onFollowupSubmitted = function() {
+    hideFollowupDialog();
+    alert('Followup submitted successfully! The meeting history will be updated.');
+  };
 
-    // Simple sortable headers demo
-    document.querySelectorAll('th.sortable').forEach(header => {
-      header.addEventListener('click', function() {
-        this.textContent = this.textContent.includes('↓')
-          ? this.textContent.replace('↓', '↑')
-          : this.textContent.replace('↑', '↓');
-      });
+  // Make table headers sortable
+  document.querySelectorAll('th.sortable').forEach(header => {
+    header.addEventListener('click', function() {
+      this.textContent = this.textContent.includes('↓')
+        ? this.textContent.replace('↓', '↑')
+        : this.textContent.replace('↑', '↓');
     });
   });
+});
 </script>
 </body>
 </html>
