@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +13,7 @@
       font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
       background-color: var(--md-surface, #FEFBFF);
       color: var(--md-on-surface, #1B1B1F);
+      padding-top: 112px; /* Adjusted for fixed header */
     }
     
     /* Progress bar at the top */
@@ -24,7 +24,7 @@
       overflow-x: auto;
       background-color: var(--md-surface, #FEFBFF);
       position: sticky;
-      top: 0;
+      top: 112px; /* Adjusted for fixed header */
       z-index: 5;
     }
     
@@ -58,7 +58,7 @@
     
     .accordion-header {
       padding: 16px;
-      background-color: var(--md-surface-variant, #E1E2EC);
+      background-color: var(--md-primary-container, #D8E2FF); /* Changed to blue shade from Material Design 3 */
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -69,7 +69,7 @@
       font-size: 16px;
       font-weight: 500;
       margin: 0;
-      color: var(--md-on-surface, #1B1B1F);
+      color: var(--md-on-primary-container, #001A41); /* Changed to appropriate contrast color */
     }
     
     .accordion-content {
@@ -83,7 +83,7 @@
     }
     
     .accordion-indicator {
-      color: var(--md-on-surface-variant, #44474F);
+      color: var(--md-on-primary-container, #001A41); /* Changed to match title color */
       transition: transform 0.3s ease;
     }
     
@@ -295,6 +295,45 @@
   </style>
 </head>
 <body>
+  <!-- Fixed Header - Integrated from index.html -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="cm-ot.html" class="nav-tab nav-tab-active">CM/OT</a>
+        <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Secondary Action Bar -->
+  <div class="secondary-action-bar">
+    <div class="secondary-action-bar-left">
+      <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+      <button type="button" class="btn btn-primary" id="submitBtn">Submit</button>
+    </div>
+    <div class="secondary-action-bar-right">
+      <!-- You can add additional action buttons here if needed -->
+    </div>
+  </div>
+
   <!-- Progress tracker -->
   <div class="form-progress">
     <div class="progress-step active" data-section="basicInfo">1. Basic Info</div>
@@ -680,8 +719,7 @@
               <div class="checkbox-group">
                 <label>
                   <input type="checkbox" name="safetyRisks" value="Suicide risk">
-                  Suicide risk
-                </label>
+                  Suicide risk</label>
               </div>
               <div class="checkbox-group">
                 <label>
@@ -778,6 +816,41 @@
       const nextStepBtn = document.getElementById('nextStepBtn');
       const submitFormBtn = document.getElementById('submitFormBtn');
       const saveAsDraftBtn = document.getElementById('saveAsDraftBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // Connect secondary action bar buttons to form buttons
+      saveBtn.addEventListener('click', function() {
+        saveAsDraftBtn.click();
+      });
+      
+      submitBtn.addEventListener('click', function() {
+        // If submit form button is visible, click it
+        if (submitFormBtn.style.display !== 'none') {
+          submitFormBtn.click();
+        } else {
+          // Otherwise, finish all sections and then submit
+          completeAllSectionsAndSubmit();
+        }
+      });
+      
+      // Function to complete all sections and submit
+      function completeAllSectionsAndSubmit() {
+        // Mark all sections as completed
+        accordionSections.forEach(section => {
+          section.classList.add('completed');
+        });
+        
+        // Update progress steps
+        updateProgressIndicator();
+        
+        // Navigate to last section
+        navigateToSection(accordionSections[accordionSections.length - 1].id);
+        
+        // Show submit button and hide next button
+        nextStepBtn.style.display = 'none';
+        submitFormBtn.style.display = 'inline-block';
+      }
       
       // Set current client name from URL or parent window
       function setClientName() {
