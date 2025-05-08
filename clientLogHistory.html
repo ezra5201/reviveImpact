@@ -129,6 +129,7 @@
     <div class="history-header">
       <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Engagement History</h2>
       <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
+      <button class="add-checkin-btn" id="addOTFollowupBtn" style="margin-left: 8px;">Add OT Followup</button>
     </div>
 
     <div class="table-container">
@@ -241,6 +242,27 @@
       });
     });
   });
+
+  // Add OT Followup button functionality
+const addOTFollowupBtn = document.getElementById('addOTFollowupBtn');
+if (addOTFollowupBtn) {
+  addOTFollowupBtn.addEventListener('click', function() {
+    openOTFollowupInNewTab();
+  });
+}
+
+// Function to open the OT followup form in a new tab
+function openOTFollowupInNewTab() {
+  // Extract client name from header (remove the age in parentheses)
+  const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
+  
+  // Create URL with parameters
+  const params = new URLSearchParams();
+  params.append('client', clientName);
+  
+  // Open the OT-Form.html in a new tab
+  window.open(`OT-Form.html?${params.toString()}`, '_blank');
+}
 </script>
 </body>
 </html>
