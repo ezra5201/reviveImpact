@@ -159,7 +159,7 @@
     
     /* Loading indicator */
     .loading-overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -292,6 +292,12 @@
     
     .btn:hover {
       opacity: 0.9;
+    }
+    
+    /* Invalid form field */
+    .form-control.invalid {
+      border-color: #BA1A1A;
+      box-shadow: 0 0 0 1px #BA1A1A;
     }
     
     /* Responsive adjustments */
@@ -816,3 +822,512 @@
             <label for="clientEducation">Client/Caregiver Education Provided</label>
             <textarea id="clientEducation" name="clientEducation" class="form-control" rows="3" placeholder="Describe education provided to client and/or caregivers..."></textarea>
           </div>
+        </div>
+      </div>
+      
+      <!-- Adaptations & Equipment Section -->
+      <div class="accordion-section" id="adaptationsEquipment">
+        <div class="accordion-header">
+          <div>
+            <span class="accordion-completion-indicator">✓</span>
+            <h3 class="accordion-title">Adaptations & Equipment</h3>
+          </div>
+          <span class="accordion-indicator">▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="form-group">
+            <label>Equipment & Adaptations Used/Needed (select all that apply)</label>
+            <div class="areas-container">
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Bathing Equipment"> Bathing Equipment</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Dressing Aids"> Dressing Aids</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Toilet/Commode Equipment"> Toilet/Commode Equipment</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Adaptive Feeding Equipment"> Adaptive Feeding Equipment</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Mobility Aids"> Mobility Aids</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Home Modifications"> Home Modifications</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Communication Devices"> Communication Devices</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Medication Management Tools"> Medication Management Tools</label>
+              </div>
+              <div class="checkbox-group">
+                <label><input type="checkbox" name="equipment" value="Environmental Adaptations"> Environmental Adaptations</label>
+              </div>
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="equipment" value="Other" id="otherEquipmentCheckbox">
+                  Other
+                </label>
+                <input type="text" id="otherEquipment" name="otherEquipment" class="form-control" placeholder="Specify other equipment or adaptations" style="margin-top: 4px; display: none;">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="currentEquipment">Current Equipment/Adaptations</label>
+              <textarea id="currentEquipment" name="currentEquipment" class="form-control" rows="3" placeholder="Describe equipment/adaptations currently being used..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="recommendedEquipment">Recommended Equipment/Adaptations</label>
+              <textarea id="recommendedEquipment" name="recommendedEquipment" class="form-control" rows="3" placeholder="Describe recommended equipment/adaptations..."></textarea>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="equipmentTraining">Equipment/Adaptation Training Provided</label>
+            <textarea id="equipmentTraining" name="equipmentTraining" class="form-control" rows="3" placeholder="Describe training provided on equipment/adaptations use..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="environmentAssessment">Environment Assessment</label>
+            <textarea id="environmentAssessment" name="environmentAssessment" class="form-control" rows="3" placeholder="Note any environmental factors impacting occupational performance..."></textarea>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recommendations Section -->
+      <div class="accordion-section" id="recommendations">
+        <div class="accordion-header">
+          <div>
+            <span class="accordion-completion-indicator">✓</span>
+            <h3 class="accordion-title">Recommendations</h3>
+          </div>
+          <span class="accordion-indicator">▼</span>
+        </div>
+        <div class="accordion-content">
+          <div class="form-group">
+            <label for="otPlan" class="required-field">OT Plan</label>
+            <textarea id="otPlan" name="otPlan" class="form-control" rows="4" required placeholder="Outline the plan for future OT services..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="shortTermGoals">Short-term Goals</label>
+            <textarea id="shortTermGoals" name="shortTermGoals" class="form-control" rows="3" placeholder="List short-term OT goals for client..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="longTermGoals">Long-term Goals</label>
+            <textarea id="longTermGoals" name="longTermGoals" class="form-control" rows="3" placeholder="List long-term OT goals for client..."></textarea>
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="referrals">Referrals</label>
+              <textarea id="referrals" name="referrals" class="form-control" rows="3" placeholder="Note any referrals made to other services..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="followUpPlans">Follow-up Plans</label>
+              <textarea id="followUpPlans" name="followUpPlans" class="form-control" rows="3" placeholder="Describe plans for follow-up..."></textarea>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="dapNote">DAP Note (Documentation, Assessment, Plan)</label>
+            <textarea id="dapNote" name="dapNote" class="form-control" rows="6" placeholder="D: Factual information about what occurred during the session
+A: Analysis/interpretation of the information
+P: Plan for addressing identified issues"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="additionalNotes">Additional Notes</label>
+            <textarea id="additionalNotes" name="additionalNotes" class="form-control" rows="3" placeholder="Include any additional information or notes not captured elsewhere..."></textarea>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Form navigation buttons -->
+    <div class="button-bar">
+      <button type="button" class="btn btn-secondary" id="prevStepBtn">Previous</button>
+      <button type="button" class="btn btn-secondary" id="saveAsDraftBtn">Save as Draft</button>
+      <button type="button" class="btn btn-primary" id="nextStepBtn">Next</button>
+      <button type="button" class="btn btn-primary" id="submitFormBtn" style="display: none;">Submit</button>
+    </div>
+    
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // DOM elements
+      const clientNameDisplay = document.getElementById('clientNameDisplay');
+      const accordionSections = document.querySelectorAll('.accordion-section');
+      const progressSteps = document.querySelectorAll('.progress-step');
+      const prevStepBtn = document.getElementById('prevStepBtn');
+      const nextStepBtn = document.getElementById('nextStepBtn');
+      const submitFormBtn = document.getElementById('submitFormBtn');
+      const saveAsDraftBtn = document.getElementById('saveAsDraftBtn');
+      
+      // Set current client name from URL or parent window
+      function setClientName() {
+        // Try to get from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const clientParam = urlParams.get('client');
+        
+        if (clientParam) {
+          clientNameDisplay.textContent = `Occupational Therapy Followup: ${clientParam}`;
+        } else if (window.parent && window.parent.currentClientName) {
+          // Try to get from parent window
+          clientNameDisplay.textContent = `Occupational Therapy Followup: ${window.parent.currentClientName}`;
+        }
+      }
+      
+      // Initialize form with default values
+      function initializeForm() {
+        // Set today's date
+        const today = new Date();
+        const formattedDate = today.toISOString().substring(0, 10);
+        document.getElementById('followupDate').value = formattedDate;
+        
+        // Set default duration
+        document.getElementById('duration').value = 60;
+        
+        // Initialize accordion sections
+        initializeAccordions();
+        
+        // Initialize progress tracking
+        updateProgressIndicator();
+        
+        // Initialize form navigation
+        initializeFormNavigation();
+        
+        // Initialize "Other" field toggles
+        initializeOtherFields();
+        
+        // Add new intervention button functionality
+        initializeAddInterventionButton();
+      }
+      
+      // Initialize accordion functionality
+      function initializeAccordions() {
+        accordionSections.forEach(section => {
+          const header = section.querySelector('.accordion-header');
+          const content = section.querySelector('.accordion-content');
+          const indicator = section.querySelector('.accordion-indicator');
+          
+          header.addEventListener('click', function() {
+            // Close all other sections first
+            accordionSections.forEach(otherSection => {
+              if (otherSection !== section) {
+                otherSection.querySelector('.accordion-content').classList.remove('open');
+                otherSection.querySelector('.accordion-indicator').classList.remove('open');
+              }
+            });
+            
+            // Toggle current section
+            content.classList.toggle('open');
+            indicator.classList.toggle('open');
+            
+            // Update progress tracking
+            updateProgressIndicator();
+          });
+        });
+        
+        // By default, only show the first section
+        accordionSections.forEach((section, index) => {
+          const content = section.querySelector('.accordion-content');
+          const indicator = section.querySelector('.accordion-indicator');
+          
+          if (index === 0) {
+            content.classList.add('open');
+            indicator.classList.add('open');
+          } else {
+            content.classList.remove('open');
+            indicator.classList.remove('open');
+          }
+        });
+      }
+      
+      // Initialize progress steps navigation
+      function initializeFormNavigation() {
+        // Click handlers for progress steps
+        progressSteps.forEach(step => {
+          step.addEventListener('click', function() {
+            const sectionId = this.getAttribute('data-section');
+            navigateToSection(sectionId);
+          });
+        });
+        
+        // Previous button
+        prevStepBtn.addEventListener('click', function() {
+          const currentSection = getCurrentSection();
+          const currentIndex = getIndexOfSection(currentSection);
+          
+          if (currentIndex > 0) {
+            const prevSection = accordionSections[currentIndex - 1].id;
+            navigateToSection(prevSection);
+          }
+        });
+        
+        // Next button
+        nextStepBtn.addEventListener('click', function() {
+          const currentSection = getCurrentSection();
+          const currentIndex = getIndexOfSection(currentSection);
+          
+          if (validateCurrentSection(currentSection)) {
+            // Mark current section as completed
+            accordionSections[currentIndex].classList.add('completed');
+            updateProgressIndicator();
+            
+            if (currentIndex < accordionSections.length - 1) {
+              const nextSection = accordionSections[currentIndex + 1].id;
+              navigateToSection(nextSection);
+            } else {
+              // We're on the last section, show submit button
+              nextStepBtn.style.display = 'none';
+              submitFormBtn.style.display = 'inline-block';
+            }
+          } else {
+            alert('Please complete all required fields in this section before proceeding.');
+          }
+        });
+        
+        // Submit button
+        submitFormBtn.addEventListener('click', function() {
+          const currentSection = getCurrentSection();
+          
+          if (validateCurrentSection(currentSection)) {
+            submitForm();
+          } else {
+            alert('Please complete all required fields in this section before submitting.');
+          }
+        });
+      }
+      
+      // Navigate to a specific section
+      function navigateToSection(sectionId) {
+        // Close all sections
+        accordionSections.forEach(section => {
+          section.querySelector('.accordion-content').classList.remove('open');
+          section.querySelector('.accordion-indicator').classList.remove('open');
+        });
+        
+        // Open the target section
+        const targetSection = document.getElementById(sectionId);
+        targetSection.querySelector('.accordion-content').classList.add('open');
+        targetSection.querySelector('.accordion-indicator').classList.add('open');
+        
+        // Update active progress step
+        progressSteps.forEach(step => {
+          step.classList.remove('active');
+          if (step.getAttribute('data-section') === sectionId) {
+            step.classList.add('active');
+          }
+        });
+        
+        // Update buttons
+        const currentIndex = getIndexOfSection(sectionId);
+        prevStepBtn.disabled = currentIndex === 0;
+        
+        if (currentIndex === accordionSections.length - 1) {
+          nextStepBtn.style.display = 'none';
+          submitFormBtn.style.display = 'inline-block';
+        } else {
+          nextStepBtn.style.display = 'inline-block';
+          submitFormBtn.style.display = 'none';
+        }
+        
+        // Scroll to the top of the section
+        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Get the currently visible section
+      function getCurrentSection() {
+        for (let i = 0; i < accordionSections.length; i++) {
+          if (accordionSections[i].querySelector('.accordion-content').classList.contains('open')) {
+            return accordionSections[i].id;
+          }
+        }
+        return null;
+      }
+      
+      // Get the index of a section by ID
+      function getIndexOfSection(sectionId) {
+        for (let i = 0; i < accordionSections.length; i++) {
+          if (accordionSections[i].id === sectionId) {
+            return i;
+          }
+        }
+        return -1;
+      }
+      
+      // Update progress indicators
+      function updateProgressIndicator() {
+        // Update progress steps
+        progressSteps.forEach((step, index) => {
+          const sectionId = step.getAttribute('data-section');
+          const section = document.getElementById(sectionId);
+          
+          if (section.classList.contains('completed')) {
+            step.classList.add('completed');
+          } else {
+            step.classList.remove('completed');
+          }
+        });
+      }
+      
+      // Validate the current section before proceeding
+      function validateCurrentSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        const requiredFields = section.querySelectorAll('[required]');
+        
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+          // For checkboxes, we need to check if at least one is checked
+          if (field.type === 'checkbox' && field.name.endsWith('[]')) {
+            const checkboxGroup = document.querySelectorAll(`input[name="${field.name}"]`);
+            let anyChecked = false;
+            checkboxGroup.forEach(checkbox => {
+              if (checkbox.checked) {
+                anyChecked = true;
+              }
+            });
+            
+            if (!anyChecked) {
+              isValid = false;
+              field.closest('.form-group').classList.add('invalid');
+            } else {
+              field.closest('.form-group').classList.remove('invalid');
+            }
+          } else if (!field.value) {
+            isValid = false;
+            field.classList.add('invalid');
+          } else {
+            field.classList.remove('invalid');
+          }
+        });
+        
+        return isValid;
+      }
+      
+      // Initialize "Other" field toggles
+      function initializeOtherFields() {
+        // Intervention "Other" toggle
+        const otherInterventionCheckbox = document.getElementById('otherInterventionCheckbox');
+        const otherInterventionInput = document.getElementById('otherIntervention');
+        
+        otherInterventionCheckbox.addEventListener('change', function() {
+          otherInterventionInput.style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // Equipment "Other" toggle
+        const otherEquipmentCheckbox = document.getElementById('otherEquipmentCheckbox');
+        const otherEquipmentInput = document.getElementById('otherEquipment');
+        
+        otherEquipmentCheckbox.addEventListener('change', function() {
+          otherEquipmentInput.style.display = this.checked ? 'block' : 'none';
+        });
+      }
+      
+      // Initialize add intervention button
+      function initializeAddInterventionButton() {
+        const addInterventionBtn = document.getElementById('addInterventionBtn');
+        let interventionCount = 1; // Start with 1 intervention
+        
+        addInterventionBtn.addEventListener('click', function() {
+          interventionCount++;
+          
+          // Create new intervention container
+          const newIntervention = document.createElement('div');
+          newIntervention.className = 'intervention-container';
+          newIntervention.innerHTML = `
+            <div class="intervention-header">
+              <div style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                <h3 class="intervention-title">Intervention ${interventionCount}:</h3>
+                <input type="text" id="intervention${interventionCount}Title" name="intervention${interventionCount}Title" class="form-control" placeholder="Enter intervention title..." style="flex: 1;">
+                <button type="button" class="remove-intervention" style="background: none; border: none; color: var(--md-error, #BA1A1A); cursor: pointer; font-size: 18px; padding: 4px 8px;">&times;</button>
+              </div>
+              <div class="intervention-status-container">
+                <label for="intervention${interventionCount}Status">Response:</label>
+                <select id="intervention${interventionCount}Status" name="intervention${interventionCount}Status" class="form-control" style="width: auto;">
+                  <option value="">-- Select --</option>
+                  <option value="Excellent">Excellent</option>
+                  <option value="Good" selected>Good</option>
+                  <option value="Fair">Fair</option>
+                  <option value="Poor">Poor</option>
+                  <option value="Not Applicable">Not Applicable</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 16px;">
+              <label for="intervention${interventionCount}Description">Description</label>
+              <textarea id="intervention${interventionCount}Description" name="intervention${interventionCount}Description" class="form-control" rows="2" placeholder="Describe the intervention implemented..."></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="intervention${interventionCount}Response">Client Response</label>
+              <textarea id="intervention${interventionCount}Response" name="intervention${interventionCount}Response" class="form-control" rows="2" placeholder="Describe the client's response to intervention..."></textarea>
+            </div>
+          `;
+          
+          // Insert new intervention before the Add Intervention button
+          addInterventionBtn.parentNode.insertBefore(newIntervention, addInterventionBtn);
+          
+          // Add event listener to remove button
+          const removeBtn = newIntervention.querySelector('.remove-intervention');
+          removeBtn.addEventListener('click', function() {
+            newIntervention.remove();
+          });
+        });
+      }
+      
+      // Submit the form
+      function submitForm() {
+        // Show loading overlay
+        document.getElementById('loadingOverlay').style.display = 'flex';
+        
+        // Collect form data
+        const formData = new FormData(document.getElementById('otFollowupForm'));
+        
+        // In a real implementation, this would submit to a server
+        // For demo purposes, we'll simulate a submission delay
+        setTimeout(function() {
+          // Hide loading overlay
+          document.getElementById('loadingOverlay').style.display = 'none';
+          
+          // Show success message
+          alert('Occupational Therapy followup record submitted successfully!');
+          
+          // Notify the parent window that submission is complete
+          if (window.parent && typeof window.parent.onFollowupSubmitted === 'function') {
+            try {
+              window.parent.onFollowupSubmitted();
+            } catch (e) {
+              console.error('Error notifying parent window:', e);
+            }
+          }
+        }, 1500);
+      }
+      
+      // Save as draft
+      saveAsDraftBtn.addEventListener('click', function() {
+        alert('Followup saved as draft. You can access it later from your drafts folder.');
+      });
+      
+      // Initialize the form
+      setClientName();
+      initializeForm();
+    });
+  </script>
+</body>
+</html>
