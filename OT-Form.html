@@ -432,16 +432,29 @@
       </div>
 
       <!-- Client Goals & Progress Section -->
-      <div class="accordion-section" id="clientGoalsProgress">
+       <div class="accordion-section" id="clientGoalsProgress">
         <div class="accordion-header">
-          <div>
-            <span class="accordion-completion-indicator">✓</span>
-            <h3 class="accordion-title">Client Goals & Progress</h3>
-          </div>
+          <div><span class="accordion-completion-indicator">✓</span><h3 class="accordion-title">Client Goals & Progress</h3></div>
           <span class="accordion-indicator">▼</span>
         </div>
-        <div class="accordion-content">
+        <div class="accordion-content open">
+          <!-- Goal 1 -->
           <div class="goal-container" id="goal1">
+            <div class="goal-header">
+              <h4 class="goal-title">Goal 1:</h4>
+              <div class="goal-status-container">
+                <label for="goal1Status">Status:</label>
+                <select id="goal1Status" name="goal1Status" class="form-control" style="width: auto;">
+                  <option value="Not Started">Not Started</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Deferred">Deferred</option>
+                </select>
+              </div>
+            </div>
+            <div class="progress-indicator">
+              <div class="progress-bar" id="goal1ProgressBar" style="width: 0%;"></div>
+            </div>
             <div class="form-group">
               <label for="goal1Description" class="required-field">Goal 1</label>
               <textarea id="goal1Description" name="goal1Description" class="form-control" rows="2" placeholder="Describe the client's goal..."></textarea>
@@ -451,40 +464,8 @@
               <textarea id="goal1Progress" name="goal1Progress" class="form-control" rows="2" placeholder="Document progress..."></textarea>
             </div>
           </div>
+          <!-- Add Another Goal button -->
           <button type="button" id="addGoalBtn" class="btn btn-secondary" style="margin-top:16px;">+ Add Another Goal</button>
-        </div>
-      </div>
-
-      <!-- Interventions Section -->
-      <div class="accordion-section" id="interventions">
-        <div class="accordion-header">
-          <div>
-            <span class="accordion-completion-indicator">✓</span>
-            <h3 class="accordion-title">Interventions</h3>
-          </div>
-          <span class="accordion-indicator">▼</span>
-        </div>
-        <div class="accordion-content">
-          <div id="interventionsContainer">
-            <div class="intervention-container">
-              <div class="intervention-header">
-                <h4 class="intervention-title">Intervention 1</h4>
-                <div class="intervention-status-container">
-                  <label for="intervention1Status">Status:</label>
-                  <select id="intervention1Status" name="intervention1Status" class="form-control">
-                    <option value="Planned">Planned</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Completed">Completed</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="intervention1Description">Description</label>
-                <textarea id="intervention1Description" name="intervention1Description" class="form-control" rows="3" placeholder="Describe OT interventions..."></textarea>
-              </div>
-            </div>
-          </div>
-          <button type="button" id="addInterventionBtn" class="btn btn-secondary">+ Add Another Intervention</button>
         </div>
       </div>
 
