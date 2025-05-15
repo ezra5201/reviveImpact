@@ -34,13 +34,40 @@
 </div>
 </header>
 
+
 <!-- Secondary Action Bar (new) -->
 <div class="secondary-action-bar">
   <div class="secondary-action-bar-left">
-    <!-- You can add additional action buttons or information here if needed -->
+    <!-- Date Filter -->
+    <div class="filter-group">
+      <label for="dateFilter">Date/s:</label>
+      <select id="dateFilter" class="filter-select">
+        <option value="today" selected>Today</option>
+        <option value="thisWeek">This week</option>
+        <option value="thisMonth">This month</option>
+        <option value="thisYear">This year</option>
+        <option value="custom">Custom</option>
+        <option value="dateRange">Date Range</option>
+      </select>
+    </div>
+
+    <!-- Provider Filter -->
+    <div class="filter-group">
+      <label for="providerFilter">Provider:</label>
+      <select id="providerFilter" class="filter-select">
+        <option value="0" selected>Andrea Leflore</option>
+        <option value="1">Elena Ahmed</option>
+        <option value="2">Sofia Cohen</option>
+        <option value="3">Jamal Silva</option>
+        <option value="4">Mohammed Ahmed</option>
+        <option value="5">Sonia Singh</option>
+        <option value="6">Leila Garcia</option>
+      </select>
+    </div>
   </div>
   <div class="secondary-action-bar-right">
-    <!-- You can add additional action buttons or information here if needed -->
+    <!-- Quick Check-In Button -->
+    <button id="quickCheckInButton" class="quick-check-in-btn">Quick Check-In</button>
   </div>
 </div>
 
