@@ -178,6 +178,27 @@ header, .header {
   gap: 16px;
 }
 
+
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: red; /* temporary - to see if the container is there */
+  padding: 10px;
+}
+
+.filter-select {
+  padding: 8px;
+  border: 2px solid blue; /* temporary - to see if select is there */
+  background-color: yellow;
+}
+
+
+
+
+
+
 .logo {
   height: 40px;
   display: flex;
