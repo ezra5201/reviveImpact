@@ -178,7 +178,7 @@ header, .header {
   gap: 16px;
 }
 
-
+/* filter group */
 
 .filter-group {
   display: flex;
@@ -211,7 +211,6 @@ header, .header {
   border-color: var(--md-primary);
   box-shadow: 0 0 0 1px var(--md-primary);
 }
-
 
 
 
