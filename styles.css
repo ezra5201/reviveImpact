@@ -184,14 +184,32 @@ header, .header {
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: red; /* temporary - to see if the container is there */
-  padding: 10px;
+  padding: 0;
+}
+
+.filter-group label {
+  font-size: var(--md-body-medium-font);
+  font-weight: var(--md-body-medium-weight);
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
 }
 
 .filter-select {
-  padding: 8px;
-  border: 2px solid blue; /* temporary - to see if select is there */
-  background-color: yellow;
+  padding: 8px 12px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-shape-corner-small);
+  background-color: var(--md-surface);
+  color: var(--md-on-surface);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary);
 }
 
 
