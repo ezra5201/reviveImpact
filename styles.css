@@ -567,6 +567,9 @@ nav, .nav {
 }
 
 /* Button Styles - Material Design 3 */
+
+
+
 .btn {
   padding: 10px 24px;
   min-height: 40px;
@@ -614,6 +617,19 @@ nav, .nav {
 
 .btn-primary:active {
   box-shadow: var(--md-elevation-1);
+}
+
+.btn:disabled {
+  background-color: var(--md-on-surface);
+  color: var(--md-surface);
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.btn:disabled::after {
+  display: none;
 }
 
 .btn-secondary {
@@ -722,6 +738,17 @@ nav, .nav {
 .full-record-btn:active::after, .add-checkin-btn:active::after {
   background-color: rgba(255, 255, 255, 0.12);
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /* Container Styles */
 .container {
