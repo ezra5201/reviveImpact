@@ -1,28 +1,45 @@
-/* Global Styles - Material Design 3 */
+/* ==========================================================================
+   REVIVE IMPACT STYLES - MATERIAL DESIGN 3 IMPLEMENTATION
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ========================================================================== */
+
 :root {
-  /* MD3 color system */
+  /* MD3 Color System - Primary Colors */
   --md-primary: #006CFA;
   --md-on-primary: #FFFFFF;
   --md-primary-container: #D8E2FF;
   --md-on-primary-container: #001A41;
+  
+  /* MD3 Color System - Secondary Colors */
   --md-secondary: #565E71;
   --md-on-secondary: #FFFFFF;
   --md-secondary-container: #D8E2FF;
   --md-on-secondary-container: #121C2B;
+  
+  /* MD3 Color System - Tertiary Colors */
   --md-tertiary: #715573;
   --md-on-tertiary: #FFFFFF;
   --md-tertiary-container: #FBD7FC;
   --md-on-tertiary-container: #29132D;
+  
+  /* MD3 Color System - Error Colors */
   --md-error: #BA1A1A;
   --md-on-error: #FFFFFF;
   --md-error-container: #FFDAD6;
   --md-on-error-container: #410002;
+  
+  /* MD3 Color System - Surface Colors */
   --md-background: #FEFBFF;
   --md-on-background: #1B1B1F;
   --md-surface: #FEFBFF;
   --md-on-surface: #1B1B1F;
   --md-surface-variant: #E1E2EC;
   --md-on-surface-variant: #44474F;
+  
+  /* MD3 Color System - Outline & Effects */
   --md-outline: #74777F;
   --md-outline-variant: #C4C6D0;
   --md-shadow: #000000;
@@ -31,79 +48,77 @@
   --md-inverse-on-surface: #F2F0F4;
   --md-inverse-primary: #ADC6FF;
   
-  /* MD3 elevation levels */
+  /* MD3 Elevation System - Box Shadows */
   --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.14);
   --md-elevation-2: 0 3px 6px 0 rgba(0, 0, 0, 0.15), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
   --md-elevation-3: 0 6px 10px 0 rgba(0, 0, 0, 0.15), 0 3px 16px 0 rgba(0, 0, 0, 0.1);
   --md-elevation-4: 0 8px 12px 0 rgba(0, 0, 0, 0.15), 0 4px 22px 0 rgba(0, 0, 0, 0.1);
   --md-elevation-5: 0 12px 24px 0 rgba(0, 0, 0, 0.15), 0 8px 32px 0 rgba(0, 0, 0, 0.1);
   
-  /* MD3 typography here */
+  /* MD3 Typography Scale - Display Styles */
   --md-display-large-font: 57px;
   --md-display-large-line-height: 64px;
   --md-display-large-letter-spacing: -0.25px;
-  
   --md-display-medium-font: 45px;
   --md-display-medium-line-height: 52px;
-  
   --md-display-small-font: 36px;
   --md-display-small-line-height: 44px;
   
+  /* MD3 Typography Scale - Headline Styles */
   --md-headline-large-font: 32px;
   --md-headline-large-line-height: 40px;
-  
   --md-headline-medium-font: 28px;
   --md-headline-medium-line-height: 36px;
-  
   --md-headline-small-font: 24px;
   --md-headline-small-line-height: 32px;
   
+  /* MD3 Typography Scale - Title Styles */
   --md-title-large-font: 22px;
   --md-title-large-line-height: 28px;
-  
   --md-title-medium-font: 16px;
   --md-title-medium-line-height: 24px;
   --md-title-medium-letter-spacing: 0.15px;
   --md-title-medium-weight: 500;
-  
   --md-title-small-font: 14px;
   --md-title-small-line-height: 20px;
   --md-title-small-letter-spacing: 0.1px;
   --md-title-small-weight: 500;
   
+  /* MD3 Typography Scale - Body Styles */
   --md-body-large-font: 16px;
   --md-body-large-line-height: 24px;
   --md-body-large-letter-spacing: 0.15px;
-  
   --md-body-medium-font: 14px;
   --md-body-medium-line-height: 20px;
   --md-body-medium-letter-spacing: 0.25px;
-  
   --md-body-small-font: 12px;
   --md-body-small-line-height: 16px;
   --md-body-small-letter-spacing: 0.4px;
   
+  /* MD3 Typography Scale - Label Styles */
   --md-label-large-font: 14px;
   --md-label-large-line-height: 20px;
   --md-label-large-letter-spacing: 0.1px;
   --md-label-large-weight: 500;
-  
   --md-label-medium-font: 12px;
   --md-label-medium-line-height: 16px;
   --md-label-medium-letter-spacing: 0.5px;
   --md-label-medium-weight: 500;
-  
   --md-label-small-font: 11px;
   --md-label-small-line-height: 16px;
   --md-label-small-letter-spacing: 0.5px;
   --md-label-small-weight: 500;
   
-  /* MD3 shape */
+  /* MD3 Shape System - Border Radius */
   --md-shape-corner-small: 4px;
   --md-shape-corner-medium: 8px;
   --md-shape-corner-large: 12px;
   --md-shape-corner-xlarge: 28px;
 }
+
+/* ==========================================================================
+   2. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
 
 * {
   box-sizing: border-box;
@@ -113,7 +128,7 @@
 }
 
 body {
-  padding-top: 112px; /* Same as header height */
+  padding-top: 112px; /* Account for fixed header + secondary action bar */
   background-color: var(--md-background);
   min-height: 100vh;
   display: flex;
@@ -121,7 +136,86 @@ body {
   color: var(--md-on-background);
 }
 
-/* Additional styles for the secondary action bar */
+/* ==========================================================================
+   3. LAYOUT COMPONENTS
+   ========================================================================== */
+
+/* Container Styles */
+.container {
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 24px;
+  background-color: var(--md-surface);
+  box-shadow: var(--md-elevation-1);
+  border-radius: var(--md-shape-corner-medium);
+}
+
+.main-container {
+  padding: 24px;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Page Title Section */
+.page-title-section {
+  padding: 32px 24px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: var(--md-headline-medium-font);
+  line-height: var(--md-headline-medium-line-height);
+  color: var(--md-on-background);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.page-subtitle {
+  font-size: var(--md-body-large-font);
+  line-height: var(--md-body-large-line-height);
+  letter-spacing: var(--md-body-large-letter-spacing);
+  color: var(--md-on-surface-variant);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   4. HEADER & NAVIGATION
+   ========================================================================== */
+
+/* Primary Header */
+header, .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--md-surface);
+  box-shadow: var(--md-elevation-2);
+  flex: none;
+  height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Secondary Action Bar */
 .secondary-action-bar {
   display: flex;
   justify-content: space-between;
@@ -131,7 +225,7 @@ body {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   height: 52px;
   position: fixed;
-  top: 64px; /* Position right below the main header */
+  top: 64px; /* Position below main header */
   left: 0;
   right: 0;
   width: 100%;
@@ -154,68 +248,7 @@ body {
   margin: 0;
 }
 
-/* Header Styles - Material Design 3 */
-header, .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background-color: var(--md-surface);
-  box-shadow: var(--md-elevation-2);
-  flex: none;
-  height: 64px;
-  position: fixed; /* Change from relative to fixed */
-  top: 0; /* Position at the top */
-  left: 0; /* Stretch from the left edge */
-  right: 0; /* Stretch to the right edge */
-  width: 100%; /* Ensure full width */
-  z-index: 1000; /* Higher z-index to ensure it stays above all content */
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* filter group */
-
-.filter-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-}
-
-.filter-group label {
-  font-size: var(--md-body-medium-font);
-  font-weight: var(--md-body-medium-weight);
-  color: var(--md-on-surface-variant);
-  white-space: nowrap;
-}
-
-.filter-select {
-  padding: 8px 12px;
-  border: 1px solid var(--md-outline);
-  border-radius: var(--md-shape-corner-small);
-  background-color: var(--md-surface);
-  color: var(--md-on-surface);
-  font-size: var(--md-body-medium-font);
-  line-height: var(--md-body-medium-line-height);
-  transition: all 0.2s ease;
-  min-width: 120px;
-}
-
-.filter-select:focus {
-  outline: none;
-  border-color: var(--md-primary);
-  box-shadow: 0 0 0 1px var(--md-primary);
-}
-
-
-
-
-
+/* Logo Styles */
 .logo {
   height: 40px;
   display: flex;
@@ -229,7 +262,7 @@ header, .header {
   object-fit: contain;
 }
 
-/* Navigation Tab Styles - Material Design 3 with Orange Border */
+/* Navigation Tabs - Material Design 3 with Orange Brand Color */
 nav, .nav {
   display: flex;
   gap: 16px;
@@ -249,59 +282,49 @@ nav, .nav {
   position: relative;
 }
 
+/* Active Navigation Tab - Orange Border Treatment */
 .nav-tab-active, .nav-active {
   pointer-events: none;
   color: var(--md-on-surface);
   font-weight: 600;
   text-decoration: none;
   background-color: #FFFFFF;
-  border: 2px solid #FF6B00; /* Orange border */
+  border: 2px solid #FF6B00; /* Orange brand border */
   border-radius: 4px;
   box-shadow: var(--md-elevation-1);
 }
 
-/* Remove the bottom border that was previously used to indicate active state */
+/* Remove bottom border from previous design */
 .nav-tab-active:after, .nav-active:after {
   content: none;
 }
 
+/* Inactive Navigation Tabs */
 .nav-tab-inactive, .nav-link {
   color: var(--md-on-surface-variant);
   text-decoration: none;
-  border: 2px solid transparent; /* Transparent border for inactive tabs */
+  border: 2px solid transparent;
 }
 
+/* Navigation Hover States - Orange Brand Treatment */
 .nav-tab-inactive:hover, .nav-link:hover {
-  background-color: rgba(255, 107, 0, 0.08); /* Light orange hover state */
+  background-color: rgba(255, 107, 0, 0.08); /* Light orange hover */
   color: #FF6B00; /* Orange text on hover */
-  border: 2px solid rgba(255, 107, 0, 0.3); /* Light orange border on hover */
+  border: 2px solid rgba(255, 107, 0, 0.3); /* Light orange border */
 }
 
+/* ==========================================================================
+   5. SEARCH FUNCTIONALITY
+   ========================================================================== */
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* Search Styles - Material Design 3 */
+/* Search Container */
 .search-container {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.search-label {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--md-on-surface-variant);
-  pointer-events: none;
-  transition: all 0.2s ease;
-  font-size: var(--md-body-large-font);
-}
-
+/* Search Input Field */
 .search-input {
   padding: 12px 16px 12px 48px;
   border: 1px solid var(--md-outline);
@@ -319,12 +342,25 @@ nav, .nav {
   box-shadow: 0 0 0 1px var(--md-primary);
 }
 
+/* Search Placeholder Label */
+.search-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--md-on-surface-variant);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  font-size: var(--md-body-large-font);
+}
+
 .search-input:focus + .search-label,
 .search-input:not(:placeholder-shown) + .search-label {
   opacity: 0;
   visibility: hidden;
 }
 
+/* Search Icon */
 .search-icon {
   position: absolute;
   left: 16px;
@@ -334,52 +370,7 @@ nav, .nav {
   pointer-events: none;
 }
 
-/* User Info Styles - Material Design 3 */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-info span {
-  font-size: var(--md-body-medium-font);
-  line-height: var(--md-body-medium-line-height);
-  letter-spacing: var(--md-body-medium-letter-spacing);
-  color: var(--md-on-surface);
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: var(--md-primary-container);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--md-on-primary-container);
-  font-weight: 500;
-  font-size: var(--md-body-medium-font);
-}
-
-.sign-out {
-  color: var(--md-primary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: var(--md-label-large-font);
-  font-weight: var(--md-label-large-weight);
-  line-height: var(--md-label-large-line-height);
-  letter-spacing: var(--md-label-large-letter-spacing);
-  padding: 8px 12px;
-  border-radius: var(--md-shape-corner-small);
-  transition: background-color 0.2s ease;
-}
-
-.sign-out:hover {
-  background-color: rgba(0, 108, 250, 0.08);
-}
-
-/* Search Suggestions Styles */
+/* Search Suggestions Dropdown */
 .suggestions-container {
   position: absolute;
   top: calc(100% + 4px);
@@ -413,163 +404,95 @@ nav, .nav {
   background-color: yellow;
 }
 
-/* Table Styles - Material Design 3 */
-.table-container {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
+/* ==========================================================================
+   6. USER INTERFACE ELEMENTS
+   ========================================================================== */
+
+/* User Information Display */
+.user-info {
   display: flex;
-  flex-direction: column;
-  background-color: var(--md-surface);
-  border-radius: var(--md-shape-corner-medium);
-  box-shadow: var(--md-elevation-1);
-  margin: 16px 0;
+  align-items: center;
+  gap: 12px;
 }
 
-.table-content {
-  flex: 1;
-  overflow: auto;
-  cursor: grab;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  scrollbar-width: thin;
-  scrollbar-color: var(--md-outline-variant) transparent;
-}
-
-.table-content::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.table-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.table-content::-webkit-scrollbar-thumb {
-  background-color: var(--md-outline-variant);
-  border-radius: 4px;
-}
-
-.table-rows-container {
-  display: inline-block;
-  min-width: fit-content;
-}
-
-.table-row {
-  display: flex;
-  border-bottom: 1px solid var(--md-outline-variant);
-  width: fit-content;
-  transition: background-color 0.15s ease;
-}
-
-.table-row:hover {
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-.fixed-columns {
-  position: sticky;
-  left: 0;
-  background-color: var(--md-surface);
-  box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.1);
-  z-index: 3;
-  display: flex;
-}
-
-.scrollable-columns {
-  display: flex;
-}
-
-.column-header {
-  padding: 16px 12px;
-  font-weight: var(--md-title-small-weight);
-  border-bottom: 1px solid var(--md-outline-variant);
-  background-color: var(--md-surface);
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  font-size: var(--md-label-large-font);
-  line-height: var(--md-label-large-line-height);
-  letter-spacing: var(--md-label-large-letter-spacing);
-  color: var(--md-on-surface-variant);
-  white-space: nowrap;
-}
-
-.column-cell {
-  padding: 16px 12px;
+.user-info span {
   font-size: var(--md-body-medium-font);
-  font-weight: 400;
   line-height: var(--md-body-medium-line-height);
   letter-spacing: var(--md-body-medium-letter-spacing);
   color: var(--md-on-surface);
 }
 
-.resource-list {
+/* User Avatar */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: var(--md-primary-container);
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--md-on-primary-container);
+  font-weight: 500;
+  font-size: var(--md-body-medium-font);
 }
 
-/* Contact Log Table Column Widths */
-.col-date { width: 120px; }
-.col-days { width: 100px; }
-.col-provider { width: 150px; }
-.col-client { width: 150px; }
-.col-service { width: 180px; }
-.col-accompanied { width: 180px; }
-.col-documentation { width: 180px; }
-.col-resources { width: 180px; }
-.col-health { width: 180px; }
-.col-program { width: 150px; }
-.col-housing { width: 150px; }
-.col-counted { width: 150px; }
-.col-notes { width: 180px; }
-.col-status { width: 150px; }
-
-/* Client History Table */
-.contact-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
+/* Sign Out Button */
+.sign-out {
+  color: var(--md-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--md-label-large-font);
+  font-weight: var(--md-label-large-weight);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
+  padding: 8px 12px;
+  border-radius: var(--md-shape-corner-small);
+  transition: background-color 0.2s ease;
 }
 
-.contact-table th {
-  background-color: #f9fafb;
-  text-align: left;
-  padding: 0.75rem 0.5rem;
-  font-size: 0.875rem;
-  color: #4b5563;
-  font-weight: 600;
-  border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
+.sign-out:hover {
+  background-color: rgba(0, 108, 250, 0.08);
+}
+
+/* Filter Components */
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+.filter-group label {
+  font-size: var(--md-body-medium-font);
+  font-weight: var(--md-body-medium-weight);
+  color: var(--md-on-surface-variant);
   white-space: nowrap;
 }
 
-.contact-table th.sortable {
-  cursor: pointer;
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-shape-corner-small);
+  background-color: var(--md-surface);
+  color: var(--md-on-surface);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+  transition: all 0.2s ease;
+  min-width: 120px;
 }
 
-.contact-table th.sortable:after {
-  content: " ↓";
-  color: #9ca3af;
+.filter-select:focus {
+  outline: none;
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary);
 }
 
-.contact-table td {
-  padding: 0.75rem 0.5rem;
-  border-bottom: 1px solid #e5e7eb;
-  color: #2c3e50;
-  font-size: 0.875rem;
-}
+/* ==========================================================================
+   7. BUTTON COMPONENTS
+   ========================================================================== */
 
-.contact-table tr:hover {
-  background-color: #f3f4f6;
-}
-
-/* Button Styles - Material Design 3 */
-
-
-
+/* Base Button Styles */
 .btn {
   padding: 10px 24px;
   min-height: 40px;
@@ -586,6 +509,7 @@ nav, .nav {
   overflow: hidden;
 }
 
+/* Button Ripple Effect */
 .btn::after {
   content: '';
   position: absolute;
@@ -605,6 +529,7 @@ nav, .nav {
   background-color: rgba(255, 255, 255, 0.12);
 }
 
+/* Primary Button */
 .btn-primary {
   background-color: var(--md-primary);
   color: var(--md-on-primary);
@@ -619,19 +544,7 @@ nav, .nav {
   box-shadow: var(--md-elevation-1);
 }
 
-.btn:disabled {
-  background-color: var(--md-on-surface);
-  color: var(--md-surface);
-  opacity: 0.38;
-  cursor: not-allowed;
-  box-shadow: none;
-  pointer-events: none;
-}
-
-.btn:disabled::after {
-  display: none;
-}
-
+/* Secondary Button */
 .btn-secondary {
   background-color: var(--md-secondary-container);
   color: var(--md-on-secondary-container);
@@ -655,6 +568,21 @@ nav, .nav {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+/* Disabled Button State */
+.btn:disabled {
+  background-color: var(--md-on-surface);
+  color: var(--md-surface);
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.btn:disabled::after {
+  display: none;
+}
+
+/* Specialized Button Variants */
 .view-btn {
   background-color: var(--md-primary);
   color: var(--md-on-primary);
@@ -697,6 +625,7 @@ nav, .nav {
   background-color: rgba(255, 255, 255, 0.12);
 }
 
+/* Full Record & Add Check-in Buttons */
 .full-record-btn, .add-checkin-btn {
   background-color: var(--md-primary);
   color: var(--md-on-primary);
@@ -739,60 +668,173 @@ nav, .nav {
   background-color: rgba(255, 255, 255, 0.12);
 }
 
+/* ==========================================================================
+   8. TABLE COMPONENTS
+   ========================================================================== */
 
-
-
-
-
-
-
-
-
-
-
-/* Container Styles */
-.container {
-  max-width: 800px;
-  margin: 24px auto;
-  padding: 24px;
-  background-color: var(--md-surface);
-  box-shadow: var(--md-elevation-1);
-  border-radius: var(--md-shape-corner-medium);
-}
-
-.main-container {
-  padding: 24px;
+/* Table Container */
+.table-container {
   flex: 1;
-  max-width: 1200px;
-  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--md-surface);
+  border-radius: var(--md-shape-corner-medium);
+  box-shadow: var(--md-elevation-1);
+  margin: 16px 0;
 }
 
-/* Page Title - Material Design 3 */
-.page-title-section {
-  padding: 32px 24px 0;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Table Content Area */
+.table-content {
+  flex: 1;
+  overflow: auto;
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-outline-variant) transparent;
 }
 
-
-.page-title {
-  font-size: var(--md-headline-medium-font);
-  line-height: var(--md-headline-medium-line-height);
-  color: var(--md-on-background);
-  margin-bottom: 8px;
-  font-weight: 500;
+.table-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.page-subtitle {
-  font-size: var(--md-body-large-font);
-  line-height: var(--md-body-large-line-height);
-  letter-spacing: var(--md-body-large-letter-spacing);
+.table-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-content::-webkit-scrollbar-thumb {
+  background-color: var(--md-outline-variant);
+  border-radius: 4px;
+}
+
+/* Table Row Structure */
+.table-rows-container {
+  display: inline-block;
+  min-width: fit-content;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid var(--md-outline-variant);
+  width: fit-content;
+  transition: background-color 0.15s ease;
+}
+
+.table-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Fixed vs Scrollable Columns */
+.fixed-columns {
+  position: sticky;
+  left: 0;
+  background-color: var(--md-surface);
+  box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  display: flex;
+}
+
+.scrollable-columns {
+  display: flex;
+}
+
+/* Table Headers */
+.column-header {
+  padding: 16px 12px;
+  font-weight: var(--md-title-small-weight);
+  border-bottom: 1px solid var(--md-outline-variant);
+  background-color: var(--md-surface);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-size: var(--md-label-large-font);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
   color: var(--md-on-surface-variant);
-  margin-bottom: 24px;
-  font-style: italic;
+  white-space: nowrap;
 }
 
-/* Form Styles - Material Design 3 */
+/* Table Cells */
+.column-cell {
+  padding: 16px 12px;
+  font-size: var(--md-body-medium-font);
+  font-weight: 400;
+  line-height: var(--md-body-medium-line-height);
+  letter-spacing: var(--md-body-medium-letter-spacing);
+  color: var(--md-on-surface);
+}
+
+.resource-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contact Log Table - Specific Column Widths */
+.col-date { width: 120px; }
+.col-days { width: 100px; }
+.col-provider { width: 150px; }
+.col-client { width: 150px; }
+.col-service { width: 180px; }
+.col-accompanied { width: 180px; }
+.col-documentation { width: 180px; }
+.col-resources { width: 180px; }
+.col-health { width: 180px; }
+.col-program { width: 150px; }
+.col-housing { width: 150px; }
+.col-counted { width: 150px; }
+.col-notes { width: 180px; }
+.col-status { width: 150px; }
+
+/* Client History Table - Alternative Table Style */
+.contact-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.contact-table th {
+  background-color: #f9fafb;
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+
+.contact-table th.sortable {
+  cursor: pointer;
+}
+
+.contact-table th.sortable:after {
+  content: " ↓";
+  color: #9ca3af;
+}
+
+.contact-table td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #2c3e50;
+  font-size: 0.875rem;
+}
+
+.contact-table tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* ==========================================================================
+   9. FORM COMPONENTS
+   ========================================================================== */
+
+/* Form Section Headers */
 .form-title {
   color: var(--md-on-surface);
   margin-bottom: 8px;
@@ -822,6 +864,7 @@ nav, .nav {
   border-radius: var(--md-shape-corner-small);
 }
 
+/* Form Structure */
 .form-section {
   margin-bottom: 32px;
   padding: 24px;
@@ -834,6 +877,11 @@ nav, .nav {
   margin-bottom: 24px;
 }
 
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+/* Form Labels */
 .form-group label, .form-label {
   display: block;
   margin-bottom: 8px;
@@ -844,6 +892,13 @@ nav, .nav {
   color: var(--md-on-surface);
 }
 
+.required-field::after {
+  content: "*";
+  color: var(--md-error);
+  margin-left: 4px;
+}
+
+/* Form Controls - Input Fields */
 .form-control {
   width: 100%;
   padding: 16px;
@@ -856,49 +911,31 @@ nav, .nav {
   transition: all 0.2s ease;
 }
 
-/* Add these to your styles.css file */
-
-/* Form validation styles */
-.form-control:invalid:focus {
-  border-color: var(--md-error);
-  box-shadow: 0 0 0 1px var(--md-error);
-}
-
-/* Help text under form fields */
-.form-help-text {
-  font-size: var(--md-body-small-font);
-  color: var(--md-on-surface-variant);
-  margin-top: 4px;
-}
-
-/* For form fields that span multiple columns */
-.form-group-full {
-  grid-column: 1 / -1;
-}
-
-/* Enhanced nested option styles */
-.nested-options p {
-  color: var(--md-on-surface-variant);
-  font-size: var(--md-body-medium-font);
-  margin-bottom: 12px;
-}
-
-/* Optional: animated transitions for form elements */
-.form-section, .form-group, .nested-options {
-  transition: opacity 0.3s ease, max-height 0.3s ease;
-}
-
 .form-control:focus {
   outline: none;
   border-color: var(--md-primary);
   box-shadow: 0 0 0 1px var(--md-primary);
 }
 
+.form-control:invalid:focus {
+  border-color: var(--md-error);
+  box-shadow: 0 0 0 1px var(--md-error);
+}
+
+/* Textarea Specific Styles */
 textarea.form-control {
   min-height: 120px;
   resize: vertical;
 }
 
+/* Form Help Text */
+.form-help-text {
+  font-size: var(--md-body-small-font);
+  color: var(--md-on-surface-variant);
+  margin-top: 4px;
+}
+
+/* Checkbox Groups */
 .checkbox-group {
   margin-bottom: 16px;
   position: relative;
@@ -947,18 +984,7 @@ textarea.form-control {
   transform: rotate(45deg);
 }
 
-.nested-options {
-  margin-left: 36px;
-  margin-top: 16px;
-  margin-bottom: 16px;
-  padding-left: 16px;
-  border-left: 2px solid var(--md-primary);
-}
-
-.nested-options .checkbox-group {
-  margin-bottom: 8px;
-}
-
+/* Radio Button Groups */
 .radio-group {
   margin-bottom: 16px;
 }
@@ -993,18 +1019,26 @@ textarea.form-control {
   background-color: var(--md-primary);
 }
 
-.alert-info {
-  background-color: var(--md-secondary-container);
-  color: var(--md-on-secondary-container);
-  padding: 16px;
-  border-radius: var(--md-shape-corner-small);
+/* Nested Form Options */
+.nested-options {
+  margin-left: 36px;
   margin-top: 16px;
   margin-bottom: 16px;
-  border-left: 4px solid var(--md-secondary);
-  font-size: var(--md-body-medium-font);
-  line-height: var(--md-body-medium-line-height);
+  padding-left: 16px;
+  border-left: 2px solid var(--md-primary);
 }
 
+.nested-options .checkbox-group {
+  margin-bottom: 8px;
+}
+
+.nested-options p {
+  color: var(--md-on-surface-variant);
+  font-size: var(--md-body-medium-font);
+  margin-bottom: 12px;
+}
+
+/* Form Grid Layouts */
 .demographics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1024,17 +1058,12 @@ textarea.form-control {
   margin-bottom: 24px;
 }
 
+/* Form Actions */
 .form-buttons {
   display: flex;
   justify-content: flex-end;
   gap: 16px;
   margin-top: 40px;
-}
-
-.required-field::after {
-  content: "*";
-  color: var(--md-error);
-  margin-left: 4px;
 }
 
 .form-footer {
@@ -1046,7 +1075,33 @@ textarea.form-control {
   text-align: center;
 }
 
-/* Loading & Results Styles - Material Design 3 */
+/* Form Transitions */
+.form-section, .form-group, .nested-options {
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+/* ==========================================================================
+   10. ALERT & NOTIFICATION COMPONENTS
+   ========================================================================== */
+
+/* Alert Messages */
+.alert-info {
+  background-color: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  padding: 16px;
+  border-radius: var(--md-shape-corner-small);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--md-secondary);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+}
+
+/* ==========================================================================
+   11. LOADING & RESULT STATES
+   ========================================================================== */
+
+/* Loading Indicators */
 .loading {
   display: none;
   text-align: center;
@@ -1068,6 +1123,7 @@ textarea.form-control {
   100% { transform: rotate(360deg); }
 }
 
+/* Form Result States */
 .form-result {
   display: none;
   margin-top: 32px;
@@ -1089,7 +1145,11 @@ textarea.form-control {
   color: var(--md-on-error-container);
 }
 
-/* Client Detail Styles - Material Design 3 */
+/* ==========================================================================
+   12. CLIENT DETAIL PAGES
+   ========================================================================== */
+
+/* Client Header Section */
 .client-header {
   display: flex;
   justify-content: space-between;
@@ -1104,6 +1164,7 @@ textarea.form-control {
   font-weight: 400;
 }
 
+/* Navigation Links */
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -1121,6 +1182,7 @@ textarea.form-control {
   color: var(--md-primary-container);
 }
 
+/* Section Titles */
 .section-title {
   font-size: var(--md-title-medium-font);
   line-height: var(--md-title-medium-line-height);
@@ -1132,6 +1194,7 @@ textarea.form-control {
   border-bottom: 1px solid var(--md-outline-variant);
 }
 
+/* Client Information Cards */
 .client-info, .contact-history {
   background-color: var(--md-surface);
   border-radius: var(--md-shape-corner-medium);
@@ -1140,6 +1203,7 @@ textarea.form-control {
   box-shadow: var(--md-elevation-1);
 }
 
+/* Information Grid Layouts */
 .info-grid, .address-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -1177,7 +1241,11 @@ textarea.form-control {
   margin-bottom: 16px;
 }
 
-/* Dialog Styles - Material Design 3 */
+/* ==========================================================================
+   13. DIALOG & MODAL COMPONENTS
+   ========================================================================== */
+
+/* Dialog Overlay */
 .dialog-overlay {
   position: fixed;
   top: 0;
@@ -1199,6 +1267,7 @@ textarea.form-control {
   visibility: visible;
 }
 
+/* Dialog Content */
 .dialog-content {
   background: var(--md-surface);
   padding: 24px;
@@ -1216,6 +1285,7 @@ textarea.form-control {
   transform: scale(1);
 }
 
+/* Dialog Header */
 .dialog-header {
   display: flex;
   justify-content: space-between;
@@ -1231,6 +1301,7 @@ textarea.form-control {
   margin: 0;
 }
 
+/* Dialog Body & Actions */
 .dialog-body {
   margin-bottom: 24px;
 }
@@ -1242,6 +1313,7 @@ textarea.form-control {
   padding-top: 8px;
 }
 
+/* Dialog Close Button */
 .dialog-close {
   background: none;
   border: none;
@@ -1261,6 +1333,7 @@ textarea.form-control {
   background-color: rgba(0, 0, 0, 0.08);
 }
 
+/* Dialog Content */
 .dialog-prompt {
   font-size: var(--md-body-large-font);
   line-height: var(--md-body-large-line-height);
@@ -1275,49 +1348,40 @@ textarea.form-control {
   gap: 16px;
 }
 
-  /* Responsive Styles - Material Design 3 */
-/* Desktop and Tablet Layouts (768px to 1024px) */
+/* ==========================================================================
+   14. RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout (768px to 1024px) */
 @media (max-width: 1024px) {
   body {
-    padding-top: 64px; /* Keep standard padding */
+    padding-top: 64px; /* Keep standard header height */
   }
   
-  /* Remove these lines that cause the header stacking */
-  /*
-  header, .header {
-    flex-direction: column;
-    align-items: flex-start;
-    height: auto;
-    padding: 16px;
-  }
-  
-  .header-left, .header-right {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  */
-  
-  /* Keep other tablet-specific styles */
+  /* Adjust search input for tablets */
   .search-input {
-    width: 180px; /* Make search smaller but don't stack it */
+    width: 180px;
   }
   
+  /* Adjust grid layouts for smaller screens */
   .demographics-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 }
-/* Mobile Layout (768px and below) */
 
-/* Mobile Header Redesign (768px and below) */
+/* Mobile Layout (768px and below) */
 @media (max-width: 768px) {
+  /* Adjust body padding for mobile header */
   body {
-    padding-top: 160px; /* Adjust based on the new header height */
+    padding-top: 160px; /* Account for expanded mobile header */
   }
+  
+  /* Position secondary action bar below mobile header */
   .secondary-action-bar {
-    top: 112px; /* Position below expanded mobile header */
+    top: 112px;
   }
-  /* Header layout for mobile */
+  
+  /* Mobile Header Layout */
   header, .header {
     flex-direction: column;
     align-items: stretch;
@@ -1325,16 +1389,16 @@ textarea.form-control {
     padding: 12px 16px;
   }
   
-  /* Top line: Logo, nav tabs, and hamburger */
+  /* Top row: Logo, nav tabs, and hamburger menu */
   .header-left {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px; /* Space between rows */
+    margin-bottom: 12px;
   }
   
-  /* Search bar on its own line */
+  /* Search bar gets its own row */
   .search-container {
     width: 100%;
     margin: 8px 0;
@@ -1344,7 +1408,7 @@ textarea.form-control {
     width: 100%;
   }
   
-  /* Hide the user info and sign out initially */
+  /* Hide user menu initially on mobile */
   .header-right {
     display: none;
     flex-direction: column;
@@ -1359,9 +1423,9 @@ textarea.form-control {
     display: flex;
   }
   
-  /* Hamburger menu button */
+  /* Hamburger Menu Button */
   .hamburger-menu {
-    display: block; /* Show on mobile */
+    display: block;
     background: none;
     border: none;
     width: 40px;
@@ -1380,7 +1444,7 @@ textarea.form-control {
     transition: all 0.3s ease;
   }
   
-  /* Hamburger animation for open state */
+  /* Hamburger Animation States */
   .hamburger-menu.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
@@ -1393,13 +1457,13 @@ textarea.form-control {
     transform: rotate(-45deg) translate(7px, -6px);
   }
   
-  /* Adjust user info layout */
+  /* Mobile User Interface Adjustments */
   .user-info {
     width: 100%;
     justify-content: space-between;
   }
   
-  /* Make sign-out button full width */
+  /* Full-width sign-out button on mobile */
   .sign-out {
     width: 100%;
     padding: 12px;
@@ -1408,3 +1472,7 @@ textarea.form-control {
     background-color: var(--md-surface-variant);
   }
 }
+
+/* ==========================================================================
+   END OF ORGANIZED STYLES
+   ========================================================================== */
