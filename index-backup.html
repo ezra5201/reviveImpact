@@ -69,41 +69,64 @@
   <script src="page-configs.js"></script>
   <script src="header-manager.js"></script>
 
-  <!-- Initialize header for this page -->
-  <script>
-document.addEventListener('DOMContentLoaded', async function() {
-  // Load table data immediately (independent of header)
-  loadContactLogData();
-  
-  // Initialize table drag scrolling
-  initializeTableDragScrolling();
-  
-  // Set up page-specific search callback
-  window.onClientSelected = function(clientName) {
-    filterTableByClient(clientName);
-  };
-  
-  // Try to initialize header (but don't let it break the page)
-  try {
-    await HeaderManager.init(PageConfigs.contactLog);
-  } catch (error) {
-    console.error('Header initialization failed, but page continues:', error);
-  }
-});
-  </script>
-
-  <!-- Data Loading and Table Generation Script -->
+  <!-- Main initialization script -->
   <script>
     // Global variable to store contact log data
     let contactLogData = [];
 
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log('DOM Content Loaded - Starting initialization');
+      
+      // Initialize both header and table data in parallel
+      try {
+        // Start both operations simultaneously
+        const headerPromise = initializeHeader();
+        const dataPromise = loadContactLogData();
+        
+        // Wait for both to complete
+        await Promise.all([headerPromise, dataPromise]);
+        
+        console.log('Both header and data loaded successfully');
+        
+        // Initialize table interactions after everything is loaded
+        initializeTableDragScrolling();
+        
+        // Set up page-specific search callback
+        window.onClientSelected = function(clientName) {
+          filterTableByClient(clientName);
+        };
+        
+      } catch (error) {
+        console.error('Error during initialization:', error);
+      }
+    });
+
+    // Initialize header with error handling
+    async function initializeHeader() {
+      try {
+        await HeaderManager.init();
+        console.log('Header loaded successfully');
+      } catch (error) {
+        console.error('Header initialization failed, but page continues:', error);
+      }
+    }
+
     // Load data from JSON file and populate table
     async function loadContactLogData() {
       try {
+        console.log('Starting to load contact log data...');
         const response = await fetch('contact-log-data.json');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
         contactLogData = data.contactLogEntries;
+        
+        console.log('Data loaded, populating table with', contactLogData.length, 'entries');
         populateTable(contactLogData);
+        
       } catch (error) {
         console.error('Error loading contact log data:', error);
         showErrorMessage();
@@ -113,6 +136,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Generate table rows from data
     function populateTable(entries) {
       const tableRowsContainer = document.querySelector('.table-rows-container');
+      
+      if (!tableRowsContainer) {
+        console.error('Table rows container not found');
+        return;
+      }
       
       // Clear existing rows (keep header)
       const existingRows = tableRowsContainer.querySelectorAll('.table-row:not(:first-child)');
@@ -124,6 +152,8 @@ document.addEventListener('DOMContentLoaded', async function() {
         tableRowsContainer.appendChild(row);
       });
 
+      console.log('Table populated with', entries.length, 'rows');
+      
       // Re-initialize dialog functionality for new rows
       initializeTableRowClickHandlers();
     }
@@ -219,6 +249,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Table drag scrolling functionality
     function initializeTableDragScrolling() {
       const tableContent = document.querySelector('.table-content');
+      
+      if (!tableContent) {
+        console.error('Table content element not found');
+        return;
+      }
+      
       let isDown = false;
       let startX;
       let scrollLeft;
@@ -268,7 +304,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   </script>
 
   <!-- ==========================================================================
-       CLIENT DIALOG MODAL (unchanged from your original)
+       CLIENT DIALOG MODAL
        ========================================================================== -->
   <div id="clientDialog" class="dialog-overlay" style="display: none;">
     <div class="dialog-content">
@@ -353,10 +389,13 @@ document.addEventListener('DOMContentLoaded', async function() {
   </div>
 
   <!-- ==========================================================================
-       DIALOG FUNCTIONALITY SCRIPT (unchanged from your original)
+       DIALOG FUNCTIONALITY SCRIPT
        ========================================================================== -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Add a small delay to ensure header is loaded before initializing dialog
+      setTimeout(initializeDialog, 200);
+      
       function initializeDialog() {
         const dialog = document.getElementById('clientDialog');
         if (!dialog) {
@@ -389,25 +428,19 @@ document.addEventListener('DOMContentLoaded', async function() {
         
         if (dialogCloseBtn) {
           dialogCloseBtn.addEventListener('click', () => {
-            dialog.style.display = 'none';
-            dialog.classList.remove('show');
-            document.body.style.overflow = 'auto';
+            closeDialog();
           });
         }
         
         if (initialCancelBtn) {
           initialCancelBtn.addEventListener('click', () => {
-            dialog.style.display = 'none';
-            dialog.classList.remove('show');
-            document.body.style.overflow = 'auto';
+            closeDialog();
           });
         }
         
         if (dialogCancelBtn) {
           dialogCancelBtn.addEventListener('click', () => {
-            dialog.style.display = 'none';
-            dialog.classList.remove('show');
-            document.body.style.overflow = 'auto';
+            closeDialog();
           });
         }
         
@@ -425,15 +458,19 @@ document.addEventListener('DOMContentLoaded', async function() {
           dialogSubmitBtn.addEventListener('click', () => {
             // Here you would save the form data
             alert('Check-in form submitted successfully!');
-            dialog.style.display = 'none';
-            dialog.classList.remove('show');
-            document.body.style.overflow = 'auto';
+            closeDialog();
           });
         }
       }
       
-      // Initialize dialog after a small delay to ensure header is loaded
-      setTimeout(initializeDialog, 100); 
+      function closeDialog() {
+        const dialog = document.getElementById('clientDialog');
+        if (dialog) {
+          dialog.style.display = 'none';
+          dialog.classList.remove('show');
+          document.body.style.overflow = 'auto';
+        }
+      }
     });
   </script>
 
