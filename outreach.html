@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- ==========================================================================
+     HEAD SECTION - META DATA AND EXTERNAL RESOURCES
+     ========================================================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +11,9 @@
 </head>
   
 <body>
-  <!-- Non-Scrolling Header -->
+  <!-- ==========================================================================
+       FIXED HEADER NAVIGATION
+       ========================================================================== -->
   <header>
     <div class="header-left">
       <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
@@ -37,26 +42,30 @@
     </div>
   </header>
 
-<!-- Secondary Action Bar (new) -->
-<div class="secondary-action-bar">
+  <!-- ==========================================================================
+       SECONDARY ACTION BAR - PAGE-SPECIFIC ACTIONS
+       ========================================================================== -->
+  <div class="secondary-action-bar">
     <div class="secondary-action-bar-left">
-   
       <a href="outreachRecord.html" class="btn btn-primary" style="text-decoration: none;">New Outreach</a>
     </div>
     <div class="secondary-action-bar-right">
-   <!-- You can add additional action buttons or information here if needed -->
+      <!-- You can add additional action buttons or information here if needed -->
     </div>
   </div>
 
-  
-  <!-- Table Container -->
+  <!-- ==========================================================================
+       MAIN DATA TABLE CONTAINER
+       ========================================================================== -->
   <div class="table-container">
   
     <!-- Scrollable Content -->
     <div class="table-content">
       <div class="table-rows-container">
   
-        <!-- Sticky Table Header Row -->
+        <!-- ==========================================================================
+             TABLE HEADER ROW - STICKY COLUMN HEADERS
+             ========================================================================== -->
         <div class="table-row">
           <!-- Fixed Columns Header -->
           <div class="fixed-columns">
@@ -78,6 +87,10 @@
           </div>
         </div>
   
+        <!-- ==========================================================================
+             DATA ROWS - OUTREACH RECORDS
+             ========================================================================== -->
+        
         <!-- Row 1 -->
         <div class="table-row">
           <div class="fixed-columns">
@@ -196,6 +209,9 @@
     </div>
   </div>
   
+  <!-- ==========================================================================
+       JAVASCRIPT - PAGE FUNCTIONALITY
+       ========================================================================== -->
   <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Get the scrollable container
@@ -235,6 +251,9 @@
   });
   </script>
   
+  <!-- ==========================================================================
+       CSS STYLES - TABLE COLUMN WIDTHS
+       ========================================================================== -->
   <style>
   /* Additional CSS for outreach table columns width */
   .col-date { width: 100px; }
