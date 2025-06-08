@@ -116,333 +116,146 @@
           </div>
         </div>
 
-        <!-- ==========================================================================
-             SAMPLE DATA ROWS - CONTACT LOG ENTRIES
-             ========================================================================== -->
+
         
-        <!-- Row 1 - Most Recent Entry -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">03/19/2025</div>
-            <div class="column-cell col-days">0</div>
-            <div class="column-cell col-provider">Elena Ahmed</div>
-            <div class="column-cell col-client">Thiago Schmidt</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">Accompanied</div>
-            <div class="column-cell col-documentation">Homeless Verification Letters</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>Laundry</span>
-                <span>$5 Transit Card</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">Yes</div>
-            <div class="column-cell col-program">Yes</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">3</div>
-            <div class="column-cell col-notes">Initial intake completed</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
+<!-- ==========================================================================
+     DYNAMIC DATA ROWS - LOADED FROM JSON
+     ========================================================================== -->
+<!-- Table rows will be dynamically generated here -->
 
-        <!-- Row 2 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">09/15/2023</div>
-            <div class="column-cell col-days">185</div>
-            <div class="column-cell col-provider">Sofia Cohen</div>
-            <div class="column-cell col-client">Liam Nguyen</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">No</div>
-            <div class="column-cell col-documentation">No</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>$5 Transit Card</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">2</div>
-            <div class="column-cell col-notes">Initial visit</div>
-            <div class="column-cell col-status">Prospect</div>
-          </div>
-        </div>
 
-        <!-- Row 3 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">08/22/2023</div>
-            <div class="column-cell col-days">209</div>
-            <div class="column-cell col-provider">Jamal Silva</div>
-            <div class="column-cell col-client">Mia Patel</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">In Office</div>
-            <div class="column-cell col-accompanied">Accompanied</div>
-            <div class="column-cell col-documentation">State ID</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>Hygiene Products</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">Counseling - Life Skills</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">3</div>
-            <div class="column-cell col-notes">ID assistance provided</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 4 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">07/05/2023</div>
-            <div class="column-cell col-days">257</div>
-            <div class="column-cell col-provider">Mohammed Ahmed</div>
-            <div class="column-cell col-client">Noah Kim</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Phone/Text/Email</div>
-            <div class="column-cell col-accompanied">No</div>
-            <div class="column-cell col-documentation">No</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>$15 Transit Card</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">Employment Services</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">1</div>
-            <div class="column-cell col-notes">Phone follow-up</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 5 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">06/12/2023</div>
-            <div class="column-cell col-days">280</div>
-            <div class="column-cell col-provider">Elena Ahmed</div>
-            <div class="column-cell col-client">Ava Hernandez</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">Accompanied</div>
-            <div class="column-cell col-documentation">Homeless Verification Letters</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>Laundry</span>
-                <span>$5 Transit Card</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">4</div>
-            <div class="column-cell col-notes">Regular visit</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 6 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">05/29/2023</div>
-            <div class="column-cell col-days">294</div>
-            <div class="column-cell col-provider">Sonia Singh</div>
-            <div class="column-cell col-client">Ethan Choi</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">No</div>
-            <div class="column-cell col-documentation">No</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>OTC 6- Stomach/cold relief</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">2</div>
-            <div class="column-cell col-notes">Provided basic necessities</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 7 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">04/17/2023</div>
-            <div class="column-cell col-days">336</div>
-            <div class="column-cell col-provider">Leila Garcia</div>
-            <div class="column-cell col-client">Sophia Gupta</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Home Visit</div>
-            <div class="column-cell col-accompanied">No</div>
-            <div class="column-cell col-documentation">No</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Home Goods</span>
-                <span>OTC 7- Lotion / cream / skin</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">Permanent Supportive Housing</div>
-            <div class="column-cell col-counted">2</div>
-            <div class="column-cell col-notes">Home visit after housing</div>
-            <div class="column-cell col-status">Cressey House PSH</div>
-          </div>
-        </div>
-
-        <!-- Row 8 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">03/08/2023</div>
-            <div class="column-cell col-days">376</div>
-            <div class="column-cell col-provider">Sofia Cohen</div>
-            <div class="column-cell col-client">Jackson Lee</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">Accompanied</div>
-            <div class="column-cell col-documentation">Homeless Verification Letters</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>Laundry</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">3</div>
-            <div class="column-cell col-notes">Regular visit</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 9 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">02/14/2023</div>
-            <div class="column-cell col-days">398</div>
-            <div class="column-cell col-provider">Jamal Silva</div>
-            <div class="column-cell col-client">Isabella Brown</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">No</div>
-            <div class="column-cell col-documentation">No</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>$5 Transit Card</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">2</div>
-            <div class="column-cell col-notes">Quick visit</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 10 -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">01/03/2023</div>
-            <div class="column-cell col-days">440</div>
-            <div class="column-cell col-provider">Sofia Cohen</div>
-            <div class="column-cell col-client">Aiden Patel</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Engagement Center</div>
-            <div class="column-cell col-accompanied">Accompanied</div>
-            <div class="column-cell col-documentation">State ID</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Food</span>
-                <span>Clothing</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">No</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">3</div>
-            <div class="column-cell col-notes">Assisted with ID</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>
-
-        <!-- Row 11 - Final Entry -->
-        <div class="table-row">
-          <div class="fixed-columns">
-            <div class="column-cell col-date">11/29/2022</div>
-            <div class="column-cell col-days">475</div>
-            <div class="column-cell col-provider">Elena Ahmed</div>
-            <div class="column-cell col-client">Charlotte Davis</div>
-          </div>
-          <div class="scrollable-columns">
-            <div class="column-cell col-service">Phone/Text/Email</div>
-            <div class="column-cell col-accompanied">No</div>
-            <div class="column-cell col-documentation">No</div>
-            <div class="column-cell col-resources">
-              <div class="resource-list">
-                <span>Uber/Lyft</span>
-              </div>
-            </div>
-            <div class="column-cell col-health">No</div>
-            <div class="column-cell col-program">Transportation</div>
-            <div class="column-cell col-housing">No</div>
-            <div class="column-cell col-counted">1</div>
-            <div class="column-cell col-notes">Provided transportation assistance</div>
-            <div class="column-cell col-status">Active</div>
-          </div>
-        </div>  
         
-      </div>
-    </div>
-  </div>
-
   <!-- ==========================================================================
        JAVASCRIPT FUNCTIONALITY
        ========================================================================== -->
 
-  <!-- Table Drag Scrolling Script -->
+  <!-- Data Loading and Table Generation Script -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Get the scrollable container
-      const tableContent = document.querySelector('.table-content');
+    // Global variable to store contact log data
+    let contactLogData = [];
 
-      // Variables for drag scrolling
+    // Load data from JSON file and populate table
+    async function loadContactLogData() {
+      try {
+        const response = await fetch('contact-log-data.json');
+        const data = await response.json();
+        contactLogData = data.contactLogEntries;
+        populateTable(contactLogData);
+      } catch (error) {
+        console.error('Error loading contact log data:', error);
+        showErrorMessage();
+      }
+    }
+
+    // Generate table rows from data
+    function populateTable(entries) {
+      const tableRowsContainer = document.querySelector('.table-rows-container');
+      
+      // Clear existing rows (keep header)
+      const existingRows = tableRowsContainer.querySelectorAll('.table-row:not(:first-child)');
+      existingRows.forEach(row => row.remove());
+
+      // Generate rows from data
+      entries.forEach(entry => {
+        const row = createTableRow(entry);
+        tableRowsContainer.appendChild(row);
+      });
+
+      // Re-initialize dialog functionality for new rows
+      initializeTableRowClickHandlers();
+    }
+
+    // Create a single table row from entry data
+    function createTableRow(entry) {
+      const row = document.createElement('div');
+      row.className = 'table-row';
+      row.style.cursor = 'pointer';
+
+      // Create resources list HTML
+      const resourcesHTML = entry.resourcesGiven.map(resource => 
+        `<span>${resource}</span>`
+      ).join('');
+
+      row.innerHTML = `
+        <div class="fixed-columns">
+          <div class="column-cell col-date">${entry.date}</div>
+          <div class="column-cell col-days">${entry.daysAgo}</div>
+          <div class="column-cell col-provider">${entry.provider}</div>
+          <div class="column-cell col-client">${entry.client}</div>
+        </div>
+        <div class="scrollable-columns">
+          <div class="column-cell col-service">${entry.placeOfService}</div>
+          <div class="column-cell col-accompanied">${entry.accompaniedAppointment}</div>
+          <div class="column-cell col-documentation">${entry.obtainedDocumentation}</div>
+          <div class="column-cell col-resources">
+            <div class="resource-list">
+              ${resourcesHTML}
+            </div>
+          </div>
+          <div class="column-cell col-health">${entry.onSiteHealthCare}</div>
+          <div class="column-cell col-program">${entry.programStarted}</div>
+          <div class="column-cell col-housing">${entry.housingEntered}</div>
+          <div class="column-cell col-counted">${entry.countedColumns}</div>
+          <div class="column-cell col-notes">${entry.notes}</div>
+          <div class="column-cell col-status">${entry.programStatus}</div>
+        </div>
+      `;
+
+      return row;
+    }
+
+    // Initialize click handlers for table rows
+    function initializeTableRowClickHandlers() {
+      const tableRows = document.querySelectorAll('.table-row:not(:first-child)');
+      tableRows.forEach(row => {
+        row.addEventListener('click', function(e) {
+          e.preventDefault();
+          const clientCell = this.querySelector('.fixed-columns .col-client');
+          if (clientCell) {
+            const clientName = clientCell.textContent.trim();
+            showDialog(clientName);
+          }
+        });
+      });
+    }
+
+    // Show error message if data loading fails
+    function showErrorMessage() {
+      const tableRowsContainer = document.querySelector('.table-rows-container');
+      const errorRow = document.createElement('div');
+      errorRow.className = 'table-row';
+      errorRow.innerHTML = `
+        <div class="fixed-columns">
+          <div class="column-cell" style="color: red; text-align: center; padding: 20px; grid-column: 1 / -1;">
+            Error loading contact log data. Please refresh the page or contact support.
+          </div>
+        </div>
+      `;
+      tableRowsContainer.appendChild(errorRow);
+    }
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load data first
+      loadContactLogData();
+      
+      // Initialize drag scrolling
+      initializeTableDragScrolling();
+    });
+
+    // Table drag scrolling functionality
+    function initializeTableDragScrolling() {
+      const tableContent = document.querySelector('.table-content');
       let isDown = false;
       let startX;
       let scrollLeft;
 
-      // Event listeners for mouse behavior
       tableContent.addEventListener('mousedown', function(e) {
         isDown = true;
         tableContent.style.cursor = 'grabbing';
         startX = e.pageX - tableContent.offsetLeft;
         scrollLeft = tableContent.scrollLeft;
-        e.preventDefault(); // Prevent text selection while dragging
+        e.preventDefault();
       });
 
       tableContent.addEventListener('mouseleave', function() {
@@ -458,11 +271,27 @@
       tableContent.addEventListener('mousemove', function(e) {
         if (!isDown) return;
         const x = e.pageX - tableContent.offsetLeft;
-        // Use a multiplier for faster/slower scrolling
         const walk = (x - startX) * 1.5;
         tableContent.scrollLeft = scrollLeft - walk;
       });
-    });
+    }
+
+    // Make showDialog function global so other scripts can use it
+    window.showDialog = function(clientName) {
+      const dialog = document.getElementById('clientDialog');
+      const dialogClientName = document.getElementById('dialogClientName');
+      const initialOptionsScreen = document.getElementById('dialogInitialOptions');
+      const checkInFormScreen = document.getElementById('dialogCheckInForm');
+      
+      if (dialog && dialogClientName && initialOptionsScreen && checkInFormScreen) {
+        dialogClientName.textContent = clientName;
+        initialOptionsScreen.style.display = 'block';
+        checkInFormScreen.style.display = 'none';
+        dialog.style.display = 'flex';
+        dialog.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+    };
   </script>
 
   <!-- Client Search Functionality Script -->
