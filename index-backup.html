@@ -201,8 +201,17 @@
     // Initialize header with error handling
     async function initializeHeader() {
       try {
+        // Debug HeaderManager availability
+        console.log('HeaderManager available:', !!window.HeaderManager);
+        console.log('HeaderManager type:', typeof window.HeaderManager);
+        console.log('HeaderManager.init type:', typeof window.HeaderManager?.init);
+        
         if (!window.HeaderManager) {
           throw new Error('HeaderManager not available');
+        }
+        
+        if (typeof window.HeaderManager.init !== 'function') {
+          throw new Error('HeaderManager.init is not a function');
         }
         
         await HeaderManager.init();
