@@ -66,6 +66,11 @@ async function initializeHeader() {
       throw new Error('HeaderManager not available after waiting');
     }
     
+    // ADD THIS CHECK:
+    if (typeof window.HeaderManager.init !== 'function') {
+      throw new Error('HeaderManager.init is not a function');
+    }
+    
     await window.HeaderManager.init();
     console.log('Header loaded successfully');
   } catch (error) {
