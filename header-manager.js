@@ -3,7 +3,7 @@ class HeaderManager {
     this.isInitialized = false;
   }
 
-  async init() {
+  async init(pageConfig) {  // Added pageConfig parameter to match the call from index.html
     try {
       // Load the shared header HTML
       await this.loadHeaderTemplate();
