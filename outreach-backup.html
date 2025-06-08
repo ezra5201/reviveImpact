@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReVive Intake Form</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- Fixed Header -->
+<header>
+  <div class="header-left">
+ <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+  <nav>
+    <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+    <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+    <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+    <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+    <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+    <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+    
+  </nav>
+  </div>
+  
+  <div class="header-right">
+  <div class="search-container">
+  <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+  <span class="search-label">Client Search</span>
+  <div class="suggestions-container" id="searchSuggestions"></div>
+  </div>
+  <div class="user-info">
+  <span>Andrea Leflore</span>
+  <div class="user-avatar"></div>
+  </div>
+  <button class="sign-out">Sign Out</button>
+  </div>
+</header>
+
+  <!-- Page Title Section - Moved outside container -->
+  <div class="page-title-section">
+    <h1 class="page-title">Center New Visitor Intake</h1>
+    <p class="page-subtitle">Complete during first visit (~5 mins)</p>
+  </div>
+
+  <div class="main-container">
+    <div class="container">
+      <!-- Title and subtitle removed from here -->
+      
+      <div id="formContainer">
+        <form id="intakeForm" onsubmit="handleFormSubmit(this); return false;">
+          <!-- Basic Information Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <div class="row">
+  <div class="col-12 mb-2">
+    <label class="required-field">1. Name</label>
+  </div>
+  <div class="col">
+    <label for="firstName">First</label>
+    <input type="text" id="firstName" name="firstName" class="form-control" required>
+  </div>
+  <div class="col">
+    <label for="lastName">Last</label>
+    <input type="text" id="lastName" name="lastName" class="form-control" required>
+  </div>
+</div>
+            </div>
+            
+            <div class="form-group">
+              <label for="referralSource" class="required-field">2. How did you hear about us?</label>
+              <select id="referralSource" name="referralSource" class="form-control" required>
+                <option value="">-- Please select --</option>
+                <option value="friend">Friend/Family</option>
+                <option value="agency">Another Agency</option>
+                <option value="web">Website/Internet Search</option>
+                <option value="outreach">Street Outreach Team</option>
+                <option value="hospital">Hospital/Healthcare Provider</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="supportNeeds" class="required-field">3. What support do you hope to have at ReVive's Engagement Center?</label>
+              <textarea id="supportNeeds" name="supportNeeds" class="form-control" required></textarea>
+            </div>
+          </div>
+          
+<!-- Housing Status Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <label class="required-field">4. Current Housing Status:</label>
+              
+              <div class="checkbox-group housing-option" data-option="a">
+                <label>
+                  <input type="checkbox" name="currentHousing" value="unstable" class="housing-checkbox" data-option="a" required>
+                  a. Unstably housed
+                </label>
+                
+                <div class="nested-options" id="housingBarriersSection">
+                  <p>Defined by following barriers:</p>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="eviction" class="barrier-checkbox">
+                      Risk of eviction
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="landlord" class="barrier-checkbox">
+                      Landlord issues
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="dv" class="barrier-checkbox">
+                      DV issues
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="rent" class="barrier-checkbox">
+                      Trouble paying rent
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="managing" class="barrier-checkbox">
+                      Managing my home
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="disability" class="barrier-checkbox">
+                      Disability affecting me from living safely / staying in my home
+                    </label>
+                  </div>
+                  <div class="checkbox-group">
+                    <label>
+                      <input type="checkbox" name="housingBarriers" value="other" class="barrier-checkbox">
+                      Other
+                    </label>
+                    <input type="text" name="housingBarrierOther" class="form-control" placeholder="Please specify" style="margin-top: 5px;">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="checkbox-group housing-option" data-option="b">
+                <label>
+                  <input type="checkbox" name="currentHousing" value="couchSurfing" class="housing-checkbox" data-option="b">
+                  b. Couch surfing
+                </label>
+              </div>
+              
+              <div class="checkbox-group housing-option" data-option="c">
+                <label>
+                  <input type="checkbox" name="currentHousing" value="shelter" class="housing-checkbox" data-option="c">
+                  c. In a emergency shelter
+                </label>
+              </div>
+              
+              <div class="checkbox-group housing-option" data-option="d">
+                <label>
+                  <input type="checkbox" name="currentHousing" value="unsheltered" class="housing-checkbox" data-option="d">
+                  d. Unsheltered (train, tent, abandoned building)
+                </label>
+              </div>
+              
+              <div class="checkbox-group housing-option" data-option="e">
+                <label>
+                  <input type="checkbox" name="currentHousing" value="none" class="housing-checkbox" id="noneOfAboveHousing" data-option="e">
+                  e. None of the above
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Past Housing Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <label class="required-field">5. Past Housing Status:</label>
+              
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="pastHousing" value="experienced" required>
+                  a. Have experienced homelessness or housing instability
+                </label>
+              </div>
+              
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="pastHousing" value="na">
+                  b. N/A
+                </label>
+              </div>
+            </div>
+            
+            <div class="alert-info">
+              <strong>Note:</strong> If yes to 4a or 5a → can enroll in SHP
+            </div>
+          </div>
+          
+          <!-- CM-Identified Information Section -->
+          <div class="form-section">
+            <h3 class="section-title">6. CM-Identified Information (indicate if client or staff identified)</h3>
+            
+            <!-- Prefer not to answer checkbox - added before demographics section -->
+            <div class="checkbox-group" style="margin-bottom: 20px; padding: 10px; background-color: #f9f9f9; border-radius: var(--md-shape-corner-small);">
+              <label>
+                <input type="checkbox" id="preferNotToAnswer" name="preferNotToAnswer" value="true">
+                <strong>Prefer not to answer demographic questions</strong>
+              </label>
+            </div>
+            
+            <p class="form-label">Demographics:</p>
+            
+            <div class="demographics-grid">
+              <div class="form-group">
+                <label for="race">a. Race</label>
+                <select id="race" name="race" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="americanIndian">American Indian/Alaska Native</option>
+                  <option value="asian">Asian</option>
+                  <option value="black">Black/African American</option>
+                  <option value="hawaiian">Native Hawaiian/Pacific Islander</option>
+                  <option value="white">White</option>
+                  <option value="multiracial">Multiracial</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="ethnicity">b. Ethnicity</label>
+                <select id="ethnicity" name="ethnicity" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="hispanic">Hispanic/Latino</option>
+                  <option value="nonHispanic">Non-Hispanic/Latino</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="language">c. Language</label>
+                <select id="language" name="language" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="english">English</option>
+                  <option value="spanish">Spanish</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="gender">d. Gender</label>
+                <select id="gender" name="gender" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                  <option value="transgender">Transgender</option>
+                  <option value="nonBinary">Non-binary</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="pronouns">e. Pronouns</label>
+                <select id="pronouns" name="pronouns" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="she">She/Her</option>
+                  <option value="he">He/Him</option>
+                  <option value="they">They/Them</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="disability">f. Disability</label>
+                <select id="disability" name="disability" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="veteran">g. Veteran</label>
+                <select id="veteran" name="veteran" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="dob">h. DOB or birth year</label>
+                <input type="date" id="dob" name="dob" class="form-control" required>
+              </div>
+              
+              <div class="form-group">
+                <label>i. Documentation needs for housing</label>
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" name="documentationNeeds" value="id" required>
+                    ID
+                  </label>
+                </div>
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" name="documentationNeeds" value="ssCard">
+                    SS card
+                  </label>
+                </div>
+                <div class="checkbox-group">
+                  <label>
+                    <input type="checkbox" name="documentationNeeds" value="other">
+                    Other
+                  </label>
+                  <input type="text" name="documentationNeedsOther" class="form-control" placeholder="Please specify" style="margin-top: 5px;">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="employmentStatus">j. Employment status / need</label>
+                <select id="employmentStatus" name="employmentStatus" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="sufficientlyEmployed">Sufficiently employed</option>
+                  <option value="underemployed">Underemployed</option>
+                  <option value="unemployed">Unemployed</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="incomeStatus">k. Income status / need</label>
+                <select id="incomeStatus" name="incomeStatus" class="form-control" required>
+                  <option value="">-- Please select --</option>
+                  <option value="noIncome">No income</option>
+                  <option value="lowIncome">Low income</option>
+                  <option value="earnedIncome">Earned income</option>
+                  <option value="disability">On disability</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="alert-info">
+              <strong>Note:</strong> If yes to 4e and 7k (has stable and sufficient income) → refer to CM to explore other resources / not qualified for some onsite supports (e.g., laundry)
+            </div>
+          </div>
+          
+          <!-- Goals Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <label class="required-field">7. My main goals</label>
+              
+              <div id="goalsContainer">
+                <!-- First goal input -->
+                <div class="form-group goal-input">
+                  <label for="goal1">Goal 1</label>
+                  <input type="text" id="goal1" name="goals[]" class="form-control" required>
+                </div>
+                
+                <!-- Second goal input -->
+                <div class="form-group goal-input">
+                  <label for="goal2">Goal 2</label>
+                  <input type="text" id="goal2" name="goals[]" class="form-control" required>
+                </div>
+                
+                <!-- Third goal input -->
+                <div class="form-group goal-input">
+                  <label for="goal3">Goal 3</label>
+                  <input type="text" id="goal3" name="goals[]" class="form-control" required>
+                </div>
+                
+                <!-- Additional goals will be added here -->
+              </div>
+              
+              <!-- Add Goal button -->
+              <button type="button" id="addGoalBtn" class="btn btn-secondary" style="margin-top: 16px;">+ Add Another Goal</button>
+              
+              <!-- None specified checkbox -->
+              <div class="checkbox-group" style="margin-top: 16px;">
+                <label>
+                  <input type="checkbox" id="noGoalsSpecified" name="noGoalsSpecified" value="true">
+                  <strong>None Specified</strong>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Information Section -->
+          <div class="form-section">
+            <div class="form-group">
+              <label for="additionalInfo" class="required-field">8. Is there anything else you would like us to know to provide better support here at ReVive?</label>
+              <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="4" required></textarea>
+            </div>
+          </div>
+          
+          <!-- Form Buttons -->
+          <div class="form-buttons">
+            <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+      
+      <div id="loadingSection" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Processing your submission...</p>
+      </div>
+      
+      <div id="resultSection" class="form-result">
+        <h3 id="resultTitle"></h3>
+        <p id="resultMessage"></p>
+        <div id="additionalInfo"></div>
+        <button type="button" class="btn btn-primary" onclick="resetForm()">Submit Another</button>
+      </div>
+      
+      <div class="form-footer">
+        <p>* Required fields | Form ID: INTAKE-2025-03</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load user information when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initially hide the housing barriers section
+      document.getElementById('housingBarriersSection').style.display = 'none';
+      
+      // Add event listener for current housing checkboxes
+      var housingCheckboxes = document.getElementsByName('currentHousing');
+      for(var i = 0; i < housingCheckboxes.length; i++) {
+        housingCheckboxes[i].addEventListener('change', toggleHousingBarriers);
+        
+        // Allow any checkbox to fulfill the required constraint
+        housingCheckboxes[i].addEventListener('change', function() {
+          let anyChecked = false;
+          for(let j = 0; j < housingCheckboxes.length; j++) {
+            if(housingCheckboxes[j].checked) {
+              anyChecked = true;
+              break;
+            }
+          }
+          
+          for(let j = 0; j < housingCheckboxes.length; j++) {
+            housingCheckboxes[j].required = !anyChecked;
+          }
+        });
+      }
+      
+      // Add event listener for "Prefer not to answer" checkbox
+      document.getElementById('preferNotToAnswer').addEventListener('change', function() {
+        var demographicFields = document.querySelectorAll('.demographics-grid select, .demographics-grid input');
+        var disabled = this.checked;
+        
+        // Enable or disable all demographic fields based on checkbox
+        demographicFields.forEach(function(field) {
+          field.disabled = disabled;
+          field.required = !disabled;
+          
+          // Clear values if disabling
+          if (disabled) {
+            if (field.tagName === 'SELECT') {
+              field.selectedIndex = 0;
+            } else if (field.type === 'checkbox') {
+              field.checked = false;
+            } else {
+              field.value = '';
+            }
+          }
+        });
+        
+        // Visual feedback
+        var demographicsGrid = document.querySelector('.demographics-grid');
+        if (disabled) {
+          demographicsGrid.style.opacity = '0.5';
+        } else {
+          demographicsGrid.style.opacity = '1';
+        }
+      });
+      
+      // Set up goal addition functionality
+      const goalsContainer = document.getElementById('goalsContainer');
+      const addGoalBtn = document.getElementById('addGoalBtn');
+      const noGoalsSpecified = document.getElementById('noGoalsSpecified');
+      let goalCount = 3; // Start with 3 goals
+      
+      // Add new goal input
+      addGoalBtn.addEventListener('click', function() {
+        goalCount++;
+        const newGoalDiv = document.createElement('div');
+        newGoalDiv.className = 'form-group goal-input';
+        newGoalDiv.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label for="goal${goalCount}">Goal ${goalCount}</label>
+            <button type="button" class="remove-goal" style="background: none; border: none; color: var(--md-error); cursor: pointer; font-size: 18px;">&times;</button>
+          </div>
+          <input type="text" id="goal${goalCount}" name="goals[]" class="form-control" required>
+        `;
+        
+        goalsContainer.appendChild(newGoalDiv);
+        
+        // Add event listener to remove button
+        const removeBtn = newGoalDiv.querySelector('.remove-goal');
+        removeBtn.addEventListener('click', function() {
+          goalsContainer.removeChild(newGoalDiv);
+        });
+      });
+      
+      // Handle "None Specified" checkbox for goals
+      noGoalsSpecified.addEventListener('change', function() {
+        const goalInputs = document.querySelectorAll('.goal-input input');
+        const addGoalButton = document.getElementById('addGoalBtn');
+        
+        if (this.checked) {
+          // Disable all goal inputs and the add button
+          goalInputs.forEach(input => {
+            input.disabled = true;
+            input.required = false;
+            input.value = '';
+          });
+          addGoalButton.disabled = true;
+        } else {
+          // Re-enable all goal inputs and the add button
+          goalInputs.forEach(input => {
+            input.disabled = false;
+            input.required = true;
+          });
+          addGoalButton.disabled = false;
+        }
+      });
+      
+      // Handle documentation needs checkboxes
+      const docNeedsCheckboxes = document.querySelectorAll('input[name="documentationNeeds"]');
+      docNeedsCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          let anyChecked = false;
+          docNeedsCheckboxes.forEach(cb => {
+            if(cb.checked) {
+              anyChecked = true;
+            }
+          });
+          
+          docNeedsCheckboxes.forEach(cb => {
+            cb.required = !anyChecked;
+          });
+        });
+      });
+    });
+    
+    // Toggle housing barriers section visibility
+    function toggleHousingBarriers() {
+      var housingBarriersSection = document.getElementById('housingBarriersSection');
+      if(this.value === 'unstable' && this.checked) {
+        housingBarriersSection.style.display = 'block';
+      } else {
+        housingBarriersSection.style.display = 'none';
+        
+        // Uncheck all checkboxes in the section
+        var checkboxes = housingBarriersSection.querySelectorAll('input[type="checkbox"]');
+        for(var i = 0; i < checkboxes.length; i++) {
+          checkboxes[i].checked = false;
+        }
+        
+        // Clear text inputs in the section
+        var textInputs = housingBarriersSection.querySelectorAll('input[type="text"]');
+        for(var i = 0; i < textInputs.length; i++) {
+          textInputs[i].value = '';
+        }
+      }
+    }
+    
+    // Handle form submission
+    function handleFormSubmit(formObject) {
+      // Show loading indicator
+      document.getElementById('formContainer').style.display = 'none';
+      document.getElementById('loadingSection').style.display = 'block';
+      
+      // Get all goals if not "None Specified"
+      const noGoalsChecked = document.getElementById('noGoalsSpecified').checked;
+      const goalInputs = document.querySelectorAll('.goal-input input');
+      const goals = [];
+      
+      if (!noGoalsChecked) {
+        goalInputs.forEach(input => {
+          if (input.value.trim()) {
+            goals.push(input.value.trim());
+          }
+        });
+      }
+      
+      // Simplify our approach - serialize the form manually
+      var formData = {
+        // Basic info
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        referralSource: document.getElementById('referralSource').value,
+        supportNeeds: document.getElementById('supportNeeds').value,
+        
+        // Current housing
+        currentHousing: getCheckedValues('currentHousing'),
+        
+        // Housing barriers - only if unstably housed
+        housingBarriers: getCheckedValues('housingBarriers'),
+        housingBarrierOther: document.querySelector('input[name="housingBarrierOther"]')?.value || '',
+        
+        // Past housing
+        pastHousing: getRadioValue('pastHousing'),
+        
+        // Prefer not to answer demographics
+        preferNotToAnswer: document.getElementById('preferNotToAnswer').checked,
+        
+        // Demographics
+        race: document.getElementById('race').value,
+        ethnicity: document.getElementById('ethnicity').value,
+        language: document.getElementById('language').value,
+        gender: document.getElementById('gender').value,
+        pronouns: document.getElementById('pronouns').value,
+        disability: document.getElementById('disability').value,
+        veteran: document.getElementById('veteran').value,
+        dob: document.getElementById('dob').value,
+        
+        // Documentation needs
+        documentationNeeds: getCheckedValues('documentationNeeds'),
+        documentationNeedsOther: document.querySelector('input[name="documentationNeedsOther"]')?.value || '',
+        
+        // Employment and income
+        employmentStatus: document.getElementById('employmentStatus').value,
+        incomeStatus: document.getElementById('incomeStatus').value,
+        
+        // Goals
+        goals: noGoalsChecked ? [] : goals,
+        noGoalsSpecified: noGoalsChecked,
+        
+        // Additional info
+        additionalInfo: document.getElementById('additionalInfo').value
+      };
+      
+      // Helper function to get the value of a selected radio button
+      function getRadioValue(name) {
+        var radios = document.getElementsByName(name);
+        for (var i = 0; i < radios.length; i++) {
+          if (radios[i].checked) {
+            return radios[i].value;
+          }
+        }
+        return '';
+      }
+      
+      // Helper function to get all checked values for checkboxes with the same name
+      function getCheckedValues(name) {
+        var checkboxes = document.getElementsByName(name);
+        var values = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            values.push(checkboxes[i].value);
+          }
+        }
+        return values;
+      }
+      
+      // Send form to server
+      // In this demo, we'll just simulate a server response
+      setTimeout(function() {
+        showSuccess({
+          message: "Intake form submitted successfully!",
+          canEnrollSHP: formData.currentHousing.includes('unstable') || formData.pastHousing === 'experienced',
+          needsReferral: formData.currentHousing.includes('none') && formData.incomeStatus === 'earnedIncome'
+        });
+      }, 1500);
+    }
+    
+    // Display success message
+    function showSuccess(result) {
+      // Hide loading indicator
+      document.getElementById('loadingSection').style.display = 'none';
+      
+      // Show result section
+      var resultSection = document.getElementById('resultSection');
+      resultSection.style.display = 'block';
+      resultSection.className = 'form-result success';
+      
+      // Update result content
+      document.getElementById('resultTitle').textContent = 'Form Submitted Successfully!';
+      document.getElementById('resultMessage').textContent = result.message;
+      
+      // Add additional information based on eligibility
+      var additionalInfo = document.getElementById('additionalInfo');
+      additionalInfo.innerHTML = '';
+      
+      if(result.canEnrollSHP) {
+        var shpInfo = document.createElement('div');
+        shpInfo.className = 'alert-info';
+        shpInfo.innerHTML = '<strong>Note:</strong> This client is eligible for SHP enrollment.';
+        additionalInfo.appendChild(shpInfo);
+      }
+      
+      if(result.needsReferral) {
+        var referralInfo = document.createElement('div');
+        referralInfo.className = 'alert-info';
+        referralInfo.innerHTML = '<strong>Action Required:</strong> Please refer this client to Sharrise to explore other resources.';
+        additionalInfo.appendChild(referralInfo);
+      }
+    }
+    
+    // Display error message
+    function showError(error) {
+      // Hide loading indicator
+      document.getElementById('loadingSection').style.display = 'none';
+      
+      // Show result section
+      var resultSection = document.getElementById('resultSection');
+      resultSection.style.display = 'block';
+      resultSection.className = 'form-result error';
+      
+      // Update result content
+      document.getElementById('resultTitle').textContent = 'Error';
+      document.getElementById('resultMessage').textContent = 'There was an error processing your form: ' + error.message;
+      document.getElementById('additionalInfo').innerHTML = '';
+    }
+    
+    // Generic error handler
+    function handleError(error) {
+      console.error('Error:', error);
+      alert('An error occurred: ' + error);
+    }
+    
+    // Reset the form and UI state
+    function resetForm() {
+      document.getElementById('intakeForm').reset();
+      document.getElementById('housingBarriersSection').style.display = 'none';
+      document.getElementById('formContainer').style.display = 'block';
+      document.getElementById('resultSection').style.display = 'none';
+      
+      // Reset demographics section opacity and reenable fields
+      document.querySelector('.demographics-grid').style.opacity = '1';
+      var demographicFields = document.querySelectorAll('.demographics-grid select, .demographics-grid input');
+      demographicFields.forEach(function(field) {
+        field.disabled = false;
+        field.required = true;
+      });
+      
+      // Reset goals section
+      const goalInputs = document.querySelectorAll('.goal-input input');
+      goalInputs.forEach(function(input) {
+        input.disabled = false;
+        input.required = true;
+      });
+      
+      // Remove any additional goals (beyond the first 3)
+      const goalContainer = document.getElementById('goalsContainer');
+      const additionalGoals = document.querySelectorAll('.goal-input:nth-child(n+4)');
+      additionalGoals.forEach(function(goal) {
+        goalContainer.removeChild(goal);
+      });
+      
+      // Re-enable the add goal button
+      document.getElementById('addGoalBtn').disabled = false;
+      
+      // Reset the required state for housing checkboxes
+      const housingCheckboxes = document.getElementsByName('currentHousing');
+      for(let i = 0; i < housingCheckboxes.length; i++) {
+        housingCheckboxes[i].required = i === 0; // Only the first one is required initially
+      }
+      
+      // Reset the required state for documentation needs checkboxes
+      const docNeedsCheckboxes = document.querySelectorAll('input[name="documentationNeeds"]');
+      docNeedsCheckboxes.forEach((cb, index) => {
+        cb.required = index === 0; // Only the first one is required initially
+      });
+    }
+  </script>
+</body>
+</html>
