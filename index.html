@@ -84,12 +84,12 @@ document.addEventListener('DOMContentLoaded', async function() {
   };
   
   // Try to initialize header (but don't let it break the page)
-  try {
-    await HeaderManager.init(PageConfigs.contactLog);
-  } catch (error) {
-    console.error('Header initialization failed, but page continues:', error);
-  }
-});
+// Try to initialize header (but don't let it break the page)
+try {
+  await HeaderManager.init();
+} catch (error) {
+  console.error('Header initialization failed, but page continues:', error);
+}
   </script>
 
   <!-- Data Loading and Table Generation Script -->
