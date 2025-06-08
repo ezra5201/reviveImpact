@@ -55,24 +55,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Initialize header with error handling
 async function initializeHeader() {
   try {
-    // Debug HeaderManager availability
-    console.log('HeaderManager available:', !!window.HeaderManager);
-    console.log('HeaderManager type:', typeof window.HeaderManager);
-    console.log('HeaderManager.init type:', typeof window.HeaderManager?.init);
+    // Wait a bit longer for HeaderManager to be available
+    let attempts = 0;
+    while (!window.HeaderManager && attempts < 10) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
     
     if (!window.HeaderManager) {
-      throw new Error('HeaderManager not available');
+      throw new Error('HeaderManager not available after waiting');
     }
     
-    if (typeof window.HeaderManager.init !== 'function') {
-      throw new Error('HeaderManager.init is not a function');
-    }
-    
-    await HeaderManager.init();
+    await window.HeaderManager.init();
     console.log('Header loaded successfully');
   } catch (error) {
     console.error('Header initialization failed:', error);
-    // Create a fallback header if HeaderManager fails
     createFallbackHeader();
   }
 }
