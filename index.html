@@ -102,14 +102,16 @@
     });
 
     // Initialize header with error handling
-    async function initializeHeader() {
-      try {
-        await HeaderManager.init();
-        console.log('Header loaded successfully');
-      } catch (error) {
-        console.error('Header initialization failed, but page continues:', error);
-      }
-    }
+async function initializeHeader() {
+  try {
+    // Add a small delay to ensure HeaderManager is fully loaded
+    await new Promise(resolve => setTimeout(resolve, 100));
+    await HeaderManager.init();
+    console.log('Header loaded successfully');
+  } catch (error) {
+    console.error('Header initialization failed, but page continues:', error);
+  }
+}
 
     // Load data from JSON file and populate table
     async function loadContactLogData() {
