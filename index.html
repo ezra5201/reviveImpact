@@ -71,27 +71,25 @@
 
   <!-- Initialize header for this page -->
   <script>
-    document.addEventListener('DOMContentLoaded', async function() {
-      // Initialize header with contact log configuration
-      await HeaderManager.init(PageConfigs.contactLog);
-      
-      // After header is loaded, initialize page-specific functionality
-      initializeContactLogPage();
-    });
-
-    // Page-specific initialization
-    function initializeContactLogPage() {
-      // Load contact log data and populate table
-      loadContactLogData();
-      
-      // Initialize table drag scrolling
-      initializeTableDragScrolling();
-      
-      // Set up page-specific search callback
-      window.onClientSelected = function(clientName) {
-        filterTableByClient(clientName);
-      };
-    }
+document.addEventListener('DOMContentLoaded', async function() {
+  // Load table data immediately (independent of header)
+  loadContactLogData();
+  
+  // Initialize table drag scrolling
+  initializeTableDragScrolling();
+  
+  // Set up page-specific search callback
+  window.onClientSelected = function(clientName) {
+    filterTableByClient(clientName);
+  };
+  
+  // Try to initialize header (but don't let it break the page)
+  try {
+    await HeaderManager.init(PageConfigs.contactLog);
+  } catch (error) {
+    console.error('Header initialization failed, but page continues:', error);
+  }
+});
   </script>
 
   <!-- Data Loading and Table Generation Script -->
