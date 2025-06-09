@@ -8,31 +8,10 @@
 </head>
   
 <body>
-  <!-- Fixed Header -->
-  <header>
-    <div class="header-left">
-      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
-      <nav>
-        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
-        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
-        <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
-        <a href="#" class="nav-tab nav-tab-active">DASHBOARD</a>
-      </nav>
-    </div>
-
-    <div class="header-right">
-      <div class="search-container">
-        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
-        <span class="search-label">Client Search</span>
-        <div class="suggestions-container" id="searchSuggestions"></div>
-      </div>
-      <div class="user-info">
-        <span>Andrea Leflore</span>
-        <div class="user-avatar"></div>
-      </div>
-      <button class="sign-out">Sign Out</button>
-    </div>
-  </header>
+  <!-- ==========================================================================
+       HEADER WILL BE LOADED HERE BY HeaderManager
+       ========================================================================== -->
+  <!-- Header content will be inserted here automatically -->
 
   <!-- Secondary Action Bar (new) -->
 <div class="secondary-action-bar">
@@ -52,5 +31,105 @@
     <h1 class="page-title">Dashboard</h1>
     <p class="page-subtitle">TBD</p>
   </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT - External Script Files
+       ========================================================================== -->
+  
+  <!-- Load dependency scripts first -->
+  <script src="page-configs.js"></script>
+  <script src="header-manager.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log('Dashboard page - DOM Content Loaded');
+      
+      // Wait a moment to ensure all scripts are loaded
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Initialize header
+      if (window.HeaderManager) {
+        try {
+          await window.HeaderManager.init();
+          console.log('Header loaded successfully for dashboard page');
+          
+          // Update navigation to show DASHBOARD as active
+          updateNavigationForDashboard();
+        } catch (error) {
+          console.error('Header initialization failed:', error);
+          createFallbackHeaderForDashboard();
+        }
+      } else {
+        console.error('HeaderManager not found');
+        createFallbackHeaderForDashboard();
+      }
+    });
+
+    // Update navigation to show correct active tab
+    function updateNavigationForDashboard() {
+      const navTabs = document.querySelectorAll('.nav-tab');
+      navTabs.forEach(tab => {
+        if (tab.textContent.trim() === 'DASHBOARD') {
+          tab.className = 'nav-tab nav-tab-active';
+        } else {
+          tab.className = 'nav-tab nav-tab-inactive';
+          if (tab.tagName === 'SPAN') {
+            // Convert span to anchor for inactive tabs
+            const anchor = document.createElement('a');
+            anchor.href = getHrefForTab(tab.textContent.trim());
+            anchor.className = 'nav-tab nav-tab-inactive';
+            anchor.textContent = tab.textContent;
+            tab.parentNode.replaceChild(anchor, tab);
+          }
+        }
+      });
+    }
+
+    // Get href for navigation tabs
+    function getHrefForTab(tabText) {
+      switch (tabText) {
+        case 'CONTACT LOG': return 'index.html';
+        case 'PROSPECTS': return 'prospects.html';
+        case 'OUTREACH': return 'outreach.html';
+        case 'CM/OT': return 'cm-ot.html';
+        case 'CLIENTS': return 'clients.html';
+        default: return '#';
+      }
+    }
+
+    // Create fallback header if HeaderManager fails
+    function createFallbackHeaderForDashboard() {
+      const fallbackHeader = document.createElement('header');
+      fallbackHeader.innerHTML = `
+        <div class="header-left">
+          <div class="logo">
+            <img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image">
+          </div>
+          <nav>
+            <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+            <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+            <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+            <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+            <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+            <span class="nav-tab nav-tab-active">DASHBOARD</span>
+          </nav>
+        </div>
+        <div class="header-right">
+          <div class="search-container">
+            <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+            <span class="search-label">Client Search</span>
+            <div class="suggestions-container" id="searchSuggestions"></div>
+          </div>
+          <div class="user-info">
+            <span>Andrea Leflore</span>
+            <div class="user-avatar"></div>
+          </div>
+          <button class="sign-out">Sign Out</button>
+        </div>
+      `;
+      document.body.insertBefore(fallbackHeader, document.body.firstChild);
+      console.log('Fallback header created for dashboard page');
+    }
+  </script>
 </body>
 </html
