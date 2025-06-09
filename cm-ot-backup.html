@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Case Management</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Fix for table width alignment issues */
+    .table-content {
+      overflow-x: auto;
+      width: 100%;
+    }
+    
+    .table-rows-container {
+      width: fit-content;
+      min-width: 100%;
+    }
+    
+    .table-row {
+      display: flex;
+      width: fit-content;
+      min-width: 100%;
+    }
+    
+    .fixed-columns {
+      position: sticky;
+      left: 0;
+      background-color: var(--md-surface);
+      box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.1);
+      z-index: 3;
+      display: flex;
+    }
+    
+    .scrollable-columns {
+      display: flex;
+      flex: 1;
+    }
+    
+    /* CM Table Column Widths */
+    #cmTable .col-date { width: 120px; }
+    #cmTable .col-days { width: 100px; }
+    #cmTable .col-provider { width: 150px; }
+    #cmTable .col-client { width: 150px; }
+    #cmTable .col-service { width: 150px; }
+    #cmTable .col-location { width: 150px; }
+    #cmTable .col-goals { width: 200px; }
+    #cmTable .col-progress { width: 200px; }
+    #cmTable .col-barriers { width: 150px; }
+    #cmTable .col-referrals { width: 150px; }
+    #cmTable .col-next-steps { width: 150px; }
+    #cmTable .col-notes { width: 200px; }
+    
+    /* OT Table Column Widths */
+    #otTable .col-date { width: 120px; }
+    #otTable .col-days { width: 100px; }
+    #otTable .col-provider { width: 150px; }
+    #otTable .col-client { width: 150px; }
+    #otTable .col-intervention { width: 150px; }
+    #otTable .col-assessment { width: 150px; }
+    #otTable .col-adl { width: 150px; }
+    #otTable .col-iadl { width: 150px; }
+    #otTable .col-mobility { width: 150px; }
+    #otTable .col-equipment { width: 150px; }
+    #otTable .col-recommendations { width: 200px; }
+    #otTable .col-notes { width: 200px; }
+  </style>
+</head>
+  
+<body>
+  <!-- Fixed Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+      <nav>
+        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+        <a href="#" class="nav-tab nav-tab-active">CM/OT</a>
+        <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="search-container">
+        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+        <span class="search-label">Client Search</span>
+        <div class="suggestions-container" id="searchSuggestions"></div>
+      </div>
+      <div class="user-info">
+        <span>Andrea Leflore</span>
+        <div class="user-avatar"></div>
+      </div>
+      <button class="sign-out">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Secondary Action Bar -->
+  <div class="secondary-action-bar">
+    <div class="secondary-action-bar-left">
+      <div class="toggle-container" style="display: flex; align-items: center;">
+        <span style="margin-right: 12px; font-size: 14px; font-weight: 500;">View:</span>
+        <label class="radio-group" style="margin-right: 16px; display: flex; align-items: center; margin-bottom: 0;">
+          <input type="radio" name="viewToggle" value="CM" id="cmToggle">
+          <span style="margin-left: 8px;">Case Management</span>
+        </label>
+        <label class="radio-group" style="display: flex; align-items: center; margin-bottom: 0;">
+          <input type="radio" name="viewToggle" value="OT" id="otToggle" checked>
+          <span style="margin-left: 8px;">Occupational Therapy</span>
+        </label>
+      </div>
+    </div>
+    <div class="secondary-action-bar-right">
+      <!-- You can add additional action buttons or information here if needed -->
+    </div>
+  </div>
+
+  <!-- Page Title Section - Moved outside container -->
+  <div class="page-title-section">
+    <h1 class="page-title" id="pageTitle">Occupational Therapy</h1>
+    <p class="page-subtitle" id="pageSubtitle">Manage client occupational therapy services and progress</p>
+  </div>
+
+  <!-- CM Table (hidden by default) -->
+  <div id="cmTable" class="table-container" style="display: none;">
+    <div class="table-content">
+      <div class="table-rows-container">
+        <!-- Sticky Table Header Row -->
+        <div class="table-row">
+          <!-- Fixed Columns Header -->
+          <div class="fixed-columns">
+            <div class="column-header col-date">Date ↓</div>
+            <div class="column-header col-days">Days Ago ↓</div>
+            <div class="column-header col-provider">Provider ↓</div>
+            <div class="column-header col-client">Client ↓</div>
+          </div>
+
+          <!-- Scrollable Columns Header for CM -->
+          <div class="scrollable-columns">
+            <div class="column-header col-service">Service Type ↓</div>
+            <div class="column-header col-location">Location ↓</div>
+            <div class="column-header col-goals">Goals ↓</div>
+            <div class="column-header col-progress">Progress ↓</div>
+            <div class="column-header col-barriers">Barriers ↓</div>
+            <div class="column-header col-referrals">Referrals ↓</div>
+            <div class="column-header col-next-steps">Next Steps ↓</div>
+            <div class="column-header col-notes">Notes ↓</div>
+          </div>
+        </div>
+
+        <!-- Sample CM data row -->
+        <div class="table-row">
+          <div class="fixed-columns">
+            <div class="column-cell col-date">04/15/2025</div>
+            <div class="column-cell col-days">3</div>
+            <div class="column-cell col-provider">Elena Ahmed</div>
+            <div class="column-cell col-client">Thiago Schmidt</div>
+          </div>
+          <div class="scrollable-columns">
+            <div class="column-cell col-service">Housing Support</div>
+            <div class="column-cell col-location">Office Visit</div>
+            <div class="column-cell col-goals">Secure permanent housing</div>
+            <div class="column-cell col-progress">Application submitted</div>
+            <div class="column-cell col-barriers">Credit history</div>
+            <div class="column-cell col-referrals">Financial counseling</div>
+            <div class="column-cell col-next-steps">Follow up next week</div>
+            <div class="column-cell col-notes">Client motivated to improve situation</div>
+          </div>
+        </div>
+        
+        <!-- Additional sample CM data row -->
+        <div class="table-row">
+          <div class="fixed-columns">
+            <div class="column-cell col-date">04/10/2025</div>
+            <div class="column-cell col-days">8</div>
+            <div class="column-cell col-provider">Jamal Silva</div>
+            <div class="column-cell col-client">Noah Kim</div>
+          </div>
+          <div class="scrollable-columns">
+            <div class="column-cell col-service">Employment</div>
+            <div class="column-cell col-location">Phone Call</div>
+            <div class="column-cell col-goals">Resume development</div>
+            <div class="column-cell col-progress">Draft completed</div>
+            <div class="column-cell col-barriers">Limited work history</div>
+            <div class="column-cell col-referrals">Skills training</div>
+            <div class="column-cell col-next-steps">Schedule interview prep</div>
+            <div class="column-cell col-notes">Client seeking entry-level positions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OT Table (visible by default) -->
+  <div id="otTable" class="table-container">
+    <div class="table-content">
+      <div class="table-rows-container">
+        <!-- Sticky Table Header Row -->
+        <div class="table-row">
+          <!-- Fixed Columns Header -->
+          <div class="fixed-columns">
+            <div class="column-header col-date">Date ↓</div>
+            <div class="column-header col-days">Days Ago ↓</div>
+            <div class="column-header col-provider">Provider ↓</div>
+            <div class="column-header col-client">Client ↓</div>
+          </div>
+
+          <!-- Scrollable Columns Header for OT -->
+          <div class="scrollable-columns">
+            <div class="column-header col-intervention">Intervention Type ↓</div>
+            <div class="column-header col-assessment">Assessment ↓</div>
+            <div class="column-header col-adl">ADL Progress ↓</div>
+            <div class="column-header col-iadl">IADL Progress ↓</div>
+            <div class="column-header col-mobility">Mobility ↓</div>
+            <div class="column-header col-equipment">Equipment ↓</div>
+            <div class="column-header col-recommendations">Recommendations ↓</div>
+            <div class="column-header col-notes">Notes ↓</div>
+          </div>
+        </div>
+
+        <!-- Sample OT data row -->
+        <div class="table-row">
+          <div class="fixed-columns">
+            <div class="column-cell col-date">04/17/2025</div>
+            <div class="column-cell col-days">1</div>
+            <div class="column-cell col-provider">Sofia Cohen</div>
+            <div class="column-cell col-client">Mia Patel</div>
+          </div>
+          <div class="scrollable-columns">
+            <div class="column-cell col-intervention">Fine Motor Skills</div>
+            <div class="column-cell col-assessment">Initial evaluation</div>
+            <div class="column-cell col-adl">Moderate assistance</div>
+            <div class="column-cell col-iadl">Significant difficulty</div>
+            <div class="column-cell col-mobility">Independent with device</div>
+            <div class="column-cell col-equipment">Adaptive utensils</div>
+            <div class="column-cell col-recommendations">Daily exercises</div>
+            <div class="column-cell col-notes">Improvement in grip strength</div>
+          </div>
+        </div>
+        
+        <!-- Additional sample OT data row -->
+        <div class="table-row">
+          <div class="fixed-columns">
+            <div class="column-cell col-date">04/16/2025</div>
+            <div class="column-cell col-days">2</div>
+            <div class="column-cell col-provider">Mohammed Ahmed</div>
+            <div class="column-cell col-client">Ava Hernandez</div>
+          </div>
+          <div class="scrollable-columns">
+            <div class="column-cell col-intervention">Home Assessment</div>
+            <div class="column-cell col-assessment">Follow-up</div>
+            <div class="column-cell col-adl">Minimal assistance</div>
+            <div class="column-cell col-iadl">Moderate difficulty</div>
+            <div class="column-cell col-mobility">Independent</div>
+            <div class="column-cell col-equipment">Shower chair, grab bars</div>
+            <div class="column-cell col-recommendations">Continue home modifications</div>
+            <div class="column-cell col-notes">Client reports increased confidence in bathroom safety</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Toggle view functionality
+      const cmToggle = document.getElementById('cmToggle');
+      const otToggle = document.getElementById('otToggle');
+      const cmTable = document.getElementById('cmTable');
+      const otTable = document.getElementById('otTable');
+      const pageTitle = document.getElementById('pageTitle');
+      const pageSubtitle = document.getElementById('pageSubtitle');
+
+      // Initialize drag scrolling for tables
+      initializeTableScroll();
+
+      cmToggle.addEventListener('change', function() {
+        if (this.checked) {
+          cmTable.style.display = 'flex';
+          otTable.style.display = 'none';
+          pageTitle.textContent = 'Case Management';
+          pageSubtitle.textContent = 'Manage client case management services and progress';
+        }
+      });
+
+      otToggle.addEventListener('change', function() {
+        if (this.checked) {
+          otTable.style.display = 'flex';
+          cmTable.style.display = 'none';
+          pageTitle.textContent = 'Occupational Therapy';
+          pageSubtitle.textContent = 'Manage client occupational therapy services and progress';
+        }
+      });
+
+      // Initialize with OT selected
+      cmToggle.checked = true;
+      otTable.style.display = 'none';
+      cmTable.style.display = 'flex';
+
+      // Add client search functionality
+      const searchInput = document.getElementById('clientSearchInput');
+      
+      searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        
+        if (query === '') {
+          // Show all rows if query is empty
+          document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
+            row.style.display = '';
+          });
+          return;
+        }
+        
+        // Filter rows based on client name
+        document.querySelectorAll('.table-row:not(:first-child)').forEach(row => {
+          const clientName = row.querySelector('.col-client').textContent.toLowerCase();
+          
+          if (clientName.includes(query)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+
+      // Function to initialize drag scrolling for tables
+      function initializeTableScroll() {
+        const tableContents = document.querySelectorAll('.table-content');
+        
+        tableContents.forEach(tableContent => {
+          // Variables for drag scrolling
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+
+          // Event listeners for mouse behavior
+          tableContent.addEventListener('mousedown', function(e) {
+            isDown = true;
+            tableContent.style.cursor = 'grabbing';
+            startX = e.pageX - tableContent.offsetLeft;
+            scrollLeft = tableContent.scrollLeft;
+            e.preventDefault(); // Prevent text selection while dragging
+          });
+
+          tableContent.addEventListener('mouseleave', function() {
+            isDown = false;
+            tableContent.style.cursor = 'default';
+          });
+
+          tableContent.addEventListener('mouseup', function() {
+            isDown = false;
+            tableContent.style.cursor = 'default';
+          });
+
+          tableContent.addEventListener('mousemove', function(e) {
+            if (!isDown) return;
+            const x = e.pageX - tableContent.offsetLeft;
+            // Use a multiplier for faster/slower scrolling
+            const walk = (x - startX) * 1.5;
+            tableContent.scrollLeft = scrollLeft - walk;
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
