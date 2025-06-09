@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Contact-Log History</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styles for the action buttons */
+    .meeting-action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+<!-- Fixed Header -->
+<header>
+  <div class="header-left">
+    <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
+   
+    <nav>
+      <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+      <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+      <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+      <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+      <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+      <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+    </nav>
+  </div>
+  
+  <div class="header-right">
+    <div class="search-container">
+      <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+      <span class="search-label">Client Search</span>
+      <div class="suggestions-container" id="searchSuggestions"></div>
+    </div>
+    <div class="user-info">
+      <span>Andrea Leflore</span>
+      <div class="user-avatar"></div>
+    </div>
+    <button class="sign-out">Sign Out</button>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="main-container">
+  <!-- Client Header -->
+  <div class="client-header">
+    <h1 class="client-name" id="clientNameHeader">Johnson, Peter (59)</h1>
+    <a href="client-record.html" class="forward-link">View Full Record</a>
+  </div>
+
+  <!-- Client Information Section -->
+  <section class="client-info">
+    <h2 class="section-title">Client Information</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">First Name</span>
+        <span class="info-value">Peter</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Middle Name</span>
+        <span class="info-value"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Last Name</span>
+        <span class="info-value">Johnson</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Nickname</span>
+        <span class="info-value">Pete</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Age</span>
+        <span class="info-value">59</span>
+      </div>
+    </div>
+
+    <div class="info-item" style="margin-top: 1.5rem;">
+      <span class="info-label">Client Record</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+        <div style="display: flex; gap: 2rem;">
+          <div>
+            <span class="info-label">Program</span>
+            <span class="info-value" style="display: block;">Scattered Site SHP</span>
+          </div>
+          <div>
+            <span class="info-label">Since</span>
+            <span class="info-value" style="display: block;">Mar 2023</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="client-address" style="width: 100%;">
+      <h3 class="section-title">Address Information</h3>
+      <div class="address-grid">
+        <div class="info-item">
+          <span class="info-label">Street</span>
+          <span class="info-value">123 Main St</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Apt</span>
+          <span class="info-value">2B</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">City</span>
+          <span class="info-value">Chicago</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">State</span>
+          <span class="info-value">IL</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Zip</span>
+          <span class="info-value">60642</span>
+        </div>
+      </div>
+      <div class="info-item" style="margin-top: 1rem;">
+        <span class="info-label">Address Notes</span>
+        <span class="info-value">Entrance on side street. Buzzer #203.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact History Section -->
+  <section class="contact-history">
+    <div class="history-header">
+      <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Engagement History</h2>
+      <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
+      <button class="add-checkin-btn" id="addOTFollowupBtn" style="margin-left: 8px;">Add OT Followup</button>
+    </div>
+
+    <div class="table-container">
+      <table class="contact-table">
+        <thead>
+          <tr>
+            <th class="sortable">Date ↓</th>
+            <th>Location ↓</th>
+            <th>Resources Given ↓</th>
+            <th>Services Provided ↓</th>
+            <th>Provider ↓</th>
+            <th>IDHS Categories ↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01-29-2024</td>
+            <td>Engagement Center</td>
+            <td>Food</td>
+            <td>OT</td>
+            <td>Alexandra Perry</td>
+            <td>Health Contact - Consultation / Individual</td>
+          </tr>
+          <tr>
+            <td>12-15-2023</td>
+            <td>Engagement Center</td>
+            <td>Food, $5 Transit Card</td>
+            <td>Case Management</td>
+            <td>Elena Ahmed</td>
+            <td>Health Contact - Consultation / Individual</td>
+          </tr>
+          <tr>
+            <td>11-02-2023</td>
+            <td>Home Visit</td>
+            <td>Home Goods</td>
+            <td>Follow-up Services</td>
+            <td>Jamal Silva</td>
+            <td>Housing - Follow-up Services</td>
+          </tr>
+          <tr>
+            <td>10-10-2023</td>
+            <td>Engagement Center</td>
+            <td>Food, Hygiene Products</td>
+            <td>OT</td>
+            <td>Alexandra Perry</td>
+            <td>Health Contact - Consultation / Individual</td>
+          </tr>
+          <tr>
+            <td>09-05-2023</td>
+            <td>Phone/Text/Email</td>
+            <td>None</td>
+            <td>Housing Location / Inspection</td>
+            <td>Sonia Singh</td>
+            <td>Housing - Location / Inspection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Store client name for passing to the new page
+    window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
+    
+    // Add CM Followup button functionality - open in new tab
+    const addFollowupBtn = document.getElementById('addFollowupBtn');
+    if (addFollowupBtn) {
+      addFollowupBtn.addEventListener('click', function() {
+        openFollowupInNewTab();
+      });
+    }
+    
+    // Make table rows clickable to view details
+    const tableRows = document.querySelectorAll('.contact-table tbody tr');
+    tableRows.forEach(row => {
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', function() {
+        const date = this.cells[0].textContent;
+        // In a real implementation, this would open a read-only view of the meeting
+        alert(`Viewing meeting details for ${date}`);
+      });
+    });
+    
+    // Function to open the followup form in a new tab
+    function openFollowupInNewTab() {
+      // Extract client name from header (remove the age in parentheses)
+      const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
+      
+      // Create URL with parameters
+      const params = new URLSearchParams();
+      params.append('client', clientName);
+      
+      // Open the CM-Dialog.html in a new tab
+      window.open(`CM-Dialog.html?${params.toString()}`, '_blank');
+    }
+    
+    // Make table headers sortable
+    const sortableHeaders = document.querySelectorAll('th.sortable');
+    sortableHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        // Sort implementation would go here
+        // For demonstration, we'll just toggle the arrow
+        if (this.textContent.includes('↓')) {
+          this.textContent = this.textContent.replace('↓', '↑');
+        } else {
+          this.textContent = this.textContent.replace('↑', '↓');
+        }
+      });
+    });
+  });
+
+  // Add OT Followup button functionality
+const addOTFollowupBtn = document.getElementById('addOTFollowupBtn');
+if (addOTFollowupBtn) {
+  addOTFollowupBtn.addEventListener('click', function() {
+    openOTFollowupInNewTab();
+  });
+}
+
+// Function to open the OT followup form in a new tab
+function openOTFollowupInNewTab() {
+  // Extract client name from header (remove the age in parentheses)
+  const clientName = window.currentClientName.replace(/\s*\(\d+\)$/, '');
+  
+  // Create URL with parameters
+  const params = new URLSearchParams();
+  params.append('client', clientName);
+  
+  // Open the OT-Form.html in a new tab
+  window.open(`OT-Form.html?${params.toString()}`, '_blank');
+}
+</script>
+</body>
+</html>
