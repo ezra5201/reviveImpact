@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- ==========================================================================
-     HEAD SECTION - META DATA AND EXTERNAL RESOURCES
-     ========================================================================== -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,60 +9,30 @@
   
 <body>
   <!-- ==========================================================================
-       FIXED HEADER NAVIGATION
+       HEADER WILL BE LOADED HERE BY HeaderManager
        ========================================================================== -->
-  <header>
-    <div class="header-left">
-      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
-      <nav>
-        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
-        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
-        <a href="#" class="nav-tab nav-tab-active">OUTREACH</a>
-        <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
-        <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
-        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
-        
-      </nav>
-    </div>
+  <!-- Header content will be inserted here automatically -->
 
-    <div class="header-right">
-      <div class="search-container">
-        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
-        <span class="search-label">Client Search</span>
-        <div class="suggestions-container" id="searchSuggestions"></div>
-      </div>
-      <div class="user-info">
-        <span>Andrea Leflore</span>
-        <div class="user-avatar"></div>
-      </div>
-      <button class="sign-out">Sign Out</button>
-    </div>
-  </header>
-
-  <!-- ==========================================================================
-       SECONDARY ACTION BAR - PAGE-SPECIFIC ACTIONS
-       ========================================================================== -->
-  <div class="secondary-action-bar">
+<!-- Secondary Action Bar (new) -->
+<div class="secondary-action-bar">
     <div class="secondary-action-bar-left">
+   
       <a href="outreachRecord.html" class="btn btn-primary" style="text-decoration: none;">New Outreach</a>
     </div>
     <div class="secondary-action-bar-right">
-      <!-- You can add additional action buttons or information here if needed -->
+   <!-- You can add additional action buttons or information here if needed -->
     </div>
   </div>
 
-  <!-- ==========================================================================
-       MAIN DATA TABLE CONTAINER
-       ========================================================================== -->
+  
+  <!-- Table Container -->
   <div class="table-container">
   
     <!-- Scrollable Content -->
     <div class="table-content">
       <div class="table-rows-container">
   
-        <!-- ==========================================================================
-             TABLE HEADER ROW - STICKY COLUMN HEADERS
-             ========================================================================== -->
+        <!-- Sticky Table Header Row -->
         <div class="table-row">
           <!-- Fixed Columns Header -->
           <div class="fixed-columns">
@@ -87,10 +54,6 @@
           </div>
         </div>
   
-        <!-- ==========================================================================
-             DATA ROWS - OUTREACH RECORDS
-             ========================================================================== -->
-        
         <!-- Row 1 -->
         <div class="table-row">
           <div class="fixed-columns">
@@ -210,50 +173,145 @@
   </div>
   
   <!-- ==========================================================================
-       JAVASCRIPT - PAGE FUNCTIONALITY
+       JAVASCRIPT - External Script Files
        ========================================================================== -->
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Get the scrollable container
-    const tableContent = document.querySelector('.table-content');
   
-    // Variables for drag scrolling
+  <!-- Load dependency scripts first -->
+  <script src="page-configs.js"></script>
+  <script src="header-manager.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', async function() {
+    console.log('Outreach page - DOM Content Loaded');
+    
+    // Wait a moment to ensure all scripts are loaded
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    // Initialize header
+    if (window.HeaderManager) {
+      try {
+        await window.HeaderManager.init();
+        console.log('Header loaded successfully for outreach page');
+        
+        // Update navigation to show OUTREACH as active
+        updateNavigationForOutreach();
+      } catch (error) {
+        console.error('Header initialization failed:', error);
+        createFallbackHeaderForOutreach();
+      }
+    } else {
+      console.error('HeaderManager not found');
+      createFallbackHeaderForOutreach();
+    }
+    
+    // Initialize table drag scrolling
+    initializeTableDragScrolling();
+  });
+
+  // Update navigation to show correct active tab
+  function updateNavigationForOutreach() {
+    const navTabs = document.querySelectorAll('.nav-tab');
+    navTabs.forEach(tab => {
+      if (tab.textContent.trim() === 'OUTREACH') {
+        tab.className = 'nav-tab nav-tab-active';
+      } else {
+        tab.className = 'nav-tab nav-tab-inactive';
+        if (tab.tagName === 'SPAN') {
+          // Convert span to anchor for inactive tabs
+          const anchor = document.createElement('a');
+          anchor.href = getHrefForTab(tab.textContent.trim());
+          anchor.className = 'nav-tab nav-tab-inactive';
+          anchor.textContent = tab.textContent;
+          tab.parentNode.replaceChild(anchor, tab);
+        }
+      }
+    });
+  }
+
+  // Get href for navigation tabs
+  function getHrefForTab(tabText) {
+    switch (tabText) {
+      case 'CONTACT LOG': return 'index.html';
+      case 'CM/OT': return 'cm-ot.html';
+      case 'DASHBOARD': return 'dashboard.html';
+      default: return '#';
+    }
+  }
+
+  // Create fallback header if HeaderManager fails
+  function createFallbackHeaderForOutreach() {
+    const fallbackHeader = document.createElement('header');
+    fallbackHeader.innerHTML = `
+      <div class="header-left">
+        <div class="logo">
+          <img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image">
+        </div>
+        <nav>
+          <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+          <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+          <span class="nav-tab nav-tab-active">OUTREACH</span>
+          <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+          <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+          <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="search-container">
+          <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+          <span class="search-label">Client Search</span>
+          <div class="suggestions-container" id="searchSuggestions"></div>
+        </div>
+        <div class="user-info">
+          <span>Andrea Leflore</span>
+          <div class="user-avatar"></div>
+        </div>
+        <button class="sign-out">Sign Out</button>
+      </div>
+    `;
+    document.body.insertBefore(fallbackHeader, document.body.firstChild);
+    console.log('Fallback header created for outreach page');
+  }
+
+  // Initialize table drag scrolling
+  function initializeTableDragScrolling() {
+    const tableContent = document.querySelector('.table-content');
+    
+    if (!tableContent) {
+      console.error('Table content element not found');
+      return;
+    }
+    
     let isDown = false;
     let startX;
     let scrollLeft;
-  
-    // Event listeners for mouse behavior
+
     tableContent.addEventListener('mousedown', function(e) {
       isDown = true;
       tableContent.style.cursor = 'grabbing';
       startX = e.pageX - tableContent.offsetLeft;
       scrollLeft = tableContent.scrollLeft;
-      e.preventDefault(); // Prevent text selection while dragging
+      e.preventDefault();
     });
-  
+
     tableContent.addEventListener('mouseleave', function() {
       isDown = false;
       tableContent.style.cursor = 'default';
     });
-  
+
     tableContent.addEventListener('mouseup', function() {
       isDown = false;
       tableContent.style.cursor = 'default';
     });
-  
+
     tableContent.addEventListener('mousemove', function(e) {
       if (!isDown) return;
       const x = e.pageX - tableContent.offsetLeft;
-      // Use a multiplier for faster/slower scrolling
       const walk = (x - startX) * 1.5;
       tableContent.scrollLeft = scrollLeft - walk;
     });
-  });
+  }
   </script>
   
-  <!-- ==========================================================================
-       CSS STYLES - TABLE COLUMN WIDTHS
-       ========================================================================== -->
   <style>
   /* Additional CSS for outreach table columns width */
   .col-date { width: 100px; }
