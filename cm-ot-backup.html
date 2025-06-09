@@ -68,32 +68,10 @@
 </head>
   
 <body>
-  <!-- Fixed Header -->
-  <header>
-    <div class="header-left">
-      <div class="logo"><img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image"></div>
-      <nav>
-        <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
-        <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
-        <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
-        <a href="#" class="nav-tab nav-tab-active">CM/OT</a>
-        <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
-        <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
-      </nav>
-    </div>
-    <div class="header-right">
-      <div class="search-container">
-        <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
-        <span class="search-label">Client Search</span>
-        <div class="suggestions-container" id="searchSuggestions"></div>
-      </div>
-      <div class="user-info">
-        <span>Andrea Leflore</span>
-        <div class="user-avatar"></div>
-      </div>
-      <button class="sign-out">Sign Out</button>
-    </div>
-  </header>
+  <!-- ==========================================================================
+       HEADER WILL BE LOADED HERE BY HeaderManager
+       ========================================================================== -->
+  <!-- Header content will be inserted here automatically -->
 
   <!-- Secondary Action Bar -->
   <div class="secondary-action-bar">
@@ -261,8 +239,110 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       JAVASCRIPT - External Script Files
+       ========================================================================== -->
+  
+  <!-- Load dependency scripts first -->
+  <script src="page-configs.js"></script>
+  <script src="header-manager.js"></script>
+
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log('CM/OT page - DOM Content Loaded');
+      
+      // Wait a moment to ensure all scripts are loaded
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Initialize header
+      if (window.HeaderManager) {
+        try {
+          await window.HeaderManager.init();
+          console.log('Header loaded successfully for CM/OT page');
+          
+          // Update navigation to show CM/OT as active
+          updateNavigationForCMOT();
+        } catch (error) {
+          console.error('Header initialization failed:', error);
+          createFallbackHeaderForCMOT();
+        }
+      } else {
+        console.error('HeaderManager not found');
+        createFallbackHeaderForCMOT();
+      }
+      
+      // Initialize existing CM/OT functionality
+      initializeCMOTFunctionality();
+    });
+
+    // Update navigation to show correct active tab
+    function updateNavigationForCMOT() {
+      const navTabs = document.querySelectorAll('.nav-tab');
+      navTabs.forEach(tab => {
+        if (tab.textContent.trim() === 'CM/OT') {
+          tab.className = 'nav-tab nav-tab-active';
+        } else {
+          tab.className = 'nav-tab nav-tab-inactive';
+          if (tab.tagName === 'SPAN') {
+            // Convert span to anchor for inactive tabs
+            const anchor = document.createElement('a');
+            anchor.href = getHrefForTab(tab.textContent.trim());
+            anchor.className = 'nav-tab nav-tab-inactive';
+            anchor.textContent = tab.textContent;
+            tab.parentNode.replaceChild(anchor, tab);
+          }
+        }
+      });
+    }
+
+    // Get href for navigation tabs
+    function getHrefForTab(tabText) {
+      switch (tabText) {
+        case 'CONTACT LOG': return 'index.html';
+        case 'PROSPECTS': return 'prospects.html';
+        case 'OUTREACH': return 'outreach.html';
+        case 'CLIENTS': return 'clients.html';
+        case 'DASHBOARD': return 'dashboard.html';
+        default: return '#';
+      }
+    }
+
+    // Create fallback header if HeaderManager fails
+    function createFallbackHeaderForCMOT() {
+      const fallbackHeader = document.createElement('header');
+      fallbackHeader.innerHTML = `
+        <div class="header-left">
+          <div class="logo">
+            <img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image">
+          </div>
+          <nav>
+            <a href="index.html" class="nav-tab nav-tab-inactive">CONTACT LOG</a>
+            <a href="prospects.html" class="nav-tab nav-tab-inactive">PROSPECTS</a>
+            <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+            <span class="nav-tab nav-tab-active">CM/OT</span>
+            <a href="clients.html" class="nav-tab nav-tab-inactive">CLIENTS</a>
+            <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
+          </nav>
+        </div>
+        <div class="header-right">
+          <div class="search-container">
+            <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
+            <span class="search-label">Client Search</span>
+            <div class="suggestions-container" id="searchSuggestions"></div>
+          </div>
+          <div class="user-info">
+            <span>Andrea Leflore</span>
+            <div class="user-avatar"></div>
+          </div>
+          <button class="sign-out">Sign Out</button>
+        </div>
+      `;
+      document.body.insertBefore(fallbackHeader, document.body.firstChild);
+      console.log('Fallback header created for CM/OT page');
+    }
+
+    // Initialize the existing CM/OT functionality
+    function initializeCMOTFunctionality() {
       // Toggle view functionality
       const cmToggle = document.getElementById('cmToggle');
       const otToggle = document.getElementById('otToggle');
@@ -361,7 +441,7 @@
           });
         });
       }
-    });
+    }
   </script>
 </body>
 </html>
