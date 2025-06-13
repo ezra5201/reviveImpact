@@ -149,81 +149,67 @@
     </div>
 
     <!-- ==========================================================================
-         CONTACT LOG HISTORY TABLE SECTION
+         CLIENT ENGAGEMENT HISTORY SECTION
          ========================================================================== -->
-    <section class="contact-log-history">
-      <h2 class="section-title">Contact Log History</h2>
+    <section class="contact-history">
+      <div class="history-header">
+        <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Engagement History</h2>
+        <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
+        <button class="add-checkin-btn" id="addOTFollowupBtn" style="margin-left: 8px;">Add OT Followup</button>
+      </div>
+
       <div class="table-container">
-        <table class="history-table">
+        <table class="contact-table">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Provider</th>
-              <th>Place of Service</th>
-              <th>Accompanied Appointment?</th>
-              <th>Obtained Documentation</th>
-              <th>Resources Given</th>
-              <th>On-Site Health Care Received</th>
-              <th>Program Started</th>
-              <th>Housing Entered</th>
-              <th>Actions</th>
+              <th class="sortable">Date ↓</th>
+              <th>Location ↓</th>
+              <th>Resources Given ↓</th>
+              <th>Services Provided ↓</th>
+              <th>Provider ↓</th>
+              <th>IDHS Categories ↓</th>
             </tr>
           </thead>
-          <tbody id="historyTableBody">
-            <!-- Sample Data Rows -->
+          <tbody>
             <tr>
-              <td>02/04/25</td>
-              <td>DR</td>
-              <td>Hospital</td>
-              <td>Yes</td>
-              <td>Medical Records</td>
-              <td>Referral Forms</td>
-              <td>No</td>
-              <td>No</td>
-              <td>No</td>
-              <td>
-                <div class="meeting-action-buttons">
-                  <button class="action-btn view-btn" title="View Details">👁</button>
-                  <button class="action-btn edit-btn" title="Edit Entry">✏️</button>
-                  <button class="action-btn delete-btn" title="Delete Entry">🗑️</button>
-                </div>
-              </td>
+              <td>01-29-2024</td>
+              <td>Engagement Center</td>
+              <td>Food</td>
+              <td>OT</td>
+              <td>Alexandra Perry</td>
+              <td>Health Contact - Consultation / Individual</td>
             </tr>
             <tr>
-              <td>01/28/25</td>
-              <td>EM</td>
-              <td>Community Center</td>
-              <td>No</td>
-              <td>ID Card</td>
-              <td>Resource List</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td>
-                <div class="meeting-action-buttons">
-                  <button class="action-btn view-btn" title="View Details">👁</button>
-                  <button class="action-btn edit-btn" title="Edit Entry">✏️</button>
-                  <button class="action-btn delete-btn" title="Delete Entry">🗑️</button>
-                </div>
-              </td>
+              <td>12-15-2023</td>
+              <td>Engagement Center</td>
+              <td>Food, $5 Transit Card</td>
+              <td>Case Management</td>
+              <td>Elena Ahmed</td>
+              <td>Health Contact - Consultation / Individual</td>
             </tr>
             <tr>
-              <td>01/15/25</td>
-              <td>AL</td>
-              <td>Outreach</td>
-              <td>No</td>
+              <td>11-02-2023</td>
+              <td>Home Visit</td>
+              <td>Home Goods</td>
+              <td>Follow-up Services</td>
+              <td>Jamal Silva</td>
+              <td>Housing - Follow-up Services</td>
+            </tr>
+            <tr>
+              <td>10-10-2023</td>
+              <td>Engagement Center</td>
+              <td>Food, Hygiene Products</td>
+              <td>OT</td>
+              <td>Alexandra Perry</td>
+              <td>Health Contact - Consultation / Individual</td>
+            </tr>
+            <tr>
+              <td>09-05-2023</td>
+              <td>Phone/Text/Email</td>
               <td>None</td>
-              <td>Food Voucher</td>
-              <td>No</td>
-              <td>No</td>
-              <td>Yes</td>
-              <td>
-                <div class="meeting-action-buttons">
-                  <button class="action-btn view-btn" title="View Details">👁</button>
-                  <button class="action-btn edit-btn" title="Edit Entry">✏️</button>
-                  <button class="action-btn delete-btn" title="Delete Entry">🗑️</button>
-                </div>
-              </td>
+              <td>Housing Location / Inspection</td>
+              <td>Sonia Singh</td>
+              <td>Housing - Location / Inspection</td>
             </tr>
           </tbody>
         </table>
@@ -269,79 +255,31 @@
       console.log('DOM Content Loaded - Starting header initialization');
       
       // Wait a moment to ensure all scripts are loaded
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      // Initialize header with custom configuration
-      try {
-        // Wait for HeaderManager to be available
-        let attempts = 0;
-        while (!window.HeaderManager && attempts < 10) {
-          await new Promise(resolve => setTimeout(resolve, 100));
-          attempts++;
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      if (typeof HeaderManager !== 'undefined') {
+        try {
+          // Initialize header with client history page configuration
+          await HeaderManager.initialize(clientHistoryPageConfig);
+          console.log('Header initialized successfully for client history page');
+          
+          // Setup secondary action bar with breadcrumbs
+          setupSecondaryActionBar();
+          
+          // Initialize client history functionality
+          initializeClientHistory();
+          
+        } catch (error) {
+          console.error('Error initializing header:', error);
+          // Fallback: still try to initialize client history
+          initializeClientHistory();
         }
-        
-        if (!window.HeaderManager) {
-          throw new Error('HeaderManager not available after waiting');
-        }
-        
-        if (typeof window.HeaderManager.init !== 'function') {
-          throw new Error('HeaderManager.init is not a function');
-        }
-        
-        // Initialize with custom config
-        await window.HeaderManager.init(clientHistoryPageConfig);
-        console.log('Header loaded successfully for clientLogHistory');
-        
-        // Apply custom navigation state after header loads
-        applyCustomNavigationState();
-        
-        // Setup secondary action bar with breadcrumbs
-        setupSecondaryActionBar();
-        
-      } catch (error) {
-        console.error('Header initialization failed:', error);
+      } else {
+        console.warn('HeaderManager not available, proceeding without header management');
+        initializeClientHistory();
       }
-      
-      // Initialize page-specific functionality
-      initializeClientLogHistory();
     });
 
-    // ==========================================================================
-    // CUSTOM NAVIGATION STATE SETUP
-    // ==========================================================================
-
-    function applyCustomNavigationState() {
-      // Set all navigation tabs to inactive state
-      const navTabs = document.querySelectorAll('.nav-tab');
-      navTabs.forEach(tab => {
-        tab.classList.remove('nav-tab-active');
-        tab.classList.add('nav-tab-inactive');
-        
-        // Convert spans back to links if needed
-        if (tab.tagName === 'SPAN') {
-          const link = document.createElement('a');
-          link.href = getNavTabHref(tab.textContent.trim());
-          link.className = tab.className;
-          link.textContent = tab.textContent;
-          tab.parentNode.replaceChild(link, tab);
-        }
-      });
-      
-      console.log('Applied "No Active State" navigation configuration');
-    }
-
-    function getNavTabHref(tabText) {
-      const navMap = {
-        'CONTACT LOG': 'index.html',
-        'OUTREACH': 'outreach.html',
-        'CM/OT': 'cm-ot.html',
-        'DASHBOARD': 'dashboard.html'
-      };
-      return navMap[tabText] || '#';
-    }
-
-    // ==========================================================================
-    // SECONDARY ACTION BAR SETUP
     // ==========================================================================
 
     function setupSecondaryActionBar() {
@@ -408,13 +346,53 @@
     // CLIENT LOG HISTORY INITIALIZATION
     // ==========================================================================
 
-    function initializeClientLogHistory() {
+    function initializeClientHistory() {
+      console.log('Initializing client history functionality...');
+      
+      // Store client name for passing to the new page
+      window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
+      
+      // Add CM Followup button functionality - open in new tab
+      const addFollowupBtn = document.getElementById('addFollowupBtn');
+      if (addFollowupBtn) {
+        addFollowupBtn.addEventListener('click', function() {
+          openFollowupInNewTab();
+        });
+      }
+      
+      // Add OT Followup button functionality - open in new tab
+      const addOTFollowupBtn = document.getElementById('addOTFollowupBtn');
+      if (addOTFollowupBtn) {
+        addOTFollowupBtn.addEventListener('click', function() {
+          openFollowupInNewTab('OT');
+        });
+      }
+      
+      // Make table rows clickable to view details
+      const tableRows = document.querySelectorAll('.contact-table tbody tr');
+      tableRows.forEach(row => {
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', function() {
+          const date = this.cells[0].textContent;
+          // In a real implementation, this would open a read-only view of the meeting
+          alert(`Viewing meeting details for ${date}`);
+        });
+      });
+      
+      // Function to open the followup form in a new tab
+      function openFollowupInNewTab(type = 'CM') {
+        // Example URL - adjust as needed for your system
+        const followupUrl = `followup-form.html?client=${encodeURIComponent(window.currentClientName)}&type=${type}`;
+        window.open(followupUrl, '_blank');
+      }
+
       // Add New Contact Log button functionality
       const addNewLogBtn = document.getElementById('addNewLogBtn');
       if (addNewLogBtn) {
         addNewLogBtn.addEventListener('click', function() {
-          // Navigate to add new log page or open modal
-          console.log('Add new contact log clicked');
+          // In a real implementation, this would open the contact log form
+          const contactLogUrl = `contact-log-form.html?client=${encodeURIComponent(window.currentClientName)}`;
+          window.open(contactLogUrl, '_blank');
         });
       }
 
@@ -423,19 +401,22 @@
       const clearFiltersBtn = document.getElementById('clearFiltersBtn');
       
       if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener('click', applyFilters);
+        applyFiltersBtn.addEventListener('click', function() {
+          applyFilters();
+        });
       }
       
       if (clearFiltersBtn) {
-        clearFiltersBtn.addEventListener('click', clearFilters);
+        clearFiltersBtn.addEventListener('click', function() {
+          clearFilters();
+        });
       }
 
-      // Action buttons functionality
-      initializeActionButtons();
+      console.log('Client history functionality initialized');
     }
 
     // ==========================================================================
-    // FILTER FUNCTIONALITY
+    // FILTER FUNCTIONS
     // ==========================================================================
 
     function applyFilters() {
@@ -444,37 +425,23 @@
       const provider = document.getElementById('providerFilter').value;
       
       console.log('Applying filters:', { startDate, endDate, provider });
-      // Add filter logic here
+      
+      // In a real implementation, this would filter the table data
+      // For now, just show an alert
+      alert('Filters applied (demo mode)');
     }
 
     function clearFilters() {
       document.getElementById('startDate').value = '';
       document.getElementById('endDate').value = '';
       document.getElementById('providerFilter').value = '';
+      
       console.log('Filters cleared');
-      // Add clear filter logic here
+      
+      // In a real implementation, this would reset the table to show all data
+      alert('Filters cleared (demo mode)');
     }
 
-    // ==========================================================================
-    // ACTION BUTTONS FUNCTIONALITY
-    // ==========================================================================
-
-    function initializeActionButtons() {
-      // Add event listeners for action buttons
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('view-btn')) {
-          console.log('View button clicked');
-          // Add view functionality
-        } else if (e.target.classList.contains('edit-btn')) {
-          console.log('Edit button clicked');
-          // Add edit functionality
-        } else if (e.target.classList.contains('delete-btn')) {
-          console.log('Delete button clicked');
-          // Add delete functionality
-        }
-      });
-    }
   </script>
-
 </body>
 </html>
