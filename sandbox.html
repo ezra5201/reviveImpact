@@ -159,19 +159,22 @@
   </section>
 
     <!-- ==========================================================================
-         FILTER CONTROLS SECTION
+         CONTACT LOG HISTORY SECTION
          ========================================================================== -->
-    <div class="filter-controls">
-      <div class="filters-section">
-        <div class="date-range-container">
+    <section class="contact-history">
+      <h2 class="section-title">Contact Log History</h2>
+      
+      <!-- Filter Controls -->
+      <div class="filter-controls" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <label for="startDate">Start Date:</label>
           <input type="date" id="startDate" class="date-input">
         </div>
-        <div class="date-range-container">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <label for="endDate">End Date:</label>
           <input type="date" id="endDate" class="date-input">
         </div>
-        <div class="provider-filter-container">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <label for="providerFilter">Provider:</label>
           <select id="providerFilter" class="provider-select">
             <option value="">All Providers</option>
@@ -184,14 +187,8 @@
         <button id="applyFiltersBtn" class="apply-filters-btn">Apply Filters</button>
         <button id="clearFiltersBtn" class="clear-filters-btn">Clear</button>
       </div>
-    </div>
 
-    <!-- ==========================================================================
-         CLIENT ENGAGEMENT HISTORY SECTION
-         ========================================================================== -->
-    <section class="contact-history">
       <div class="history-header">
-        <h2 class="section-title" style="margin: 0; border: none; padding: 0;">Client Engagement History</h2>
         <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
         <button class="add-checkin-btn" id="addOTFollowupBtn" style="margin-left: 8px;">Add OT Followup</button>
       </div>
