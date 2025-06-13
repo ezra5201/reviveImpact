@@ -334,14 +334,14 @@ function initializeDialog() {
     return;
   }
   
-  // Add event listener for the "Client History" button
-  const clientHistoryBtn = document.getElementById('clientHistoryBtn');
-  if (clientHistoryBtn) {
-    clientHistoryBtn.addEventListener('click', function() {
-      const clientName = dialogClientName.textContent;
-      window.location.href = `clientLogHistory.html?client=${encodeURIComponent(clientName)}`;
-    });
-  }
+// Add event listener for the "Client Dashboard" button
+const clientHistoryBtn = document.getElementById('clientHistoryBtn');
+if (clientHistoryBtn) {
+  clientHistoryBtn.addEventListener('click', function() {
+    const clientName = dialogClientName.textContent;
+    window.open(`clientDashboard.html?client=${encodeURIComponent(clientName)}`, '_blank');
+  });
+}
   
   const dialogCloseBtn = document.getElementById('dialogCloseBtn');
   const initialCancelBtn = document.getElementById('initialCancelBtn');
