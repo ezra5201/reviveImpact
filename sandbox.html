@@ -296,30 +296,78 @@
       console.log('DOM Content Loaded - Starting header initialization');
       
       // Wait a moment to ensure all scripts are loaded
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      if (typeof HeaderManager !== 'undefined') {
-        try {
-          // Initialize header with client history page configuration
-          await HeaderManager.initialize(clientHistoryPageConfig);
-          console.log('Header initialized successfully for client history page');
-          
-          // Setup secondary action bar with breadcrumbs
-          setupSecondaryActionBar();
-          
-          // Initialize client history functionality
-          initializeClientHistory();
-          
-        } catch (error) {
-          console.error('Error initializing header:', error);
-          // Fallback: still try to initialize client history
-          initializeClientHistory();
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Initialize header with custom configuration
+      try {
+        // Wait for HeaderManager to be available
+        let attempts = 0;
+        while (!window.HeaderManager && attempts < 10) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+          attempts++;
         }
-      } else {
-        console.warn('HeaderManager not available, proceeding without header management');
-        initializeClientHistory();
+        
+        if (!window.HeaderManager) {
+          throw new Error('HeaderManager not available after waiting');
+        }
+        
+        if (typeof window.HeaderManager.init !== 'function') {
+          throw new Error('HeaderManager.init is not a function');
+        }
+        
+        // Initialize with custom config
+        await window.HeaderManager.init(clientHistoryPageConfig);
+        console.log('Header loaded successfully for clientLogHistory');
+        
+        // Apply custom navigation state after header loads
+        applyCustomNavigationState();
+        
+        // Setup secondary action bar with breadcrumbs
+        setupSecondaryActionBar();
+        
+      } catch (error) {
+        console.error('Header initialization failed:', error);
       }
+      
+      // Initialize page-specific functionality
+      initializeClientHistory();
     });
+
+    // ==========================================================================
+    // CUSTOM NAVIGATION STATE SETUP
+    // ==========================================================================
+
+    function applyCustomNavigationState() {
+      // Set all navigation tabs to inactive state
+      const navTabs = document.querySelectorAll('.nav-tab');
+      navTabs.forEach(tab => {
+        tab.classList.remove('nav-tab-active');
+        tab.classList.add('nav-tab-inactive');
+        
+        // Convert spans back to links if needed
+        if (tab.tagName === 'SPAN') {
+          const link = document.createElement('a');
+          link.href = getNavTabHref(tab.textContent.trim());
+          link.className = tab.className;
+          link.textContent = tab.textContent;
+          tab.parentNode.replaceChild(link, tab);
+        }
+      });
+      
+      console.log('Applied "No Active State" navigation configuration');
+    }
+
+    function getNavTabHref(tabText) {
+      const navMap = {
+        'CONTACT LOG': 'index.html',
+        'PROSPECTS': 'prospects.html',
+        'OUTREACH': 'outreach.html',
+        'CM/OT': 'cm-ot.html',
+        'CLIENTS': 'clients.html',
+        'DASHBOARD': 'dashboard.html'
+      };
+      return navMap[tabText] || '#';
+    }
 
     // ==========================================================================
 
