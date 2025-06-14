@@ -1,13 +1,22 @@
 <!-- ==========================================================================
      SHARED HEADER TEMPLATE - USED ACROSS ALL PAGES
+     This file contains the header structure that appears on every page
      ========================================================================== -->
 
-<!-- Simple Header - No Secondary Bar -->
+<!-- ==========================================================================
+     MAIN HEADER SECTION
+     Contains logo, navigation tabs, search, and user info
+     ========================================================================== -->
 <header id="mainHeader">
+  
+  <!-- LEFT SIDE: Logo and Navigation -->
   <div class="header-left">
+    <!-- Company Logo -->
     <div class="logo">
       <img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image">
     </div>
+    
+    <!-- Main Navigation Tabs -->
     <nav id="mainNavigation">
       <span class="nav-tab nav-tab-active">CONTACT LOG</span>
       <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
@@ -16,16 +25,42 @@
     </nav>
   </div>
 
+  <!-- RIGHT SIDE: Search, User Info, Sign Out -->
   <div class="header-right">
+    <!-- Client Search Box -->
     <div class="search-container">
       <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
       <span class="search-label">Client Search</span>
       <div class="suggestions-container" id="searchSuggestions"></div>
     </div>
+    
+    <!-- User Information -->
     <div class="user-info">
       <span>Andrea Leflore</span>
       <div class="user-avatar"></div>
     </div>
+    
+    <!-- Sign Out Button -->
     <button class="sign-out">Sign Out</button>
   </div>
 </header>
+
+<!-- ==========================================================================
+     SECONDARY ACTION BAR SECTION
+     Contains page-specific buttons, filters, and actions
+     This appears below the main header on all pages
+     ========================================================================== -->
+<div class="secondary-action-bar" id="globalSecondaryActionBar">
+  
+  <!-- LEFT SIDE: Usually contains filters, breadcrumbs, or main action buttons -->
+  <div class="secondary-action-bar-left" id="secondaryBarLeft">
+    <!-- Left content will be populated by JavaScript based on each page's needs -->
+    <!-- Examples: Reports/Programs buttons, breadcrumb navigation, filter dropdowns -->
+  </div>
+  
+  <!-- RIGHT SIDE: Usually contains secondary actions or utility buttons -->
+  <div class="secondary-action-bar-right" id="secondaryBarRight">
+    <!-- Right content will be populated by JavaScript based on each page's needs -->
+    <!-- Examples: Export buttons, Print buttons, Add New buttons -->
+  </div>
+</div>
