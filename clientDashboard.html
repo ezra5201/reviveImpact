@@ -80,60 +80,96 @@
       <a href="client-record.html" class="forward-link">View Full Record</a>
     </div>
 
-    <!-- ==========================================================================
-         CLIENT INFORMATION SECTION
-         ========================================================================== -->
-    <section class="client-info">
-      <h2 class="section-title">Client Information</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <span class="info-label">First Name</span>
-          <span class="info-value">Peter</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Middle Name</span>
-          <span class="info-value"></span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Last Name</span>
-          <span class="info-value">Johnson</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Nickname</span>
-          <span class="info-value">Pete</span>
-        </div>
-        <div class="info-item">
-          <span class="info-label">Age</span>
-          <span class="info-value">59</span>
-        </div>
+  <!-- Client Information Section -->
+  <section class="client-info">
+    <h2 class="section-title">Client Information</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">First Name</span>
+        <span class="info-value">Peter</span>
       </div>
+      <div class="info-item">
+        <span class="info-label">Middle Name</span>
+        <span class="info-value"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Last Name</span>
+        <span class="info-value">Johnson</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Nickname</span>
+        <span class="info-value">Pete</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Age</span>
+        <span class="info-value">59</span>
+      </div>
+    </div>
 
-      <div class="info-item" style="margin-top: 1.5rem;">
-        <span class="info-label">Client Record</span>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
-          <div style="display: flex; gap: 1rem;">
-            <span style="color: #666; font-size: 14px;">Client: Active</span>
-            <span style="color: #666; font-size: 14px;">Last Update: 02/04/25</span>
+    <div class="info-item" style="margin-top: 1.5rem;">
+      <span class="info-label">Client Record</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+        <div style="display: flex; gap: 2rem;">
+          <div>
+            <span class="info-label">Program</span>
+            <span class="info-value" style="display: block;">Scattered Site SHP</span>
           </div>
-          <button id="addNewLogBtn" class="btn-add-new-log">Add New Contact Log</button>
+          <div>
+            <span class="info-label">Since</span>
+            <span class="info-value" style="display: block;">Mar 2023</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+
+    <div class="client-address" style="width: 100%;">
+      <h3 class="section-title">Address Information</h3>
+      <div class="address-grid">
+        <div class="info-item">
+          <span class="info-label">Street</span>
+          <span class="info-value">123 Main St</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Apt</span>
+          <span class="info-value">2B</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">City</span>
+          <span class="info-value">Chicago</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">State</span>
+          <span class="info-value">IL</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Zip</span>
+          <span class="info-value">60642</span>
+        </div>
+      </div>
+      <div class="info-item" style="margin-top: 1rem;">
+        <span class="info-label">Address Notes</span>
+        <span class="info-value">Entrance on side street. Buzzer #203.</span>
+      </div>
+    </div>
+  </section>
 
     <!-- ==========================================================================
-         FILTER CONTROLS SECTION
+         CONTACT LOG HISTORY SECTION
          ========================================================================== -->
-    <div class="filter-controls">
-      <div class="filters-section">
-        <div class="date-range-container">
+    <section class="contact-history">
+      <h2 class="section-title">Contact Log History</h2>
+      
+      <!-- Filter Controls -->
+      <div class="filter-controls" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <label for="startDate">Start Date:</label>
           <input type="date" id="startDate" class="date-input">
         </div>
-        <div class="date-range-container">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <label for="endDate">End Date:</label>
           <input type="date" id="endDate" class="date-input">
         </div>
-        <div class="provider-filter-container">
+        <div style="display: flex; align-items: center; gap: 8px;">
           <label for="providerFilter">Provider:</label>
           <select id="providerFilter" class="provider-select">
             <option value="">All Providers</option>
@@ -146,84 +182,64 @@
         <button id="applyFiltersBtn" class="apply-filters-btn">Apply Filters</button>
         <button id="clearFiltersBtn" class="clear-filters-btn">Clear</button>
       </div>
-    </div>
 
-    <!-- ==========================================================================
-         CONTACT LOG HISTORY TABLE SECTION
-         ========================================================================== -->
-    <section class="contact-log-history">
-      <h2 class="section-title">Contact Log History</h2>
+      <div class="history-header">
+        <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
+        <button class="add-checkin-btn" id="addOTFollowupBtn" style="margin-left: 8px;">Add OT Followup</button>
+      </div>
+
       <div class="table-container">
-        <table class="history-table">
+        <table class="contact-table">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Provider</th>
-              <th>Place of Service</th>
-              <th>Accompanied Appointment?</th>
-              <th>Obtained Documentation</th>
-              <th>Resources Given</th>
-              <th>On-Site Health Care Received</th>
-              <th>Program Started</th>
-              <th>Housing Entered</th>
-              <th>Actions</th>
+              <th class="sortable">Date ↓</th>
+              <th>Location ↓</th>
+              <th>Resources Given ↓</th>
+              <th>Services Provided ↓</th>
+              <th>Provider ↓</th>
+              <th>IDHS Categories ↓</th>
             </tr>
           </thead>
-          <tbody id="historyTableBody">
-            <!-- Sample Data Rows -->
+          <tbody>
             <tr>
-              <td>02/04/25</td>
-              <td>DR</td>
-              <td>Hospital</td>
-              <td>Yes</td>
-              <td>Medical Records</td>
-              <td>Referral Forms</td>
-              <td>No</td>
-              <td>No</td>
-              <td>No</td>
-              <td>
-                <div class="meeting-action-buttons">
-                  <button class="action-btn view-btn" title="View Details">👁</button>
-                  <button class="action-btn edit-btn" title="Edit Entry">✏️</button>
-                  <button class="action-btn delete-btn" title="Delete Entry">🗑️</button>
-                </div>
-              </td>
+              <td>01-29-2024</td>
+              <td>Engagement Center</td>
+              <td>Food</td>
+              <td>OT</td>
+              <td>Alexandra Perry</td>
+              <td>Health Contact - Consultation / Individual</td>
             </tr>
             <tr>
-              <td>01/28/25</td>
-              <td>EM</td>
-              <td>Community Center</td>
-              <td>No</td>
-              <td>ID Card</td>
-              <td>Resource List</td>
-              <td>Yes</td>
-              <td>Yes</td>
-              <td>No</td>
-              <td>
-                <div class="meeting-action-buttons">
-                  <button class="action-btn view-btn" title="View Details">👁</button>
-                  <button class="action-btn edit-btn" title="Edit Entry">✏️</button>
-                  <button class="action-btn delete-btn" title="Delete Entry">🗑️</button>
-                </div>
-              </td>
+              <td>12-15-2023</td>
+              <td>Engagement Center</td>
+              <td>Food, $5 Transit Card</td>
+              <td>Case Management</td>
+              <td>Elena Ahmed</td>
+              <td>Health Contact - Consultation / Individual</td>
             </tr>
             <tr>
-              <td>01/15/25</td>
-              <td>AL</td>
-              <td>Outreach</td>
-              <td>No</td>
+              <td>11-02-2023</td>
+              <td>Home Visit</td>
+              <td>Home Goods</td>
+              <td>Follow-up Services</td>
+              <td>Jamal Silva</td>
+              <td>Housing - Follow-up Services</td>
+            </tr>
+            <tr>
+              <td>10-10-2023</td>
+              <td>Engagement Center</td>
+              <td>Food, Hygiene Products</td>
+              <td>OT</td>
+              <td>Alexandra Perry</td>
+              <td>Health Contact - Consultation / Individual</td>
+            </tr>
+            <tr>
+              <td>09-05-2023</td>
+              <td>Phone/Text/Email</td>
               <td>None</td>
-              <td>Food Voucher</td>
-              <td>No</td>
-              <td>No</td>
-              <td>Yes</td>
-              <td>
-                <div class="meeting-action-buttons">
-                  <button class="action-btn view-btn" title="View Details">👁</button>
-                  <button class="action-btn edit-btn" title="Edit Entry">✏️</button>
-                  <button class="action-btn delete-btn" title="Delete Entry">🗑️</button>
-                </div>
-              </td>
+              <td>Housing Location / Inspection</td>
+              <td>Sonia Singh</td>
+              <td>Housing - Location / Inspection</td>
             </tr>
           </tbody>
         </table>
@@ -303,7 +319,7 @@
       }
       
       // Initialize page-specific functionality
-      initializeClientLogHistory();
+      initializeClientHistory();
     });
 
     // ==========================================================================
@@ -333,15 +349,15 @@
     function getNavTabHref(tabText) {
       const navMap = {
         'CONTACT LOG': 'index.html',
+        'PROSPECTS': 'prospects.html',
         'OUTREACH': 'outreach.html',
         'CM/OT': 'cm-ot.html',
+        'CLIENTS': 'clients.html',
         'DASHBOARD': 'dashboard.html'
       };
       return navMap[tabText] || '#';
     }
 
-    // ==========================================================================
-    // SECONDARY ACTION BAR SETUP
     // ==========================================================================
 
     function setupSecondaryActionBar() {
@@ -408,13 +424,53 @@
     // CLIENT LOG HISTORY INITIALIZATION
     // ==========================================================================
 
-    function initializeClientLogHistory() {
+    function initializeClientHistory() {
+      console.log('Initializing client history functionality...');
+      
+      // Store client name for passing to the new page
+      window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
+      
+      // Add CM Followup button functionality - open in new tab
+      const addFollowupBtn = document.getElementById('addFollowupBtn');
+      if (addFollowupBtn) {
+        addFollowupBtn.addEventListener('click', function() {
+          openFollowupInNewTab();
+        });
+      }
+      
+      // Add OT Followup button functionality - open in new tab
+      const addOTFollowupBtn = document.getElementById('addOTFollowupBtn');
+      if (addOTFollowupBtn) {
+        addOTFollowupBtn.addEventListener('click', function() {
+          openFollowupInNewTab('OT');
+        });
+      }
+      
+      // Make table rows clickable to view details
+      const tableRows = document.querySelectorAll('.contact-table tbody tr');
+      tableRows.forEach(row => {
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', function() {
+          const date = this.cells[0].textContent;
+          // In a real implementation, this would open a read-only view of the meeting
+          alert(`Viewing meeting details for ${date}`);
+        });
+      });
+      
+      // Function to open the followup form in a new tab
+      function openFollowupInNewTab(type = 'CM') {
+        // Example URL - adjust as needed for your system
+        const followupUrl = `followup-form.html?client=${encodeURIComponent(window.currentClientName)}&type=${type}`;
+        window.open(followupUrl, '_blank');
+      }
+
       // Add New Contact Log button functionality
       const addNewLogBtn = document.getElementById('addNewLogBtn');
       if (addNewLogBtn) {
         addNewLogBtn.addEventListener('click', function() {
-          // Navigate to add new log page or open modal
-          console.log('Add new contact log clicked');
+          // In a real implementation, this would open the contact log form
+          const contactLogUrl = `contact-log-form.html?client=${encodeURIComponent(window.currentClientName)}`;
+          window.open(contactLogUrl, '_blank');
         });
       }
 
@@ -423,19 +479,22 @@
       const clearFiltersBtn = document.getElementById('clearFiltersBtn');
       
       if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener('click', applyFilters);
+        applyFiltersBtn.addEventListener('click', function() {
+          applyFilters();
+        });
       }
       
       if (clearFiltersBtn) {
-        clearFiltersBtn.addEventListener('click', clearFilters);
+        clearFiltersBtn.addEventListener('click', function() {
+          clearFilters();
+        });
       }
 
-      // Action buttons functionality
-      initializeActionButtons();
+      console.log('Client history functionality initialized');
     }
 
     // ==========================================================================
-    // FILTER FUNCTIONALITY
+    // FILTER FUNCTIONS
     // ==========================================================================
 
     function applyFilters() {
@@ -444,37 +503,23 @@
       const provider = document.getElementById('providerFilter').value;
       
       console.log('Applying filters:', { startDate, endDate, provider });
-      // Add filter logic here
+      
+      // In a real implementation, this would filter the table data
+      // For now, just show an alert
+      alert('Filters applied (demo mode)');
     }
 
     function clearFilters() {
       document.getElementById('startDate').value = '';
       document.getElementById('endDate').value = '';
       document.getElementById('providerFilter').value = '';
+      
       console.log('Filters cleared');
-      // Add clear filter logic here
+      
+      // In a real implementation, this would reset the table to show all data
+      alert('Filters cleared (demo mode)');
     }
 
-    // ==========================================================================
-    // ACTION BUTTONS FUNCTIONALITY
-    // ==========================================================================
-
-    function initializeActionButtons() {
-      // Add event listeners for action buttons
-      document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('view-btn')) {
-          console.log('View button clicked');
-          // Add view functionality
-        } else if (e.target.classList.contains('edit-btn')) {
-          console.log('Edit button clicked');
-          // Add edit functionality
-        } else if (e.target.classList.contains('delete-btn')) {
-          console.log('Delete button clicked');
-          // Add delete functionality
-        }
-      });
-    }
   </script>
-
 </body>
 </html>
