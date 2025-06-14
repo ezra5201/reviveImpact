@@ -264,17 +264,28 @@
     // ==========================================================================
 
     // Custom page configuration for client log history
-    const clientHistoryPageConfig = {
-      activeTab: null,  // No active tab - indicates this is a detail view
-      features: {
-        search: true  // Keep search functionality
-      },
-      secondaryBar: {
-        breadcrumbs: 'Contact Log > Client History: Johnson, Peter (59)',  // Custom breadcrumb
-        leftContent: 'breadcrumbs',  // Use breadcrumbs instead of filters
-        rightActions: ['exportHistory', 'printReport']  // Actions specific to client history
-      }
-    };
+const clientHistoryPageConfig = {
+  activeTab: null,  // This keeps all nav tabs inactive as intended
+  features: {
+    search: false  // No search needed on history page
+  },
+  secondaryBar: {
+    leftContent: {
+      type: 'breadcrumbs',
+      breadcrumbs: [
+        { text: 'Contact Log', href: 'index.html' },
+        { text: 'Client History: Johnson, Peter (59)' }  // No href = current page
+      ]
+    },
+    rightContent: {
+      type: 'buttons',
+      buttons: [
+        { text: 'Export History', id: 'exportHistoryBtn' },
+        { text: 'Print Report', id: 'printReportBtn' }
+      ]
+    }
+  }
+};
 
     // ==========================================================================
     // MAIN INITIALIZATION
@@ -311,8 +322,6 @@
         // Apply custom navigation state after header loads
         applyCustomNavigationState();
         
-        // Setup secondary action bar with breadcrumbs
-        setupSecondaryActionBar();
         
       } catch (error) {
         console.error('Header initialization failed:', error);
@@ -358,67 +367,6 @@
       return navMap[tabText] || '#';
     }
 
-    // ==========================================================================
-
-    function setupSecondaryActionBar() {
-      // Find or create secondary action bar
-      let secondaryBar = document.getElementById('secondaryActionBar');
-      if (!secondaryBar) {
-        secondaryBar = document.createElement('div');
-        secondaryBar.id = 'secondaryActionBar';
-        secondaryBar.className = 'secondary-action-bar';
-        
-        // Insert after header
-        const header = document.querySelector('header');
-        if (header) {
-          header.insertAdjacentElement('afterend', secondaryBar);
-        }
-      }
-
-      // Setup breadcrumbs in left section
-      const leftSection = document.createElement('div');
-      leftSection.className = 'secondary-action-bar-left';
-      leftSection.innerHTML = `
-        <nav class="breadcrumb-nav">
-          <a href="index.html" class="breadcrumb-link">Contact Log</a>
-          <span class="breadcrumb-separator">></span>
-          <span class="breadcrumb-current">Client History: Johnson, Peter (59)</span>
-        </nav>
-      `;
-
-      // Setup right actions
-      const rightSection = document.createElement('div');
-      rightSection.className = 'secondary-action-bar-right';
-      rightSection.innerHTML = `
-        <button class="btn btn-secondary" id="exportHistoryBtn">Export History</button>
-        <button class="btn btn-secondary" id="printReportBtn">Print Report</button>
-      `;
-
-      // Clear and populate secondary bar
-      secondaryBar.innerHTML = '';
-      secondaryBar.appendChild(leftSection);
-      secondaryBar.appendChild(rightSection);
-
-      // Add event listeners for right action buttons
-      document.getElementById('exportHistoryBtn')?.addEventListener('click', function() {
-        console.log('Export History clicked');
-        // Add export functionality
-      });
-
-      document.getElementById('printReportBtn')?.addEventListener('click', function() {
-        console.log('Print Report clicked');
-        // Add print functionality
-      });
-
-      // Add breadcrumb navigation
-      document.querySelector('.breadcrumb-link')?.addEventListener('click', function(e) {
-        e.preventDefault();
-        // Navigate back to Contact Log
-        window.location.href = 'index.html';
-      });
-
-      console.log('Secondary action bar with breadcrumbs configured');
-    }
 
     // ==========================================================================
     // CLIENT LOG HISTORY INITIALIZATION
