@@ -2,41 +2,30 @@
      SHARED HEADER TEMPLATE - USED ACROSS ALL PAGES
      ========================================================================== -->
 
-<!-- Main Header Navigation -->
+<!-- Simple Header - No Secondary Bar -->
 <header id="mainHeader">
   <div class="header-left">
     <div class="logo">
       <img src="ReVive-IMPACT-Logo.png" alt="ReVive IMPACT Logo" class="logo-image">
     </div>
     <nav id="mainNavigation">
-      <!-- Navigation tabs will be populated by JavaScript -->
+      <span class="nav-tab nav-tab-active">CONTACT LOG</span>
+      <a href="outreach.html" class="nav-tab nav-tab-inactive">OUTREACH</a>
+      <a href="cm-ot.html" class="nav-tab nav-tab-inactive">CM/OT</a>
+      <a href="dashboard.html" class="nav-tab nav-tab-inactive">DASHBOARD</a>
     </nav>
   </div>
 
-  <div class="header-right" id="headerRight">
-    <!-- Search container - shown conditionally -->
-    <div class="search-container" id="searchContainer" style="display: none;">
+  <div class="header-right">
+    <div class="search-container">
       <input type="text" class="search-input" id="clientSearchInput" placeholder=" ">
       <span class="search-label">Client Search</span>
       <div class="suggestions-container" id="searchSuggestions"></div>
     </div>
-    
-    <!-- User info -->
     <div class="user-info">
-      <span id="userName">Andrea Leflore</span>
+      <span>Andrea Leflore</span>
       <div class="user-avatar"></div>
     </div>
     <button class="sign-out">Sign Out</button>
   </div>
 </header>
-
-<!-- Secondary Action Bar -->
-<div class="secondary-action-bar" id="secondaryActionBar">
-  <div class="secondary-action-bar-left" id="secondaryLeft">
-    <!-- Left filters will be populated by JavaScript -->
-  </div>
-  
-  <div class="secondary-action-bar-right" id="secondaryRight">
-    <!-- Right actions will be populated by JavaScript -->
-  </div>
-</div>
