@@ -264,7 +264,7 @@
     // ==========================================================================
 
     // Custom page configuration for client Dashboard
-const clientHistoryPageConfig = {
+const clientDashboardPageConfig = {
   activeTab: null,  // This keeps all nav tabs inactive as intended
   features: {
     search: false  // No search needed on history page
@@ -280,8 +280,8 @@ const clientHistoryPageConfig = {
     rightContent: {
       type: 'buttons',
       buttons: [
-        { text: 'Export History', id: 'exportHistoryBtn' },
-        { text: 'Print Report', id: 'printReportBtn' }
+        { text: 'Export', id: 'exportHistoryBtn' },
+        { text: 'Print', id: 'printReportBtn' }
       ]
     }
   }
@@ -316,7 +316,7 @@ const clientHistoryPageConfig = {
         }
         
         // Initialize with custom config
-        await window.HeaderManager.init(clientHistoryPageConfig);
+        await window.HeaderManager.init(clientDashboardPageConfig);
         console.log('Header loaded successfully for clientLogHistory');
         
         // Apply custom navigation state after header loads
@@ -328,7 +328,7 @@ const clientHistoryPageConfig = {
       }
       
       // Initialize page-specific functionality
-      initializeClientHistory();
+      initializeclientDashboard();
     });
 
     // ==========================================================================
@@ -358,10 +358,8 @@ const clientHistoryPageConfig = {
     function getNavTabHref(tabText) {
       const navMap = {
         'CONTACT LOG': 'index.html',
-        'PROSPECTS': 'prospects.html',
         'OUTREACH': 'outreach.html',
         'CM/OT': 'cm-ot.html',
-        'CLIENTS': 'clients.html',
         'DASHBOARD': 'dashboard.html'
       };
       return navMap[tabText] || '#';
@@ -372,8 +370,8 @@ const clientHistoryPageConfig = {
     // CLIENT Dashboard INITIALIZATION
     // ==========================================================================
 
-    function initializeClientHistory() {
-      console.log('Initializing client history functionality...');
+    function initializeclientDashboard() {
+      console.log('Initializing client dashboard functionality...');
       
       // Store client name for passing to the new page
       window.currentClientName = document.getElementById('clientNameHeader').textContent.trim();
@@ -438,7 +436,7 @@ const clientHistoryPageConfig = {
         });
       }
 
-      console.log('Client history functionality initialized');
+      console.log('client dashboard functionality initialized');
     }
 
     // ==========================================================================
