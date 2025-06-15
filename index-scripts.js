@@ -179,7 +179,7 @@ function createTableRow(entry, index) {
 
   row.innerHTML = `
     <div class="fixed-columns">
-      <div class="column-cell col-checkbox"><input type="checkbox" class="row-checkbox" data-entry-index="${entries.indexOf(entry)}"></div>
+      <div class="column-cell col-checkbox"><input type="checkbox" class="row-checkbox" data-entry-index="${index}"></div>
     <div class="column-cell col-date">${entry.date}</div>
     <div class="column-cell col-days">${entry.daysAgo}</div>
     <div class="column-cell col-provider">${entry.provider}</div>
