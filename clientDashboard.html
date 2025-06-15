@@ -199,10 +199,10 @@
     // ==========================================================================
 
     // Function to get client ID from URL parameters
-    function getClientIdFromUrl() {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get('clientId') || urlParams.get('id');
-    }
+   function getClientNameFromUrl() {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('clientName');
+}
 
     // Function to fetch client data by ID
     async function fetchClientData(clientId) {
@@ -419,21 +419,20 @@
     // MODIFIED MAIN INITIALIZATION
     // ==========================================================================
 
-    // Replace the existing DOMContentLoaded event listener with this:
+
     document.addEventListener('DOMContentLoaded', async function() {
       console.log('DOM Content Loaded - Starting dynamic client dashboard initialization');
       
-      try {
-        // Get client ID from URL
-        const clientId = getClientIdFromUrl();
+ 
+        // Get client Name from URL
+        const clientName = getClientNameFromUrl();
         
-        if (!clientId) {
-          console.error('No client ID provided in URL');
-          // Redirect back to client list or show error
-          alert('No client specified. Redirecting to clients page.');
-          window.location.href = 'clients.html';
-          return;
-        }
+        if (!clientName) {
+  console.error('No client name provided in URL');
+  alert('No client specified. Redirecting to clients page.');
+  window.location.href = 'clients.html';
+  return;
+}
 
         // Fetch client data
         const clientData = await fetchClientData(clientId);
