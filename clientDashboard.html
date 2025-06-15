@@ -120,22 +120,62 @@
     </div>
   </section>
 
-  <!-- Contact Log History Section -->
-  <section class="client-history">
+ <!-- ==========================================================================
+       CONTACT LOG HISTORY SECTION
+       ========================================================================== -->
+  <section class="contact-history">
     <h2 class="section-title">Contact Log History</h2>
-    <div class="history-table-container">
-      <table class="history-table">
+    
+    <!-- Filter Controls -->
+    <div class="filter-controls" style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" class="date-input">
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" class="date-input">
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <label for="providerFilter">Provider:</label>
+        <select id="providerFilter" class="provider-select">
+          <option value="">All Providers</option>
+          <option value="DR">DR</option>
+          <option value="EM">EM</option>
+          <option value="AL">AL</option>
+          <option value="JM">JM</option>
+        </select>
+      </div>
+      <button id="applyFiltersBtn" class="apply-filters-btn">Apply Filters</button>
+      <button id="clearFiltersBtn" class="clear-filters-btn">Clear</button>
+    </div>
+
+    <div class="history-header">
+      <button class="add-checkin-btn" id="addFollowupBtn">Add CM Followup</button>
+      <button class="add-checkin-btn" id="addOTFollowupBtn" style="margin-left: 8px;">Add OT Followup</button>
+    </div>
+
+    <div class="table-container">
+      <table class="contact-table">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Resources Given</th>
-            <th>Department</th>
-            <th>Staff</th>
-            <th>Service Description</th>
+            <th class="sortable">Date ↓</th>
+            <th>Location ↓</th>
+            <th>Resources Given ↓</th>
+            <th>Services Provided ↓</th>
+            <th>Provider ↓</th>
+            <th>IDHS Categories ↓</th>
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>01-29-2024</td>
+            <td>Engagement Center</td>
+            <td>Food</td>
+            <td>OT</td>
+            <td>Alexandra Perry</td>
+            <td>Health Contact - Consultation / Individual</td>
+          </tr>
           <tr>
             <td>12-28-2023</td>
             <td>Engagement Center</td>
