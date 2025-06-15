@@ -193,6 +193,108 @@ class HeaderManager {
 }
 
 // ==========================================================================
+  // CONDITIONAL FOOD BUTTON MANAGEMENT
+  // Shows/hides the Food button in the secondary action bar right side
+  // ==========================================================================
+  
+  /**
+   * Shows the conditional Food button in the secondary action bar
+   */
+  showConditionalFoodButton() {
+    const rightContainer = document.getElementById('secondaryBarRight');
+    
+    if (!rightContainer) {
+      console.error('Secondary bar right container not found');
+      return;
+    }
+
+    // Check if Food button already exists
+    if (document.getElementById('conditionalFoodBtn')) {
+      console.log('Food button already exists');
+      return;
+    }
+
+    // Create the Food button
+    const foodBtn = document.createElement('button');
+    foodBtn.id = 'conditionalFoodBtn';
+    foodBtn.className = 'btn btn-primary';
+    foodBtn.textContent = 'Food';
+    foodBtn.style.marginLeft = '8px'; // Add some spacing from other buttons
+    
+    // Add click handler
+    foodBtn.addEventListener('click', () => {
+      this.handleFoodAction();
+    });
+    
+    // Add the button to the right container
+    rightContainer.appendChild(foodBtn);
+    console.log('Food button added to secondary action bar');
+  }
+
+  /**
+   * Hides/removes the conditional Food button from the secondary action bar
+   */
+  hideConditionalFoodButton() {
+    const foodBtn = document.getElementById('conditionalFoodBtn');
+    
+    if (foodBtn) {
+      foodBtn.remove();
+      console.log('Food button removed from secondary action bar');
+    }
+  }
+
+  /**
+   * Handles the Food button click action
+   * You can customize this method to perform the desired action
+   */
+  handleFoodAction() {
+    console.log('Food button clicked!');
+    
+    // Get information about selected checkboxes for context
+    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    console.log('Selected checkboxes:', checkedBoxes.length);
+    
+    // Example actions you might want to implement:
+    
+    // Option 1: Show an alert (for testing)
+    alert(`Food button clicked! ${checkedBoxes.length} items selected.`);
+    
+    // Option 2: Open a food-related dialog/form
+    // this.openFoodDialog();
+    
+    // Option 3: Navigate to a food page
+    // window.location.href = 'food-distribution.html';
+    
+    // Option 4: Show a specific food-related modal
+    // this.showFoodModal();
+    
+    // Option 5: Process selected items for food distribution
+    // this.processFoodDistribution(checkedBoxes);
+  }
+
+  // ==========================================================================
+  // CHECKBOX STATE MANAGER INTEGRATION
+  // Initializes the global checkbox monitoring system
+  // ==========================================================================
+  
+  /**
+   * Initializes the checkbox state manager for conditional button functionality
+   */
+  initializeCheckboxStateManager() {
+    if (!window.CheckboxStateManager) {
+      console.error('CheckboxStateManager not available');
+      return;
+    }
+
+    // Create and initialize the checkbox state manager
+    if (!this.checkboxStateManager) {
+      this.checkboxStateManager = new window.CheckboxStateManager();
+      this.checkboxStateManager.init(this);
+      console.log('Checkbox state manager initialized');
+    }
+  }
+
+// ==========================================================================
 // GLOBAL INSTANCE CREATION
 // Create the HeaderManager instance that all pages will use
 // ==========================================================================
