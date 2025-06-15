@@ -12,7 +12,7 @@ class HeaderManager {
   }
 
   // ==========================================================================
-  // MAIN INITIALIZATION METHOD
+  // MAIN INITIALIZATION METHOD (UPDATED)
   // Called by each page to load the header and configure the secondary bar
   // ==========================================================================
   async init(pageConfig = null) {
@@ -26,6 +26,9 @@ class HeaderManager {
       if (pageConfig && pageConfig.secondaryBar) {
         this.setupSecondaryActionBar(pageConfig.secondaryBar);
       }
+      
+      // Step 3: Initialize checkbox state manager for conditional Food button
+      this.initializeCheckboxStateManager();
       
       this.isInitialized = true;
       console.log('HeaderManager initialized successfully');
@@ -177,6 +180,108 @@ class HeaderManager {
   }
 
   // ==========================================================================
+  // CONDITIONAL FOOD BUTTON MANAGEMENT
+  // Shows/hides the Food button in the secondary action bar right side
+  // ==========================================================================
+  
+  /**
+   * Shows the conditional Food button in the secondary action bar
+   */
+  showConditionalFoodButton() {
+    const rightContainer = document.getElementById('secondaryBarRight');
+    
+    if (!rightContainer) {
+      console.error('Secondary bar right container not found');
+      return;
+    }
+
+    // Check if Food button already exists
+    if (document.getElementById('conditionalFoodBtn')) {
+      console.log('Food button already exists');
+      return;
+    }
+
+    // Create the Food button
+    const foodBtn = document.createElement('button');
+    foodBtn.id = 'conditionalFoodBtn';
+    foodBtn.className = 'btn btn-primary';
+    foodBtn.textContent = 'Food';
+    foodBtn.style.marginLeft = '8px'; // Add some spacing from other buttons
+    
+    // Add click handler
+    foodBtn.addEventListener('click', () => {
+      this.handleFoodAction();
+    });
+    
+    // Add the button to the right container
+    rightContainer.appendChild(foodBtn);
+    console.log('Food button added to secondary action bar');
+  }
+
+  /**
+   * Hides/removes the conditional Food button from the secondary action bar
+   */
+  hideConditionalFoodButton() {
+    const foodBtn = document.getElementById('conditionalFoodBtn');
+    
+    if (foodBtn) {
+      foodBtn.remove();
+      console.log('Food button removed from secondary action bar');
+    }
+  }
+
+  /**
+   * Handles the Food button click action
+   * You can customize this method to perform the desired action
+   */
+  handleFoodAction() {
+    console.log('Food button clicked!');
+    
+    // Get information about selected checkboxes for context
+    const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    console.log('Selected checkboxes:', checkedBoxes.length);
+    
+    // Example actions you might want to implement:
+    
+    // Option 1: Show an alert (for testing)
+    alert(`Food button clicked! ${checkedBoxes.length} items selected.`);
+    
+    // Option 2: Open a food-related dialog/form
+    // this.openFoodDialog();
+    
+    // Option 3: Navigate to a food page
+    // window.location.href = 'food-distribution.html';
+    
+    // Option 4: Show a specific food-related modal
+    // this.showFoodModal();
+    
+    // Option 5: Process selected items for food distribution
+    // this.processFoodDistribution(checkedBoxes);
+  }
+
+  // ==========================================================================
+  // CHECKBOX STATE MANAGER INTEGRATION
+  // Initializes the global checkbox monitoring system
+  // ==========================================================================
+  
+  /**
+   * Initializes the checkbox state manager for conditional button functionality
+   */
+  initializeCheckboxStateManager() {
+    if (!window.CheckboxStateManager) {
+      console.error('CheckboxStateManager not available');
+      return;
+    }
+
+    // Create and initialize the checkbox state manager
+    if (!this.checkboxStateManager) {
+      this.checkboxStateManager = new window.CheckboxStateManager();
+      this.checkboxStateManager.init(this);
+      console.log('Checkbox state manager initialized');
+    }
+  }
+
+  // ==========================================================================
   // UTILITY METHODS
   // Helper methods for checking status and debugging
   // ==========================================================================
@@ -193,6 +298,124 @@ class HeaderManager {
 }
 
 // ==========================================================================
+// CHECKBOX STATE MANAGER CLASS
+// Manages global checkbox state and conditional Food button visibility
+// ==========================================================================
+
+class CheckboxStateManager {
+  // ==========================================================================
+  // CONSTRUCTOR - Initialize state tracking
+  // ==========================================================================
+  constructor() {
+    this.checkedCount = 0;
+    this.headerManager = null;
+    this.isInitialized = false;
+  }
+
+  // ==========================================================================
+  // INITIALIZATION METHOD
+  // Links to HeaderManager instance and sets up global listeners
+  // ==========================================================================
+  init(headerManagerInstance) {
+    if (this.isInitialized) {
+      console.log('CheckboxStateManager already initialized');
+      return;
+    }
+
+    this.headerManager = headerManagerInstance;
+    this.setupGlobalCheckboxListener();
+    this.isInitialized = true;
+    console.log('CheckboxStateManager initialized');
+  }
+
+  // ==========================================================================
+  // GLOBAL CHECKBOX LISTENER SETUP
+  // Uses event delegation to capture ALL checkbox changes across the app
+  // ==========================================================================
+  setupGlobalCheckboxListener() {
+    // Use event delegation on document to catch all checkbox changes
+    document.addEventListener('change', (e) => {
+      if (e.target.type === 'checkbox') {
+        console.log('Checkbox changed:', e.target.name, 'checked:', e.target.checked);
+        this.updateCheckboxCount();
+      }
+    });
+
+    // Also listen for DOM changes in case checkboxes are added dynamically
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          // Check if any new checkboxes were added
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const newCheckboxes = node.querySelectorAll ? node.querySelectorAll('input[type="checkbox"]') : [];
+              if (newCheckboxes.length > 0) {
+                console.log('New checkboxes detected, recounting...');
+                setTimeout(() => this.updateCheckboxCount(), 10);
+              }
+            }
+          });
+        }
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // ==========================================================================
+  // CHECKBOX COUNT UPDATE
+  // Counts all checked checkboxes and triggers UI updates when needed
+  // ==========================================================================
+  updateCheckboxCount() {
+    // Count all currently checked checkboxes in the document
+    const allCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const newCount = allCheckboxes.length;
+    
+    console.log('Checkbox count updated:', this.checkedCount, '->', newCount);
+    
+    // Only trigger UI changes when crossing the zero threshold
+    if ((this.checkedCount === 0 && newCount > 0) || 
+        (this.checkedCount > 0 && newCount === 0)) {
+      this.checkedCount = newCount;
+      this.toggleFoodButton();
+    } else {
+      this.checkedCount = newCount;
+    }
+  }
+
+  // ==========================================================================
+  // FOOD BUTTON TOGGLE LOGIC
+  // Shows/hides the Food button based on checkbox state
+  // ==========================================================================
+  toggleFoodButton() {
+    if (!this.headerManager) {
+      console.error('HeaderManager not available for checkbox state updates');
+      return;
+    }
+
+    if (this.checkedCount > 0) {
+      console.log('Showing Food button - checkboxes selected:', this.checkedCount);
+      this.headerManager.showConditionalFoodButton();
+    } else {
+      console.log('Hiding Food button - no checkboxes selected');
+      this.headerManager.hideConditionalFoodButton();
+    }
+  }
+
+  // ==========================================================================
+  // MANUAL RECOUNT METHOD
+  // For use when checkbox state might be out of sync
+  // ==========================================================================
+  forceRecount() {
+    console.log('Forcing checkbox recount...');
+    this.updateCheckboxCount();
+  }
+}
+
+// ==========================================================================
 // GLOBAL INSTANCE CREATION
 // Create the HeaderManager instance that all pages will use
 // ==========================================================================
@@ -200,3 +423,6 @@ console.log('Creating HeaderManager instance...');
 window.HeaderManager = new HeaderManager();
 console.log('HeaderManager instance created:', window.HeaderManager);
 console.log('HeaderManager.init method exists:', typeof window.HeaderManager.init);
+
+// Make CheckboxStateManager available globally
+window.CheckboxStateManager = CheckboxStateManager;
