@@ -743,6 +743,28 @@ nav, .nav {
   display: flex;
 }
 
+/* Checkbox Column */
+.col-checkbox {
+  width: 50px;
+  min-width: 50px;
+  text-align: center;
+  padding: 8px 4px;
+}
+
+.header-checkbox,
+.row-checkbox {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+.row-checkbox {
+  margin: 0;
+}
+
+
+
+
 /* Table Headers */
 .column-header {
   padding: 16px 12px;
