@@ -494,72 +494,62 @@
 
     document.addEventListener('DOMContentLoaded', async function() {
       console.log('DOM Content Loaded - Starting dynamic client dashboard initialization');
-      
- 
-        // Get client Name from URL
-        const clientName = getClientNameFromUrl();
-        
-        if (!clientName) {
+
+      // Get client Name from URL
+const clientName = getClientNameFromUrl();
+
+if (!clientName) {
   console.error('No client name provided in URL');
-  alert('No client specified. Redirecting to clients page.');
-  window.location.href = 'clients.html';
+  alert('No client specified. Redirecting to contact log.');
+  window.location.href = 'index.html';
   return;
 }
 
-        // Fetch client data
-        const clientData = await fetchClientData(clientId);
-        
-        if (!clientData) {
-          console.error('Client not found:', clientId);
-          alert('Client not found. Redirecting to clients page.');
-          window.location.href = 'clients.html';
-          return;
-        }
+// Use the client name directly from URL parameter (it's already formatted)
+const clientDisplayName = clientName;
 
-        // Format client display name
-        const clientDisplayName = formatClientDisplay(clientData);
+// Update all client name elements immediately
+updateClientNameElements(clientDisplayName);
+
+// Wait for scripts to load
+await new Promise(resolve => setTimeout(resolve, 100));
+
+// Initialize header with dynamic configuration
+let attempts = 0;
+while (!window.HeaderManager && attempts < 10) {
+  await new Promise(resolve => setTimeout(resolve, 100));
+  attempts++;
+}
+
+if (!window.HeaderManager) {
+  throw new Error('HeaderManager not available after waiting');
+}
+
+// Create dynamic page config
+const dynamicPageConfig = createDynamicPageConfig(clientDisplayName);
+
+// Initialize header
+await window.HeaderManager.init(dynamicPageConfig);
+console.log('Header loaded successfully for client:', clientDisplayName);
+
+// Apply custom navigation state
+applyCustomNavigationState();
+
+// Setup secondary action bar with dynamic client name
+setupDynamicSecondaryActionBar(clientDisplayName);
+
+// Initialize other page functionality
+initializeClientHistory();
+
+// Note: Removed populateClientInfoSection since we don't have detailed client data
+// The client info section will need to be populated differently or removed
+
+} catch (error) {
+  console.error('Client dashboard initialization failed:', error);
+  alert('Error loading client dashboard. Please try again.');
+}
+ 
         
-        // Update all client name elements immediately
-        updateClientNameElements(clientDisplayName);
-        
-        // Wait for scripts to load
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        // Initialize header with dynamic configuration
-        let attempts = 0;
-        while (!window.HeaderManager && attempts < 10) {
-          await new Promise(resolve => setTimeout(resolve, 100));
-          attempts++;
-        }
-        
-        if (!window.HeaderManager) {
-          throw new Error('HeaderManager not available after waiting');
-        }
-        
-        // Create dynamic page config
-        const dynamicPageConfig = createDynamicPageConfig(clientDisplayName);
-        
-        // Initialize header
-        await window.HeaderManager.init(dynamicPageConfig);
-        console.log('Header loaded successfully for client:', clientDisplayName);
-        
-        // Apply custom navigation state
-        applyCustomNavigationState();
-        
-        // Setup secondary action bar with dynamic client name
-        setupDynamicSecondaryActionBar(clientDisplayName);
-        
-        // Initialize other page functionality
-        initializeClientHistory();
-        
-        // Populate client info section
-        populateClientInfoSection(clientData);
-        
-      } catch (error) {
-        console.error('Client dashboard initialization failed:', error);
-        alert('Error loading client dashboard. Please try again.');
-      }
-    });
   </script>
 
 </body>
