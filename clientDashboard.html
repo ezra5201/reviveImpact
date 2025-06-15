@@ -497,6 +497,7 @@
 
       // Get client Name from URL
 // Get client Name from URL
+// Get client Name from URL
 const clientName = getClientNameFromUrl();
 
 if (!clientName) {
@@ -508,9 +509,6 @@ if (!clientName) {
 
 // Use the client name directly from URL parameter (it's already formatted)
 const clientDisplayName = clientName;
-
-// Update all client name elements immediately
-updateClientNameElements(clientDisplayName);
 
 // Wait for scripts to load
 await new Promise(resolve => setTimeout(resolve, 100));
@@ -536,14 +534,14 @@ console.log('Header loaded successfully for client:', clientDisplayName);
 // Apply custom navigation state
 applyCustomNavigationState();
 
-// Setup secondary action bar with dynamic client name
+// Setup secondary action bar with dynamic client name (this creates the breadcrumb)
 setupDynamicSecondaryActionBar(clientDisplayName);
+
+// NOW update client name elements (after breadcrumb exists)
+updateClientNameElements(clientDisplayName);
 
 // Initialize other page functionality
 initializeClientHistory();
-
-// Note: Removed populateClientInfoSection since we don't have detailed client data
-// The client info section will need to be populated differently or removed
 
 } catch (error) {
   console.error('Client dashboard initialization failed:', error);
