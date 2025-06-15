@@ -11,7 +11,7 @@ class HeaderManager {
     this.isInitialized = false;
   }
 
-// ==========================================================================
+  // ==========================================================================
   // MAIN INITIALIZATION METHOD (UPDATED)
   // Called by each page to load the header and configure the secondary bar
   // ==========================================================================
@@ -180,22 +180,6 @@ class HeaderManager {
   }
 
   // ==========================================================================
-  // UTILITY METHODS
-  // Helper methods for checking status and debugging
-  // ==========================================================================
-  
-  // Check if HeaderManager has finished initializing
-  isReady() {
-    return this.isInitialized;
-  }
-
-  // Get version info for debugging purposes
-  getVersion() {
-    return '1.0.0';
-  }
-}
-
-// ==========================================================================
   // CONDITIONAL FOOD BUTTON MANAGEMENT
   // Shows/hides the Food button in the secondary action bar right side
   // ==========================================================================
@@ -297,15 +281,21 @@ class HeaderManager {
     }
   }
 
-// ==========================================================================
-// GLOBAL INSTANCE CREATION
-// Create the HeaderManager instance that all pages will use
-// ==========================================================================
-console.log('Creating HeaderManager instance...');
-window.HeaderManager = new HeaderManager();
-console.log('HeaderManager instance created:', window.HeaderManager);
-console.log('HeaderManager.init method exists:', typeof window.HeaderManager.init);
+  // ==========================================================================
+  // UTILITY METHODS
+  // Helper methods for checking status and debugging
+  // ==========================================================================
+  
+  // Check if HeaderManager has finished initializing
+  isReady() {
+    return this.isInitialized;
+  }
 
+  // Get version info for debugging purposes
+  getVersion() {
+    return '1.0.0';
+  }
+}
 
 // ==========================================================================
 // CHECKBOX STATE MANAGER CLASS
@@ -424,6 +414,15 @@ class CheckboxStateManager {
     this.updateCheckboxCount();
   }
 }
+
+// ==========================================================================
+// GLOBAL INSTANCE CREATION
+// Create the HeaderManager instance that all pages will use
+// ==========================================================================
+console.log('Creating HeaderManager instance...');
+window.HeaderManager = new HeaderManager();
+console.log('HeaderManager instance created:', window.HeaderManager);
+console.log('HeaderManager.init method exists:', typeof window.HeaderManager.init);
 
 // Make CheckboxStateManager available globally
 window.CheckboxStateManager = CheckboxStateManager;
