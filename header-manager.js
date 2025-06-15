@@ -11,8 +11,8 @@ class HeaderManager {
     this.isInitialized = false;
   }
 
-  // ==========================================================================
-  // MAIN INITIALIZATION METHOD
+// ==========================================================================
+  // MAIN INITIALIZATION METHOD (UPDATED)
   // Called by each page to load the header and configure the secondary bar
   // ==========================================================================
   async init(pageConfig = null) {
@@ -26,6 +26,9 @@ class HeaderManager {
       if (pageConfig && pageConfig.secondaryBar) {
         this.setupSecondaryActionBar(pageConfig.secondaryBar);
       }
+      
+      // Step 3: Initialize checkbox state manager for conditional Food button
+      this.initializeCheckboxStateManager();
       
       this.isInitialized = true;
       console.log('HeaderManager initialized successfully');
