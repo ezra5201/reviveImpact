@@ -230,6 +230,11 @@ function initializeTableRowClickHandlers() {
   const tableRows = document.querySelectorAll('.table-row:not(:first-child)');
   tableRows.forEach(row => {
     row.addEventListener('click', function(e) {
+      // Don't trigger dialog if clicking on a checkbox
+      if (e.target.type === 'checkbox' || e.target.classList.contains('row-checkbox')) {
+        return; // Exit early, let the checkbox handle its own click
+      }
+      
       e.preventDefault();
       const clientCell = this.querySelector('.fixed-columns .col-client');
       if (clientCell) {
