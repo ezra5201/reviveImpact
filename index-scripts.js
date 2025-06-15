@@ -339,7 +339,7 @@ const clientHistoryBtn = document.getElementById('clientHistoryBtn');
 if (clientHistoryBtn) {
   clientHistoryBtn.addEventListener('click', function() {
     const clientName = dialogClientName.textContent;
-    window.open(`clientDashboard.html?client=${encodeURIComponent(clientName)}`, '_blank');
+    window.open(`clientDashboard.html?clientName=${encodeURIComponent(clientName)}`, '_blank');
   });
 }
   
