@@ -153,19 +153,21 @@ function populateTable(entries) {
   existingRows.forEach(row => row.remove());
 
   // Generate rows from data
-  entries.forEach(entry => {
-    const row = createTableRow(entry);
-    tableRowsContainer.appendChild(row);
-  });
+  entries.forEach((entry, index) => {
+  const row = createTableRow(entry, index);
+  tableRowsContainer.appendChild(row);
+});
 
   console.log('Table populated with', entries.length, 'rows');
   
   // Re-initialize dialog functionality for new rows
   initializeTableRowClickHandlers();
+  // Initialize checkbox functionality
+initializeCheckboxes();
 }
 
 // Create a single table row from entry data
-function createTableRow(entry) {
+function createTableRow(entry, index) {
   const row = document.createElement('div');
   row.className = 'table-row';
   row.style.cursor = 'pointer';
@@ -177,10 +179,11 @@ function createTableRow(entry) {
 
   row.innerHTML = `
     <div class="fixed-columns">
-      <div class="column-cell col-date">${entry.date}</div>
-      <div class="column-cell col-days">${entry.daysAgo}</div>
-      <div class="column-cell col-provider">${entry.provider}</div>
-      <div class="column-cell col-client">${entry.client}</div>
+      <div class="column-cell col-checkbox"><input type="checkbox" class="row-checkbox" data-entry-index="${entries.indexOf(entry)}"></div>
+    <div class="column-cell col-date">${entry.date}</div>
+    <div class="column-cell col-days">${entry.daysAgo}</div>
+    <div class="column-cell col-provider">${entry.provider}</div>
+    <div class="column-cell col-client">${entry.client}</div>
     </div>
     <div class="scrollable-columns">
       <div class="column-cell col-service">${entry.placeOfService}</div>
@@ -394,4 +397,81 @@ function closeDialog() {
     dialog.classList.remove('show');
     document.body.style.overflow = 'auto';
   }
+}
+
+
+// ==========================================================================
+// CHECKBOX FUNCTIONALITY
+// ==========================================================================
+
+// Track selected rows
+let selectedRows = new Set();
+
+// Initialize checkbox functionality
+function initializeCheckboxes() {
+  const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+  
+  if (selectAllCheckbox) {
+    selectAllCheckbox.addEventListener('change', handleSelectAll);
+  }
+  
+  // Add event listeners to all row checkboxes
+  document.addEventListener('change', function(e) {
+    if (e.target.classList.contains('row-checkbox')) {
+      handleRowCheckboxChange(e.target);
+    }
+  });
+}
+
+// Handle select all checkbox
+function handleSelectAll(event) {
+  const isChecked = event.target.checked;
+  const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+  
+  rowCheckboxes.forEach(checkbox => {
+    checkbox.checked = isChecked;
+    const entryIndex = checkbox.getAttribute('data-entry-index');
+    
+    if (isChecked) {
+      selectedRows.add(entryIndex);
+    } else {
+      selectedRows.delete(entryIndex);
+    }
+  });
+  
+  console.log('Selected rows:', Array.from(selectedRows));
+}
+
+// Handle individual row checkbox changes
+function handleRowCheckboxChange(checkbox) {
+  const entryIndex = checkbox.getAttribute('data-entry-index');
+  const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+  
+  if (checkbox.checked) {
+    selectedRows.add(entryIndex);
+  } else {
+    selectedRows.delete(entryIndex);
+  }
+  
+  // Update select all checkbox state
+  const totalCheckboxes = document.querySelectorAll('.row-checkbox').length;
+  const checkedCheckboxes = document.querySelectorAll('.row-checkbox:checked').length;
+  
+  if (checkedCheckboxes === 0) {
+    selectAllCheckbox.checked = false;
+    selectAllCheckbox.indeterminate = false;
+  } else if (checkedCheckboxes === totalCheckboxes) {
+    selectAllCheckbox.checked = true;
+    selectAllCheckbox.indeterminate = false;
+  } else {
+    selectAllCheckbox.checked = false;
+    selectAllCheckbox.indeterminate = true;
+  }
+  
+  console.log('Selected rows:', Array.from(selectedRows));
+}
+
+// Function to get selected row data
+function getSelectedRowData() {
+  return Array.from(selectedRows).map(index => contactLogData[parseInt(index)]);
 }
