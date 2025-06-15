@@ -1,0 +1,1478 @@
+/* ==========================================================================
+   REVIVE IMPACT STYLES - MATERIAL DESIGN 3 IMPLEMENTATION
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+   ========================================================================== */
+
+:root {
+  /* MD3 Color System - Primary Colors */
+  --md-primary: #006CFA;
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #D8E2FF;
+  --md-on-primary-container: #001A41;
+  
+  /* MD3 Color System - Secondary Colors */
+  --md-secondary: #565E71;
+  --md-on-secondary: #FFFFFF;
+  --md-secondary-container: #D8E2FF;
+  --md-on-secondary-container: #121C2B;
+  
+  /* MD3 Color System - Tertiary Colors */
+  --md-tertiary: #715573;
+  --md-on-tertiary: #FFFFFF;
+  --md-tertiary-container: #FBD7FC;
+  --md-on-tertiary-container: #29132D;
+  
+  /* MD3 Color System - Error Colors */
+  --md-error: #BA1A1A;
+  --md-on-error: #FFFFFF;
+  --md-error-container: #FFDAD6;
+  --md-on-error-container: #410002;
+  
+  /* MD3 Color System - Surface Colors */
+  --md-background: #FEFBFF;
+  --md-on-background: #1B1B1F;
+  --md-surface: #FEFBFF;
+  --md-on-surface: #1B1B1F;
+  --md-surface-variant: #E1E2EC;
+  --md-on-surface-variant: #44474F;
+  
+  /* MD3 Color System - Outline & Effects */
+  --md-outline: #74777F;
+  --md-outline-variant: #C4C6D0;
+  --md-shadow: #000000;
+  --md-scrim: #000000;
+  --md-inverse-surface: #303033;
+  --md-inverse-on-surface: #F2F0F4;
+  --md-inverse-primary: #ADC6FF;
+  
+  /* MD3 Elevation System - Box Shadows */
+  --md-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.14);
+  --md-elevation-2: 0 3px 6px 0 rgba(0, 0, 0, 0.15), 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+  --md-elevation-3: 0 6px 10px 0 rgba(0, 0, 0, 0.15), 0 3px 16px 0 rgba(0, 0, 0, 0.1);
+  --md-elevation-4: 0 8px 12px 0 rgba(0, 0, 0, 0.15), 0 4px 22px 0 rgba(0, 0, 0, 0.1);
+  --md-elevation-5: 0 12px 24px 0 rgba(0, 0, 0, 0.15), 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  
+  /* MD3 Typography Scale - Display Styles */
+  --md-display-large-font: 57px;
+  --md-display-large-line-height: 64px;
+  --md-display-large-letter-spacing: -0.25px;
+  --md-display-medium-font: 45px;
+  --md-display-medium-line-height: 52px;
+  --md-display-small-font: 36px;
+  --md-display-small-line-height: 44px;
+  
+  /* MD3 Typography Scale - Headline Styles */
+  --md-headline-large-font: 32px;
+  --md-headline-large-line-height: 40px;
+  --md-headline-medium-font: 28px;
+  --md-headline-medium-line-height: 36px;
+  --md-headline-small-font: 24px;
+  --md-headline-small-line-height: 32px;
+  
+  /* MD3 Typography Scale - Title Styles */
+  --md-title-large-font: 22px;
+  --md-title-large-line-height: 28px;
+  --md-title-medium-font: 16px;
+  --md-title-medium-line-height: 24px;
+  --md-title-medium-letter-spacing: 0.15px;
+  --md-title-medium-weight: 500;
+  --md-title-small-font: 14px;
+  --md-title-small-line-height: 20px;
+  --md-title-small-letter-spacing: 0.1px;
+  --md-title-small-weight: 500;
+  
+  /* MD3 Typography Scale - Body Styles */
+  --md-body-large-font: 16px;
+  --md-body-large-line-height: 24px;
+  --md-body-large-letter-spacing: 0.15px;
+  --md-body-medium-font: 14px;
+  --md-body-medium-line-height: 20px;
+  --md-body-medium-letter-spacing: 0.25px;
+  --md-body-small-font: 12px;
+  --md-body-small-line-height: 16px;
+  --md-body-small-letter-spacing: 0.4px;
+  
+  /* MD3 Typography Scale - Label Styles */
+  --md-label-large-font: 14px;
+  --md-label-large-line-height: 20px;
+  --md-label-large-letter-spacing: 0.1px;
+  --md-label-large-weight: 500;
+  --md-label-medium-font: 12px;
+  --md-label-medium-line-height: 16px;
+  --md-label-medium-letter-spacing: 0.5px;
+  --md-label-medium-weight: 500;
+  --md-label-small-font: 11px;
+  --md-label-small-line-height: 16px;
+  --md-label-small-letter-spacing: 0.5px;
+  --md-label-small-weight: 500;
+  
+  /* MD3 Shape System - Border Radius */
+  --md-shape-corner-small: 4px;
+  --md-shape-corner-medium: 8px;
+  --md-shape-corner-large: 12px;
+  --md-shape-corner-xlarge: 28px;
+}
+
+/* ==========================================================================
+   2. GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  padding-top: 112px; /* Account for fixed header + secondary action bar */
+  background-color: var(--md-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--md-on-background);
+}
+
+/* ==========================================================================
+   3. LAYOUT COMPONENTS
+   ========================================================================== */
+
+/* Container Styles */
+.container {
+  max-width: 800px;
+  margin: 24px auto;
+  padding: 24px;
+  background-color: var(--md-surface);
+  box-shadow: var(--md-elevation-1);
+  border-radius: var(--md-shape-corner-medium);
+}
+
+.main-container {
+  padding: 24px;
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Page Title Section */
+.page-title-section {
+  padding: 32px 24px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: var(--md-headline-medium-font);
+  line-height: var(--md-headline-medium-line-height);
+  color: var(--md-on-background);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.page-subtitle {
+  font-size: var(--md-body-large-font);
+  line-height: var(--md-body-large-line-height);
+  letter-spacing: var(--md-body-large-letter-spacing);
+  color: var(--md-on-surface-variant);
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   4. HEADER & NAVIGATION
+   ========================================================================== */
+
+/* Primary Header */
+header, .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--md-surface);
+  box-shadow: var(--md-elevation-2);
+  flex: none;
+  height: 64px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Secondary Action Bar */
+.secondary-action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: var(--md-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: 52px;
+  position: fixed;
+  top: 64px; /* Position below main header */
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.secondary-action-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.secondary-action-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.secondary-action-bar .btn {
+  margin: 0;
+}
+
+/* Logo Styles */
+.logo {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 36px;
+}
+
+.logo-image {
+  height: 40px;
+  object-fit: contain;
+}
+
+/* Navigation Tabs - Material Design 3 with Orange Brand Color */
+nav, .nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nav-tab, .nav-item {
+  padding: 10px 16px;
+  font-size: var(--md-label-large-font);
+  font-weight: var(--md-label-large-weight);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border-radius: var(--md-shape-corner-small);
+  position: relative;
+}
+
+/* Active Navigation Tab - Orange Border Treatment */
+.nav-tab-active, .nav-active {
+  pointer-events: none;
+  color: var(--md-on-surface);
+  font-weight: 600;
+  text-decoration: none;
+  background-color: #FFFFFF;
+  border: 2px solid #FF6B00; /* Orange brand border */
+  border-radius: 4px;
+  box-shadow: var(--md-elevation-1);
+}
+
+/* Remove bottom border from previous design */
+.nav-tab-active:after, .nav-active:after {
+  content: none;
+}
+
+/* Inactive Navigation Tabs */
+.nav-tab-inactive, .nav-link {
+  color: var(--md-on-surface-variant);
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+/* Navigation Hover States - Orange Brand Treatment */
+.nav-tab-inactive:hover, .nav-link:hover {
+  background-color: rgba(255, 107, 0, 0.08); /* Light orange hover */
+  color: #FF6B00; /* Orange text on hover */
+  border: 2px solid rgba(255, 107, 0, 0.3); /* Light orange border */
+}
+
+/* ==========================================================================
+   5. SEARCH FUNCTIONALITY
+   ========================================================================== */
+
+/* Search Container */
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Search Input Field */
+.search-input {
+  padding: 12px 16px 12px 48px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-shape-corner-small);
+  width: 240px;
+  font-size: var(--md-body-large-font);
+  color: var(--md-on-surface);
+  background-color: var(--md-surface);
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary);
+}
+
+/* Search Placeholder Label */
+.search-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--md-on-surface-variant);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  font-size: var(--md-body-large-font);
+}
+
+.search-input:focus + .search-label,
+.search-input:not(:placeholder-shown) + .search-label {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Search Icon */
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--md-on-surface-variant);
+  pointer-events: none;
+}
+
+/* Search Suggestions Dropdown */
+.suggestions-container {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 240px;
+  background-color: #fff;
+  border: 1px solid #bdbdbd;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 100;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background-color: #f0f0f0;
+}
+
+.suggestion-highlight {
+  font-weight: bold;
+  background-color: yellow;
+}
+
+/* ==========================================================================
+   6. USER INTERFACE ELEMENTS
+   ========================================================================== */
+
+/* User Information Display */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info span {
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+  letter-spacing: var(--md-body-medium-letter-spacing);
+  color: var(--md-on-surface);
+}
+
+/* User Avatar */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: var(--md-primary-container);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--md-on-primary-container);
+  font-weight: 500;
+  font-size: var(--md-body-medium-font);
+}
+
+/* Sign Out Button */
+.sign-out {
+  color: var(--md-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--md-label-large-font);
+  font-weight: var(--md-label-large-weight);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
+  padding: 8px 12px;
+  border-radius: var(--md-shape-corner-small);
+  transition: background-color 0.2s ease;
+}
+
+.sign-out:hover {
+  background-color: rgba(0, 108, 250, 0.08);
+}
+
+/* Filter Components */
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+.filter-group label {
+  font-size: var(--md-body-medium-font);
+  font-weight: var(--md-body-medium-weight);
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-shape-corner-small);
+  background-color: var(--md-surface);
+  color: var(--md-on-surface);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary);
+}
+
+/* ==========================================================================
+   7. BUTTON COMPONENTS
+   ========================================================================== */
+
+/* Base Button Styles */
+.btn {
+  padding: 10px 24px;
+  min-height: 40px;
+  border: none;
+  border-radius: var(--md-shape-corner-small);
+  cursor: pointer;
+  font-size: var(--md-label-large-font);
+  font-weight: var(--md-label-large-weight);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button Ripple Effect */
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover::after {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.btn:active::after {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: var(--md-primary);
+  color: var(--md-on-primary);
+  box-shadow: var(--md-elevation-1);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.btn-primary:active {
+  box-shadow: var(--md-elevation-1);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  border: 1px solid var(--md-outline);
+  box-shadow: var(--md-elevation-1);
+}
+
+.btn-secondary:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.btn-secondary:hover::after {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:active {
+  box-shadow: var(--md-elevation-1);
+}
+
+.btn-secondary:active::after {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Disabled Button State */
+.btn:disabled {
+  background-color: var(--md-on-surface);
+  color: var(--md-surface);
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.btn:disabled::after {
+  display: none;
+}
+
+/* Specialized Button Variants */
+.view-btn {
+  background-color: var(--md-primary);
+  color: var(--md-on-primary);
+  border: none;
+  border-radius: var(--md-shape-corner-small);
+  padding: 8px 16px;
+  font-size: var(--md-label-medium-font);
+  font-weight: var(--md-label-medium-weight);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--md-elevation-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.view-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.view-btn:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.view-btn:hover::after {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.view-btn:active {
+  box-shadow: var(--md-elevation-1);
+}
+
+.view-btn:active::after {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Full Record & Add Check-in Buttons */
+.full-record-btn, .add-checkin-btn {
+  background-color: var(--md-primary);
+  color: var(--md-on-primary);
+  border: none;
+  border-radius: var(--md-shape-corner-small);
+  padding: 10px 24px;
+  font-size: var(--md-label-large-font);
+  font-weight: var(--md-label-large-weight);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--md-elevation-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.full-record-btn::after, .add-checkin-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.full-record-btn:hover, .add-checkin-btn:hover {
+  box-shadow: var(--md-elevation-2);
+}
+
+.full-record-btn:hover::after, .add-checkin-btn:hover::after {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.full-record-btn:active, .add-checkin-btn:active {
+  box-shadow: var(--md-elevation-1);
+}
+
+.full-record-btn:active::after, .add-checkin-btn:active::after {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ==========================================================================
+   8. TABLE COMPONENTS
+   ========================================================================== */
+
+/* Table Container */
+.table-container {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--md-surface);
+  border-radius: var(--md-shape-corner-medium);
+  box-shadow: var(--md-elevation-1);
+  margin: 16px 0;
+}
+
+/* Table Content Area */
+.table-content {
+  flex: 1;
+  overflow: auto;
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-outline-variant) transparent;
+}
+
+.table-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-content::-webkit-scrollbar-thumb {
+  background-color: var(--md-outline-variant);
+  border-radius: 4px;
+}
+
+/* Table Row Structure */
+.table-rows-container {
+  display: inline-block;
+  min-width: fit-content;
+}
+
+.table-row {
+  display: flex;
+  border-bottom: 1px solid var(--md-outline-variant);
+  width: fit-content;
+  transition: background-color 0.15s ease;
+}
+
+.table-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Fixed vs Scrollable Columns */
+.fixed-columns {
+  position: sticky;
+  left: 0;
+  background-color: var(--md-surface);
+  box-shadow: 2px 0 4px -2px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+  display: flex;
+}
+
+.scrollable-columns {
+  display: flex;
+}
+
+/* Table Headers */
+.column-header {
+  padding: 16px 12px;
+  font-weight: var(--md-title-small-weight);
+  border-bottom: 1px solid var(--md-outline-variant);
+  background-color: var(--md-surface);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-size: var(--md-label-large-font);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
+  color: var(--md-on-surface-variant);
+  white-space: nowrap;
+}
+
+/* Table Cells */
+.column-cell {
+  padding: 16px 12px;
+  font-size: var(--md-body-medium-font);
+  font-weight: 400;
+  line-height: var(--md-body-medium-line-height);
+  letter-spacing: var(--md-body-medium-letter-spacing);
+  color: var(--md-on-surface);
+}
+
+.resource-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contact Log Table - Specific Column Widths */
+.col-date { width: 120px; }
+.col-days { width: 100px; }
+.col-provider { width: 150px; }
+.col-client { width: 150px; }
+.col-service { width: 180px; }
+.col-accompanied { width: 180px; }
+.col-documentation { width: 180px; }
+.col-resources { width: 180px; }
+.col-health { width: 180px; }
+.col-program { width: 150px; }
+.col-housing { width: 150px; }
+.col-counted { width: 150px; }
+.col-notes { width: 180px; }
+.col-status { width: 150px; }
+
+/* Client History Table - Alternative Table Style */
+.contact-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.contact-table th {
+  background-color: #f9fafb;
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+
+.contact-table th.sortable {
+  cursor: pointer;
+}
+
+.contact-table th.sortable:after {
+  content: " ↓";
+  color: #9ca3af;
+}
+
+.contact-table td {
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: #2c3e50;
+  font-size: 0.875rem;
+}
+
+.contact-table tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* ==========================================================================
+   9. FORM COMPONENTS
+   ========================================================================== */
+
+/* Form Section Headers */
+.form-title {
+  color: var(--md-on-surface);
+  margin-bottom: 8px;
+  font-size: var(--md-headline-small-font);
+  line-height: var(--md-headline-small-line-height);
+  font-weight: 400;
+}
+
+.form-subtitle {
+  color: var(--md-on-surface-variant);
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-style: italic;
+  font-size: var(--md-body-large-font);
+  line-height: var(--md-body-large-line-height);
+}
+
+.form-intro {
+  color: var(--md-on-surface);
+  margin-top: 0;
+  margin-bottom: 24px;
+  line-height: 1.5;
+  font-style: italic;
+  border-left: 3px solid var(--md-primary);
+  padding: 16px;
+  background-color: var(--md-surface-variant);
+  border-radius: var(--md-shape-corner-small);
+}
+
+/* Form Structure */
+.form-section {
+  margin-bottom: 32px;
+  padding: 24px;
+  border-radius: var(--md-shape-corner-medium);
+  background-color: var(--md-surface);
+  box-shadow: var(--md-elevation-1);
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group-full {
+  grid-column: 1 / -1;
+}
+
+/* Form Labels */
+.form-group label, .form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+  letter-spacing: var(--md-body-medium-letter-spacing);
+  color: var(--md-on-surface);
+}
+
+.required-field::after {
+  content: "*";
+  color: var(--md-error);
+  margin-left: 4px;
+}
+
+/* Form Controls - Input Fields */
+.form-control {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid var(--md-outline);
+  border-radius: var(--md-shape-corner-small);
+  font-size: var(--md-body-large-font);
+  line-height: var(--md-body-large-line-height);
+  color: var(--md-on-surface);
+  background-color: var(--md-surface);
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 1px var(--md-primary);
+}
+
+.form-control:invalid:focus {
+  border-color: var(--md-error);
+  box-shadow: 0 0 0 1px var(--md-error);
+}
+
+/* Textarea Specific Styles */
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Form Help Text */
+.form-help-text {
+  font-size: var(--md-body-small-font);
+  color: var(--md-on-surface-variant);
+  margin-top: 4px;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: normal;
+  cursor: pointer;
+  color: var(--md-on-surface);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+}
+
+.checkbox-group input[type="checkbox"],
+.radio-group input[type="radio"] {
+  margin-right: 12px;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid var(--md-outline);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+  background-color: var(--md-primary);
+  border-color: var(--md-primary);
+}
+
+.checkbox-group input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--md-on-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Radio Button Groups */
+.radio-group {
+  margin-bottom: 16px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-weight: normal;
+  cursor: pointer;
+  color: var(--md-on-surface);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+}
+
+.radio-group input[type="radio"] {
+  border-radius: 50%;
+}
+
+.radio-group input[type="radio"]:checked {
+  border: 2px solid var(--md-primary);
+}
+
+.radio-group input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--md-primary);
+}
+
+/* Nested Form Options */
+.nested-options {
+  margin-left: 36px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--md-primary);
+}
+
+.nested-options .checkbox-group {
+  margin-bottom: 8px;
+}
+
+.nested-options p {
+  color: var(--md-on-surface-variant);
+  font-size: var(--md-body-medium-font);
+  margin-bottom: 12px;
+}
+
+/* Form Grid Layouts */
+.demographics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.demographics-grid .checkbox-group label {
+  font-weight: 500;
+}
+
+.demographics-grid select.form-control,
+.demographics-grid input.form-control {
+  margin-left: 32px;
+}
+
+.demographics-grid .form-group {
+  margin-bottom: 24px;
+}
+
+/* Form Actions */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.form-footer {
+  margin-top: 32px;
+  color: var(--md-on-surface-variant);
+  font-size: var(--md-body-small-font);
+  line-height: var(--md-body-small-line-height);
+  letter-spacing: var(--md-body-small-letter-spacing);
+  text-align: center;
+}
+
+/* Form Transitions */
+.form-section, .form-group, .nested-options {
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+/* ==========================================================================
+   10. ALERT & NOTIFICATION COMPONENTS
+   ========================================================================== */
+
+/* Alert Messages */
+.alert-info {
+  background-color: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  padding: 16px;
+  border-radius: var(--md-shape-corner-small);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid var(--md-secondary);
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+}
+
+/* ==========================================================================
+   11. LOADING & RESULT STATES
+   ========================================================================== */
+
+/* Loading Indicators */
+.loading {
+  display: none;
+  text-align: center;
+  padding: 32px;
+}
+
+.loading-spinner {
+  border: 4px solid var(--md-surface-variant);
+  border-top: 4px solid var(--md-primary);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1.5s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Form Result States */
+.form-result {
+  display: none;
+  margin-top: 32px;
+  padding: 24px;
+  border-radius: var(--md-shape-corner-medium);
+  text-align: center;
+  box-shadow: var(--md-elevation-1);
+}
+
+.form-result.success {
+  background-color: #E6F4EA;
+  border-left: 4px solid #34A853;
+  color: #1E8E3E;
+}
+
+.form-result.error {
+  background-color: var(--md-error-container);
+  border-left: 4px solid var(--md-error);
+  color: var(--md-on-error-container);
+}
+
+/* ==========================================================================
+   12. CLIENT DETAIL PAGES
+   ========================================================================== */
+
+/* Client Header Section */
+.client-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.client-name {
+  font-size: var(--md-headline-small-font);
+  line-height: var(--md-headline-small-line-height);
+  color: var(--md-on-surface);
+  font-weight: 400;
+}
+
+/* Navigation Links */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--md-primary);
+  text-decoration: none;
+  font-size: var(--md-label-large-font);
+  line-height: var(--md-label-large-line-height);
+  letter-spacing: var(--md-label-large-letter-spacing);
+  font-weight: var(--md-label-large-weight);
+  gap: 8px;
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--md-primary-container);
+}
+
+/* Section Titles */
+.section-title {
+  font-size: var(--md-title-medium-font);
+  line-height: var(--md-title-medium-line-height);
+  letter-spacing: var(--md-title-medium-letter-spacing);
+  font-weight: var(--md-title-medium-weight);
+  color: var(--md-on-surface);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--md-outline-variant);
+}
+
+/* Client Information Cards */
+.client-info, .contact-history {
+  background-color: var(--md-surface);
+  border-radius: var(--md-shape-corner-medium);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--md-elevation-1);
+}
+
+/* Information Grid Layouts */
+.info-grid, .address-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: var(--md-body-small-font);
+  line-height: var(--md-body-small-line-height);
+  letter-spacing: var(--md-body-small-letter-spacing);
+  color: var(--md-on-surface-variant);
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: var(--md-body-medium-font);
+  line-height: var(--md-body-medium-line-height);
+  letter-spacing: var(--md-body-medium-letter-spacing);
+  color: var(--md-on-surface);
+}
+
+.client-address {
+  margin-top: 24px;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   13. DIALOG & MODAL COMPONENTS
+   ========================================================================== */
+
+/* Dialog Overlay */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.dialog-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dialog Content */
+.dialog-content {
+  background: var(--md-surface);
+  padding: 24px;
+  border-radius: var(--md-shape-corner-large);
+  width: 560px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--md-elevation-3);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.dialog-overlay.show .dialog-content {
+  transform: scale(1);
+}
+
+/* Dialog Header */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dialog-header h3 {
+  font-size: var(--md-headline-small-font);
+  line-height: var(--md-headline-small-line-height);
+  color: var(--md-on-surface);
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Dialog Body & Actions */
+.dialog-body {
+  margin-bottom: 24px;
+}
+
+.dialog-options {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+/* Dialog Close Button */
+.dialog-close {
+  background: none;
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--md-on-surface-variant);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.dialog-close:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Dialog Content */
+.dialog-prompt {
+  font-size: var(--md-body-large-font);
+  line-height: var(--md-body-large-line-height);
+  letter-spacing: var(--md-body-large-letter-spacing);
+  color: var(--md-on-surface);
+  margin-bottom: 24px;
+}
+
+.multi-select-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   14. RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout (768px to 1024px) */
+@media (max-width: 1024px) {
+  body {
+    padding-top: 64px; /* Keep standard header height */
+  }
+  
+  /* Adjust search input for tablets */
+  .search-input {
+    width: 180px;
+  }
+  
+  /* Adjust grid layouts for smaller screens */
+  .demographics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+/* Mobile Layout (768px and below) */
+@media (max-width: 768px) {
+  /* Adjust body padding for mobile header */
+  body {
+    padding-top: 160px; /* Account for expanded mobile header */
+  }
+  
+  /* Position secondary action bar below mobile header */
+  .secondary-action-bar {
+    top: 112px;
+  }
+  
+  /* Mobile Header Layout */
+  header, .header {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    padding: 12px 16px;
+  }
+  
+  /* Top row: Logo, nav tabs, and hamburger menu */
+  .header-left {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  /* Search bar gets its own row */
+  .search-container {
+    width: 100%;
+    margin: 8px 0;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+  
+  /* Hide user menu initially on mobile */
+  .header-right {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--md-outline-variant);
+  }
+  
+  /* Show menu when active */
+  .header-right.show {
+    display: flex;
+  }
+  
+  /* Hamburger Menu Button */
+  .hamburger-menu {
+    display: block;
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    padding: 8px;
+    position: relative;
+  }
+  
+  .hamburger-menu span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--md-on-surface);
+    margin: 5px auto;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hamburger Animation States */
+  .hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+  
+  /* Mobile User Interface Adjustments */
+  .user-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  /* Full-width sign-out button on mobile */
+  .sign-out {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    border-radius: var(--md-shape-corner-small);
+    background-color: var(--md-surface-variant);
+  }
+}
+
+/* ==========================================================================
+   END OF ORGANIZED STYLES
+   ========================================================================== */
