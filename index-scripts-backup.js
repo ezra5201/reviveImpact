@@ -229,14 +229,23 @@ function showErrorMessage() {
 function initializeTableRowClickHandlers() {
   const tableRows = document.querySelectorAll('.table-row:not(:first-child)');
   tableRows.forEach(row => {
-    row.addEventListener('click', function(e) {
-      e.preventDefault();
-      const clientCell = this.querySelector('.fixed-columns .col-client');
-      if (clientCell) {
-        const clientName = clientCell.textContent.trim();
-        showDialog(clientName);
-      }
-    });
+    // Instead of attaching to the entire row, attach only to the fixed columns
+    const fixedColumns = row.querySelector('.fixed-columns');
+    if (fixedColumns) {
+      fixedColumns.addEventListener('click', function(e) {
+        // Don't trigger dialog if clicking on a checkbox
+        if (e.target.type === 'checkbox' || e.target.classList.contains('row-checkbox')) {
+          return; // Exit early, let the checkbox handle its own click
+        }
+        
+        e.preventDefault();
+        const clientCell = this.querySelector('.col-client');
+        if (clientCell) {
+          const clientName = clientCell.textContent.trim();
+          showDialog(clientName);
+        }
+      });
+    }
   });
 }
 
